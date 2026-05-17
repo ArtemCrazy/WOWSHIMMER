@@ -131,9 +131,9 @@
   .anchor-section .section-title { margin-bottom: 14px; }
   .anchor-section .section-desc { margin-bottom: 28px; }
 
-  /* Витрина категорий — 1×3 (Серьги / Подвески / Кольца) */
+  /* Витрина категорий — 1×4 (Серьги · Подвески · Браслеты · Пусеты) */
   .categories-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
     position: relative;
   }
   .category-card {
@@ -157,9 +157,9 @@
   }
   .category-photo .cat-banner {
     position: relative; z-index: 2;
-    font-family: 'Caveat', cursive; font-size: 44px; font-weight: 700;
-    color: var(--ink); letter-spacing: 1px;
-    background: rgba(255,251,230,0.92); padding: 6px 22px;
+    font-family: 'Caveat', cursive; font-size: 34px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.5px;
+    background: rgba(255,251,230,0.92); padding: 4px 16px;
     border: 1.5px dashed var(--hl-border);
   }
   .category-photo .cat-count {
@@ -394,10 +394,14 @@
     .vitrina { grid-template-columns: repeat(3, 1fr); }
     .palette-band .pb-wall { grid-template-columns: repeat(10, 1fr); }
   }
-  @media (max-width: 880px) {
+  @media (max-width: 1080px) {
+    .categories-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .category-photo .cat-banner { font-size: 38px; }
+  }
+  @media (max-width: 540px) {
     .categories-grid { grid-template-columns: 1fr; }
     .category-photo { aspect-ratio: 5/2; }
-    .category-photo .cat-banner { font-size: 36px; }
+    .category-photo .cat-banner { font-size: 32px; }
   }
   @media (max-width: 980px) {
     .hero-image .hero-logo { font-size: 64px; }
@@ -539,8 +543,9 @@
       <span class="annotation">клик по&nbsp;категории → раскрывается список товаров в&nbsp;ней</span>
     </div>
     <p class="section-desc">
-      8 моделей в&nbsp;3 категориях. Когда у&nbsp;бренда есть структура&nbsp;— каталог
-      раскрывается через категории, и&nbsp;партнёр сразу видит, какие типы украшений доступны.
+      4 типа украшений: серьги, подвески, браслеты и&nbsp;флагманские пусеты Swarovski.
+      Когда у&nbsp;бренда есть структура&nbsp;— каталог раскрывается через категории,
+      и&nbsp;партнёр сразу видит, какие типы доступны.
     </p>
 
     <div class="categories-grid" id="categories-grid">
@@ -806,23 +811,30 @@
   const CATEGORIES = [
     {
       name: 'Серьги',
-      count: 6,
-      sub: 'Пусеты · Штанги · С декором',
-      desc: 'Серьги-пусеты Swarovski 4/6/8&nbsp;мм, штанги, гвоздики с фианитом (сердечки, кресты).',
-      swatches: [2,3,4,5,11,16,24,8,38,30]
+      count: 4,
+      sub: 'Штанги · Гвоздики',
+      desc: 'Серьги-штанги Swarovski 4/6&nbsp;мм и&nbsp;гвоздики с&nbsp;фианитом — сердечки и&nbsp;кресты для повседневных образов.',
+      swatches: [2,3,4,5,11,16]
     },
     {
       name: 'Подвески',
-      count: 1,
-      sub: 'На леске',
-      desc: 'Подвеска на&nbsp;леске с&nbsp;кристаллом Swarovski 8&nbsp;мм. Подходит для повседневных и&nbsp;вечерних образов.',
+      count: 2,
+      sub: 'На леске · На цепочке',
+      desc: 'Подвеска на&nbsp;леске с&nbsp;кристаллом Swarovski 8&nbsp;мм. Универсальный аксессуар.',
       swatches: [2,34,35,4,25,11]
     },
     {
-      name: 'Кольца',
-      count: 1,
-      sub: 'Помолвочные',
-      desc: 'Кольцо помолвочное с&nbsp;крупным кристаллом Swarovski. Минималистичная оправа из&nbsp;стали.',
+      name: 'Браслеты',
+      count: 3,
+      sub: 'Тонкие · С камнями',
+      desc: 'Браслеты с&nbsp;кристаллами Swarovski и&nbsp;фианитом — комплектуют образ или&nbsp;дополняют украшения.',
+      swatches: [6,7,8,9,10,15]
+    },
+    {
+      name: 'Пусеты',
+      count: 3,
+      sub: 'Swarovski 4 · 6 · 8 мм',
+      desc: 'Гвоздики-пусеты с&nbsp;кристаллами Swarovski трёх размеров — флагманская линейка бренда.',
       swatches: [1,2,3,5,23,38]
     }
   ];
