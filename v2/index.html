@@ -175,7 +175,7 @@
     border: 1px solid var(--ink);
   }
   .product-info { padding: 14px 16px 18px; flex: 1; display: flex; flex-direction: column; }
-  .product-info .p-name { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .product-info .p-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; line-height: 1.2; }
   .product-info .p-art { font-size: 13px; color: var(--ink-light); margin-bottom: 10px; }
   .product-swatches { display: flex; gap: 3px; flex-wrap: wrap; margin-bottom: 10px; }
   .product-swatches .ps { width: 14px; height: 14px; border: 1px solid rgba(0,0,0,0.15); }
@@ -749,15 +749,16 @@
     {n:'Honey',         c:'#d6a247'}, {n:'Smoke',         c:'#7e7e7e'}
   ];
 
+  // 8 товаров — реальный ассортимент по витрине Ozon
   const PRODUCTS = [
-    {n:'Capella',   art:'WS-CAP-001', type:'Серьги',  pal:[2,4,5,11,16,24,3]},
-    {n:'Lyra',      art:'WS-LYR-002', type:'Колье',   pal:[0,3,8,9,10,38]},
-    {n:'Vega',      art:'WS-VEG-003', type:'Браслет', pal:[6,7,12,24,30,11,29]},
-    {n:'Sirius',    art:'WS-SIR-004', type:'Кольцо',  pal:[2,0,3,5,16,23]},
-    {n:'Polaris',   art:'WS-POL-005', type:'Кулон',   pal:[8,9,17,18,20,21,22]},
-    {n:'Andromeda', art:'WS-AND-006', type:'Серьги',  pal:[34,35,4,25,26,11]},
-    {n:'Orion',     art:'WS-ORI-007', type:'Колье',   pal:[1,2,3,5,38,23,16]},
-    {n:'Cassiopea', art:'WS-CAS-008', type:'Браслет', pal:[28,29,30,31,11,15,8]}
+    {n:'Серьги-пусеты Swarovski 4 мм',      art:'WS-SP4-001', type:'Серьги',   pal:[2,4,5,11,16,24,3]},
+    {n:'Серьги-пусеты Swarovski 6 мм',      art:'WS-SP6-002', type:'Серьги',   pal:[0,3,8,9,10,38]},
+    {n:'Серьги-пусеты Swarovski 8 мм',      art:'WS-SP8-003', type:'Серьги',   pal:[6,7,12,24,30,11,29]},
+    {n:'Серьга-штанга Swarovski 4 мм',      art:'WS-SH4-004', type:'Серьга',   pal:[2,0,3,5,16,23]},
+    {n:'Серьга-штанга Swarovski 6 мм',      art:'WS-SH6-005', type:'Серьга',   pal:[8,9,17,18,20,21,22]},
+    {n:'Подвеска на леске Swarovski 8 мм',  art:'WS-PL8-006', type:'Подвеска', pal:[34,35,4,25,26,11]},
+    {n:'Кольцо помолвочное Swarovski',      art:'WS-RNG-007', type:'Кольцо',   pal:[1,2,3,5,38,23,16]},
+    {n:'Серьги-гвоздики «сердечки» фианит', art:'WS-HRT-008', type:'Серьги',   pal:[28,29,30,31,11,15,8]}
   ];
 
   // Витрина в hero
@@ -777,10 +778,10 @@
           <div class="ph-label">фото · ${pr.n}</div>
         </div>
         <div class="product-info">
-          <div class="p-name">«${pr.n}»</div>
+          <div class="p-name">${pr.n}</div>
           <div class="p-art">${pr.art}</div>
           <div class="product-swatches">${swatches}<span class="more">+${remaining}</span></div>
-          <div class="p-meta">Оттенков: <b>${total}</b> · цена&nbsp;— в&nbsp;ЛК</div>
+          <div class="p-meta">Цветов кристалла: <b>${total}</b> · цена&nbsp;— в&nbsp;ЛК</div>
         </div>
       `;
       grid.appendChild(card);
