@@ -45,6 +45,21 @@
   .proto-banner .home a { color: var(--paper); text-decoration: none; opacity: 0.7; font-size: 14px; }
   .proto-banner .home a:hover { opacity: 1; }
 
+  /* Sitemap-полоска — постоянная карта сайта */
+  .sitemap-stripe {
+    background: var(--paper-dark); padding: 10px 20px;
+    border-bottom: 1px dashed var(--ink-faint);
+    display: flex; gap: 6px; flex-wrap: wrap; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .sitemap-stripe .sm-label { color: var(--ink-light); text-transform: uppercase; letter-spacing: 1.5px; font-size: 12px; margin-right: 6px; }
+  .sitemap-stripe a {
+    text-decoration: none; color: var(--ink-mid);
+    padding: 3px 12px; border: 1px dashed var(--ink-faint); background: white;
+  }
+  .sitemap-stripe a:hover { color: var(--ink); border-color: var(--ink); }
+  .sitemap-stripe a.current { background: var(--ink); color: white; border-color: var(--ink); border-style: solid; }
+
   /* Header */
   header { background: white; border-bottom: var(--stroke) solid var(--ink); }
   .header-inner { display: flex; align-items: center; gap: 24px; padding: 16px 0; }
@@ -415,13 +430,23 @@
 
 <div class="proto-banner">
   <span class="home"><a href="../">← К сравнению</a></span>
-  <span class="label">✏️ ПРОТОТИП-СКЕТЧ · V1 «Палитра-якорь»</span>
+  <span class="label">✏️ ПРОТОТИП ГЛАВНОЙ · V1 «Палитра-якорь»</span>
   <span class="sub">Цвета, шрифты и фото — на этапе дизайна</span>
   <span class="switcher">
     <a href="../v1/" class="active">V1</a>
     <a href="../v2/">V2</a>
     <a href="../v3/">V3</a>
   </span>
+</div>
+
+<div class="sitemap-stripe">
+  <span class="sm-label">📁 Многостраничный сайт · карта:</span>
+  <a href="#" class="current" onclick="event.preventDefault()">Главная (здесь)</a>
+  <a href="#" onclick="event.preventDefault();showStub('Каталог')">Каталог</a>
+  <a href="#" onclick="event.preventDefault();showStub('Карточка товара')">Карточка товара</a>
+  <a href="#" onclick="event.preventDefault();showStub('О бренде')">О бренде</a>
+  <a href="#" onclick="event.preventDefault();showStub('Контакты')">Контакты</a>
+  <a href="#" onclick="event.preventDefault();openLogin()">Личный кабинет (модалка)</a>
 </div>
 
 <header>
@@ -434,11 +459,9 @@
       </div>
     </div>
     <nav class="menu">
-      <a href="#katalog">Каталог</a>
-      <a href="#brand">О бренде</a>
-      <a href="#partner">Партнёрам</a>
-      <a href="#channels">Каналы</a>
-      <a href="#" class="muted" onclick="event.preventDefault();alert('Заглушка: страница пока не подключена')">Контакты</a>
+      <a href="#" onclick="event.preventDefault();showStub('Каталог')">Каталог</a>
+      <a href="#" onclick="event.preventDefault();showStub('О бренде')">О бренде</a>
+      <a href="#" onclick="event.preventDefault();showStub('Контакты')">Контакты</a>
     </nav>
     <div class="header-right">
       <span class="phone-sketch">+7 (___) ___-__-__</span>
@@ -565,34 +588,10 @@
   </div>
 </section>
 
-<!-- БЛОК 1 · КАТАЛОГ -->
-<section id="katalog">
-  <div class="wrap">
-    <div class="section-num">Блок 1 · Каталог</div>
-    <div class="section-title">8 моделей · витрина переокрашивается под выбранный оттенок
-      <span class="annotation">✎ цены видны только после входа в ЛК</span>
-    </div>
-    <p class="section-desc">
-      Партнёр видит только фото, название и&nbsp;палитру доступных оттенков для&nbsp;каждой модели.
-      Цены и&nbsp;форма заказа — за&nbsp;авторизацией. Это сохраняет конфиденциальность B2B-условий.
-    </p>
-
-    <div class="catalog-grid" id="catalog-grid">
-      <!-- 8 карточек, генерируются JS -->
-    </div>
-
-    <div class="catalog-note">
-      💡 В&nbsp;финальной версии при&nbsp;клике на&nbsp;свотч в&nbsp;hero все 8 карточек перерисовываются
-      под выбранный цвет (фото-mock-up с&nbsp;CSS-фильтром или подмена изображения).
-      В&nbsp;прототипе — упрощённо: подсвечивается выбранный свотч в&nbsp;палитре каждой карточки.
-    </div>
-  </div>
-</section>
-
-<!-- БЛОК 2 · О БРЕНДЕ -->
+<!-- БЛОК 1 · О БРЕНДЕ -->
 <section id="brand">
   <div class="wrap">
-    <div class="section-num">Блок 2 · О бренде</div>
+    <div class="section-num">Блок 1 · О бренде</div>
     <div class="section-title">Бижутерия, которую узнают
       <span class="annotation">✎ короткий блок без длинного текста</span>
     </div>
@@ -624,10 +623,10 @@
   </div>
 </section>
 
-<!-- БЛОК 3 · УСЛОВИЯ ПАРТНЁРСТВА -->
+<!-- БЛОК 2 · УСЛОВИЯ ПАРТНЁРСТВА -->
 <section id="partner" class="terms-section">
   <div class="wrap">
-    <div class="section-num">Блок 3 · Условия партнёрства</div>
+    <div class="section-num">Блок 2 · Условия партнёрства</div>
     <div class="section-title">Как стать дистрибьютором WOWSHIMMER
       <span class="annotation">✎ 4 шага из брифа</span>
     </div>
@@ -662,126 +661,10 @@
   </div>
 </section>
 
-<!-- БЛОК 4 · ЛК -->
-<section id="lk">
-  <div class="wrap">
-    <div class="section-num">Блок 4 · Личный кабинет</div>
-    <div class="section-title">Закрытая витрина для&nbsp;своих
-      <span class="annotation">✎ превью интерфейса ЛК после входа</span>
-    </div>
-
-    <div class="lk-grid">
-      <div class="lk-text">
-        <h3>Только для&nbsp;авторизованных дистрибьюторов</h3>
-        <p>
-          Конечный покупатель сюда не&nbsp;попадает. Каталог с&nbsp;ценами,
-          состав заказа и&nbsp;история заявок&nbsp;— только после входа.
-        </p>
-        <ul class="lk-features">
-          <li>Полный каталог с&nbsp;ценами и&nbsp;всеми оттенками</li>
-          <li>Сборка заказа в&nbsp;одном окне · количество по&nbsp;каждому SKU</li>
-          <li>Отправка состава на&nbsp;e-mail менеджеру одним кликом</li>
-          <li>Экранное и&nbsp;e-mail подтверждение заявки</li>
-          <li>История прошлых заявок * (фаза 2)</li>
-        </ul>
-        <button class="btn-solid" onclick="openLogin()">Войти в&nbsp;ЛК</button>
-        <button class="btn-outline-sk" onclick="openModal()" style="margin-left:8px">Получить доступ</button>
-      </div>
-
-      <div class="lk-mockup">
-        <div class="lkm-bar">
-          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          <span class="url">wowshimmer.ru/cabinet · корзина</span>
-        </div>
-        <div class="lkm-title">Сборка заказа · 4 позиции</div>
-        <div class="lkm-rows">
-          <div class="lkm-row">
-            <div class="lkm-thumb"></div>
-            <div class="lkm-name">Серьги «Capella»</div>
-            <div class="lkm-sw">
-              <span style="background:#c9a96e"></span>
-              <span style="background:#b76e79"></span>
-              <span style="background:#eadbc8"></span>
-            </div>
-            <div class="lkm-qty">× 12</div>
-          </div>
-          <div class="lkm-row">
-            <div class="lkm-thumb"></div>
-            <div class="lkm-name">Колье «Lyra»</div>
-            <div class="lkm-sw">
-              <span style="background:#1a1a1a"></span>
-              <span style="background:#d4af37"></span>
-            </div>
-            <div class="lkm-qty">× 6</div>
-          </div>
-          <div class="lkm-row">
-            <div class="lkm-thumb"></div>
-            <div class="lkm-name">Браслет «Vega»</div>
-            <div class="lkm-sw">
-              <span style="background:#a5897a"></span>
-              <span style="background:#7a5c4a"></span>
-              <span style="background:#e0b6a3"></span>
-              <span style="background:#4a2c2a"></span>
-            </div>
-            <div class="lkm-qty">× 20</div>
-          </div>
-          <div class="lkm-row">
-            <div class="lkm-thumb"></div>
-            <div class="lkm-name">Кольцо «Sirius»</div>
-            <div class="lkm-sw">
-              <span style="background:#c9a96e"></span>
-              <span style="background:#1a1a1a"></span>
-            </div>
-            <div class="lkm-qty">× 8</div>
-          </div>
-        </div>
-        <div class="lkm-btn-row">
-          <span>Итого позиций: 46 шт.</span>
-          <button class="btn-solid" style="padding:6px 14px;font-size:15px">Отправить заявку →</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- БЛОК 5 · КАНАЛЫ -->
-<section id="channels">
-  <div class="wrap">
-    <div class="section-num">Блок 5 · Каналы и&nbsp;маркетплейсы</div>
-    <div class="section-title">Где ещё нас можно найти
-      <span class="annotation">✎ ссылки редактируются в админке</span>
-    </div>
-    <p class="section-desc">Дополнительные витрины бренда для&nbsp;конечного покупателя&nbsp;— не&nbsp;для&nbsp;опта.</p>
-
-    <div class="channels-grid">
-      <a href="#" class="channel-card" onclick="event.preventDefault()">
-        <div class="ch-icon">📷</div>
-        <h4>Instagram</h4>
-        <p>@wowshimmer · витрина новинок и&nbsp;коллабораций</p>
-      </a>
-      <a href="#" class="channel-card" onclick="event.preventDefault()">
-        <div class="ch-icon">🛍</div>
-        <h4>Wildberries</h4>
-        <p>Розничная витрина · для&nbsp;конечного покупателя</p>
-      </a>
-      <a href="#" class="channel-card" onclick="event.preventDefault()">
-        <div class="ch-icon">📦</div>
-        <h4>Ozon</h4>
-        <p>Розничная витрина · доставка по&nbsp;РФ</p>
-      </a>
-      <a href="#" class="channel-card" onclick="event.preventDefault()">
-        <div class="ch-icon">💬</div>
-        <h4>Telegram</h4>
-        <p>Канал с&nbsp;анонсами обновлений каталога</p>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- БЛОК 6 · ФОРМА -->
+<!-- БЛОК 3 · ФОРМА -->
 <section class="form-section" id="form">
   <div class="wrap">
-    <div class="section-num">Блок 6 · Заявка на&nbsp;партнёрство</div>
+    <div class="section-num">Блок 3 · Заявка на&nbsp;партнёрство</div>
     <div class="section-title">Готовы стать дистрибьютором?
       <span class="annotation">✎ та же форма открывается модалкой по кнопке в шапке</span>
     </div>
@@ -850,22 +733,23 @@
         <p style="color:rgba(255,255,255,0.4);font-size:14px">© WOWSHIMMER · wowshimmer.ru</p>
       </div>
       <div>
-        <h5>Каталог</h5>
-        <a href="#katalog">Все модели</a>
-        <a href="#" onclick="event.preventDefault()">Новинки *</a>
-        <a href="#" onclick="event.preventDefault()">Палитра оттенков</a>
+        <h5>Страницы</h5>
+        <a href="#" onclick="event.preventDefault();showStub('Каталог')">Каталог</a>
+        <a href="#" onclick="event.preventDefault();showStub('Карточка товара')">Карточка товара</a>
+        <a href="#" onclick="event.preventDefault();showStub('О бренде')">О&nbsp;бренде</a>
+        <a href="#" onclick="event.preventDefault();showStub('Контакты')">Контакты</a>
       </div>
       <div>
         <h5>Партнёрам</h5>
-        <a href="#partner">Условия</a>
+        <a href="#partner">Условия (на&nbsp;этой стр.)</a>
         <a href="#" onclick="event.preventDefault();openLogin()">Войти в&nbsp;ЛК</a>
         <a href="#" onclick="event.preventDefault();openModal()">Стать партнёром</a>
       </div>
       <div>
         <h5>Каналы</h5>
-        <a href="#channels">Instagram</a>
-        <a href="#channels">Wildberries</a>
-        <a href="#channels">Ozon</a>
+        <a href="#" onclick="event.preventDefault();showStub('Контакты')">Instagram</a>
+        <a href="#" onclick="event.preventDefault();showStub('Контакты')">Wildberries</a>
+        <a href="#" onclick="event.preventDefault();showStub('Контакты')">Ozon</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1005,31 +889,8 @@
     });
   }
 
-  // Рисуем сетку каталога
-  (function buildCatalog() {
-    const grid = document.getElementById('catalog-grid');
-    PRODUCTS.forEach((pr, i) => {
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      const swatches = pr.pal.map(idx => {
-        return `<span class="ps" style="background:${PALETTE[idx].c}" data-idx="${idx}" title="${PALETTE[idx].n}"></span>`;
-      }).join('');
-      const more = (pr.pal.length < 30) ? `<span class="more">+${30 - pr.pal.length}</span>` : '';
-      card.innerHTML = `
-        <div class="product-photo">
-          <div class="product-pill">${pr.type}</div>
-          <div class="ph-label">фото · ${pr.n}</div>
-        </div>
-        <div class="product-info">
-          <div class="p-name">«${pr.n}»</div>
-          <div class="p-art">${pr.art}</div>
-          <div class="product-swatches">${swatches}${more}</div>
-          <div class="p-meta">Цвета: <b>${pr.pal.length + (30 - pr.pal.length)}</b> · цена&nbsp;— в&nbsp;ЛК</div>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-  })();
+  // V1: каталог-grid убран (это содержимое отдельной страницы /catalog/).
+  // PRODUCTS и selectColor() остаются — используются только в палитре-якоре.
 
   // Кнопка наверх
   window.addEventListener('scroll', () => {
@@ -1048,6 +909,11 @@
   }
   function loginSubmitted(form) {
     form.innerHTML = '<h4 style="text-align:center;padding:30px 0;color:var(--shimmer)">⌧ Доступ закрыт</h4><p style="text-align:center;color:var(--ink-mid);margin-bottom:20px">Это прототип — авторизация пока заглушка.<br>В&nbsp;финале здесь будет вход в&nbsp;ЛК для&nbsp;дистрибьюторов.</p>';
+  }
+
+  function showStub(name) {
+    const slug = name.toLowerCase().replace(/ё/g,'e').replace(/[^a-zа-я0-9]+/gi,'-').replace(/-+$/,'');
+    alert('«' + name + '» — отдельная страница многостраничного сайта.\n\nВ прототипе показана только Главная.\nВ финале это будет URL: /wowshimmer/' + slug + '/');
   }
 </script>
 
