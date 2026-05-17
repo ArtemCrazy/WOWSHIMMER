@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WOWSHIMMER · Прототипы главной</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #1a1a1a; --ink-mid: #555; --ink-light: #999; --ink-faint: #ccc;
+    --paper: #f7f5f0; --paper-dark: #ede9e0; --stroke: 2px;
+    --hl: #fffbe6; --hl-border: #d4a017;
+    --shimmer: #c9a96e;
+  }
+
+  body { font-family: 'Caveat', cursive; background: var(--paper); color: var(--ink); font-size: 17px; }
+
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(0,0,0,0.03) 28px);
+    pointer-events: none; z-index: 0;
+  }
+
+  .proto-banner {
+    background: var(--ink); color: var(--paper); text-align: center;
+    padding: 10px 20px; font-size: 15px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .proto-banner b { font-weight: 700; }
+  .proto-banner span { opacity: 0.55; font-size: 14px; margin-left: 10px; }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  .intro { padding: 56px 0 28px; }
+  .intro .stamp {
+    display: inline-block; padding: 4px 12px;
+    border: 1px solid var(--ink-light); background: white;
+    font-size: 13px; color: var(--ink-mid); margin-bottom: 18px;
+    text-transform: uppercase; letter-spacing: 1.5px;
+  }
+  .intro h1 { font-size: 42px; font-weight: 700; margin-bottom: 14px; line-height: 1.15; }
+  .intro p { font-size: 17px; color: var(--ink-mid); max-width: 760px; line-height: 1.6; }
+
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    margin: 36px 0;
+    padding: 24px;
+    background: white;
+    border: var(--stroke) solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink-faint);
+  }
+  .meta-strip .item h4 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--ink-light); margin-bottom: 4px;
+  }
+  .meta-strip .item p { font-size: 15px; color: var(--ink-mid); line-height: 1.5; margin: 0; }
+
+  .variants {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px;
+    padding-bottom: 48px;
+  }
+  .variant {
+    display: flex; flex-direction: column;
+    background: white; border: var(--stroke) solid var(--ink);
+    text-decoration: none; color: var(--ink);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .variant:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink-faint);
+  }
+  .variant .v-thumb {
+    aspect-ratio: 16/10; background: var(--paper-dark);
+    border-bottom: var(--stroke) solid var(--ink);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .variant .v-thumb svg { width: 100%; height: 100%; }
+
+  .variant .v-body { padding: 22px 22px 26px; flex: 1; display: flex; flex-direction: column; }
+  .variant .v-num { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink-light); margin-bottom: 4px; }
+  .variant h2 { font-size: 26px; font-weight: 700; margin-bottom: 10px; line-height: 1.2; }
+  .variant .v-pitch { font-size: 15px; color: var(--ink-mid); margin-bottom: 16px; line-height: 1.55; flex: 1; }
+
+  .schema {
+    border: 1px dashed var(--ink-faint); background: var(--paper);
+    padding: 12px 14px; font-size: 14px; color: var(--ink-mid); margin-bottom: 16px;
+  }
+  .schema b { color: var(--ink); display: block; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+
+  .variant .v-open {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 10px 16px; border: 2px solid var(--ink); background: var(--ink); color: white;
+    font-family: 'Caveat', cursive; font-size: 16px; font-weight: 700;
+    text-align: center; border-radius: 2px;
+  }
+
+  .notes {
+    background: var(--hl); border: 1px dashed var(--hl-border);
+    padding: 22px 24px; margin-bottom: 32px;
+  }
+  .notes h3 { font-size: 19px; margin-bottom: 10px; }
+  .notes ul { padding-left: 22px; }
+  .notes li { font-size: 16px; color: #8a6800; margin-bottom: 6px; line-height: 1.55; }
+
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.5);
+    padding: 28px 32px; position: relative; z-index: 1;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px; font-size: 15px;
+  }
+  .footer-inner b { color: white; }
+
+  @media (max-width: 920px) {
+    .intro h1 { font-size: 30px; }
+    .meta-strip, .variants { grid-template-columns: 1fr; }
+    .wrap { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="proto-banner">
+  ✏️ <b>ПРОТОТИПЫ-СКЕТЧИ</b> <span>wowshimmer.ru · этап 1 · согласование структуры главной</span>
+</div>
+
+<div class="wrap">
+  <div class="intro">
+    <span class="stamp">📁 WOWSHIMMER · 2026-05-17</span>
+    <h1>Три варианта структуры главной страницы</h1>
+    <p>Это lo-fi прототипы-скетчи — только структура, логика подачи и&nbsp;интерактив. Цвета, шрифты и&nbsp;фотографии товаров — на&nbsp;следующем этапе. Все три варианта строятся на&nbsp;вводных из&nbsp;брифа: B2B-витрина для дистрибьюторов, 8 товаров × 30–45 цветов, закрытый личный кабинет, заявка партнёра уходит на&nbsp;e-mail менеджеру, онлайн-оплаты нет. Разница — в&nbsp;том, что&nbsp;увидит партнёр в&nbsp;первые 3&nbsp;секунды.</p>
+  </div>
+
+  <div class="meta-strip">
+    <div class="item">
+      <h4>Что общего</h4>
+      <p>Шапка · вход в&nbsp;ЛК · форма заявки модалкой · разделы каталог / о&nbsp;бренде / условия / контакты · адаптив на&nbsp;мобильные</p>
+    </div>
+    <div class="item">
+      <h4>Чем отличаются</h4>
+      <p>Первый экран и&nbsp;порядок смысловых блоков — три разные «двери» для&nbsp;партнёра</p>
+    </div>
+    <div class="item">
+      <h4>Что дальше</h4>
+      <p>Выбираем направление → карточка товара и&nbsp;ЛК → дизайн в&nbsp;монохромной палитре + shimmer-акцент</p>
+    </div>
+  </div>
+
+  <div class="variants">
+
+    <a href="v1/" class="variant">
+      <div class="v-thumb">
+        <!-- Превью V1: палитра-стена в hero -->
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="200" fill="#ede9e0"/>
+          <rect x="0" y="0" width="320" height="22" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+          <rect x="6" y="6" width="40" height="10" fill="#1a1a1a" opacity="0.15"/>
+          <rect x="60" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="72" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="84" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="96" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="270" y="6" width="44" height="10" fill="#1a1a1a"/>
+          <!-- левая колонка (текст) -->
+          <rect x="14" y="36" width="120" height="8" fill="#1a1a1a"/>
+          <rect x="14" y="50" width="100" height="8" fill="#1a1a1a"/>
+          <rect x="14" y="68" width="130" height="4" fill="#999"/>
+          <rect x="14" y="76" width="120" height="4" fill="#999"/>
+          <rect x="14" y="84" width="100" height="4" fill="#999"/>
+          <rect x="14" y="98" width="56" height="14" fill="#1a1a1a"/>
+          <rect x="76" y="98" width="56" height="14" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+          <!-- правая колонка: палитра-стена 8x4 свотчей -->
+          <g>
+            <rect x="160" y="36" width="150" height="76" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+            <g transform="translate(166,42)">
+              <!-- 8 cols × 4 rows = 32 свотча -->
+              <rect x="0"  y="0"  width="16" height="14" fill="#1a1a1a"/>
+              <rect x="18" y="0"  width="16" height="14" fill="#3a3a3a"/>
+              <rect x="36" y="0"  width="16" height="14" fill="#c9a96e"/>
+              <rect x="54" y="0"  width="16" height="14" fill="#d4af37"/>
+              <rect x="72" y="0"  width="16" height="14" fill="#b76e79"/>
+              <rect x="90" y="0"  width="16" height="14" fill="#eadbc8"/>
+              <rect x="108" y="0" width="16" height="14" fill="#a5897a"/>
+              <rect x="126" y="0" width="16" height="14" fill="#7a5c4a"/>
+              <rect x="0"  y="16" width="16" height="14" fill="#9c8b7a"/>
+              <rect x="18" y="16" width="16" height="14" fill="#c5b8a5"/>
+              <rect x="36" y="16" width="16" height="14" fill="#e8d5b7"/>
+              <rect x="54" y="16" width="16" height="14" fill="#a8654b"/>
+              <rect x="72" y="16" width="16" height="14" fill="#6b4423"/>
+              <rect x="90" y="16" width="16" height="14" fill="#4a2c2a"/>
+              <rect x="108" y="16" width="16" height="14" fill="#8c7853"/>
+              <rect x="126" y="16" width="16" height="14" fill="#d9c2a6"/>
+              <rect x="0"  y="32" width="16" height="14" fill="#bda06a"/>
+              <rect x="18" y="32" width="16" height="14" fill="#7a8a99"/>
+              <rect x="36" y="32" width="16" height="14" fill="#a4b0a8"/>
+              <rect x="54" y="32" width="16" height="14" fill="#5d6b6e"/>
+              <rect x="72" y="32" width="16" height="14" fill="#cfd4cd"/>
+              <rect x="90" y="32" width="16" height="14" fill="#8e9aaf"/>
+              <rect x="108" y="32" width="16" height="14" fill="#b8b8b8"/>
+              <rect x="126" y="32" width="16" height="14" fill="#525252"/>
+              <rect x="0"  y="48" width="16" height="14" fill="#e0b6a3"/>
+              <rect x="18" y="48" width="16" height="14" fill="#c08877"/>
+              <rect x="36" y="48" width="16" height="14" fill="#9b6a55"/>
+              <rect x="54" y="48" width="16" height="14" fill="#d2b48c"/>
+              <rect x="72" y="48" width="16" height="14" fill="#8b7e74"/>
+              <rect x="90" y="48" width="16" height="14" fill="#6c5a48"/>
+              <rect x="108" y="48" width="16" height="14" fill="#bca58a"/>
+              <rect x="126" y="48" width="16" height="14" fill="#e6d3bb"/>
+            </g>
+          </g>
+          <!-- карточки товаров ниже -->
+          <rect x="14" y="170" width="90" height="22" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+          <rect x="115" y="170" width="90" height="22" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+          <rect x="216" y="170" width="90" height="22" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="v-body">
+        <div class="v-num">Вариант A</div>
+        <h2>Палитра-якорь</h2>
+        <p class="v-pitch">Цвет как главный аргумент. В&nbsp;hero — стена из&nbsp;30+ свотчей, клик по&nbsp;оттенку перерисовывает&nbsp;витрину под выбранный цвет.</p>
+        <div class="schema">
+          <b>Порядок блоков</b>
+          Hero (текст + палитра) → каталог 8 товаров → о&nbsp;бренде → партнёрство → ЛК → каналы → форма
+        </div>
+        <span class="v-open">Открыть V1 →</span>
+      </div>
+    </a>
+
+    <a href="v2/" class="variant">
+      <div class="v-thumb">
+        <!-- Превью V2: витрина 8 товаров в hero -->
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="200" fill="#ede9e0"/>
+          <rect x="0" y="0" width="320" height="22" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+          <rect x="6" y="6" width="40" height="10" fill="#1a1a1a" opacity="0.15"/>
+          <rect x="60" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="72" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="84" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="96" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="270" y="6" width="44" height="10" fill="#1a1a1a"/>
+          <!-- узкий заголовок -->
+          <rect x="14" y="32" width="180" height="7" fill="#1a1a1a"/>
+          <rect x="14" y="44" width="140" height="4" fill="#999"/>
+          <rect x="14" y="52" width="120" height="4" fill="#999"/>
+          <!-- витрина 4×2 (8 товаров) -->
+          <g transform="translate(14,66)">
+            <rect x="0"   y="0"  width="70" height="50" fill="white" stroke="#1a1a1a" stroke-width="1.2"/>
+            <line x1="0" y1="0" x2="70" y2="50" stroke="#ccc" stroke-width="0.6"/>
+            <line x1="70" y1="0" x2="0" y2="50" stroke="#ccc" stroke-width="0.6"/>
+            <circle cx="35" cy="25" r="9" fill="#ede9e0" stroke="#1a1a1a" stroke-width="1"/>
+
+            <rect x="74"  y="0"  width="70" height="50" fill="white" stroke="#1a1a1a" stroke-width="1.2"/>
+            <line x1="74" y1="0" x2="144" y2="50" stroke="#ccc" stroke-width="0.6"/>
+            <line x1="144" y1="0" x2="74" y2="50" stroke="#ccc" stroke-width="0.6"/>
+            <circle cx="109" cy="25" r="9" fill="#ede9e0" stroke="#1a1a1a" stroke-width="1"/>
+
+            <rect x="148" y="0"  width="70" height="50" fill="white" stroke="#1a1a1a" stroke-width="1.2"/>
+            <line x1="148" y1="0" x2="218" y2="50" stroke="#ccc" stroke-width="0.6"/>
+            <line x1="218" y1="0" x2="148" y2="50" stroke="#ccc" stroke-width="0.6"/>
+            <circle cx="183" cy="25" r="9" fill="#ede9e0" stroke="#1a1a1a" stroke-width="1"/>
+
+            <rect x="222" y="0"  width="70" height="50" fill="white" stroke="#1a1a1a" stroke-width="1.2"/>
+            <line x1="222" y1="0" x2="292" y2="50" stroke="#ccc" stroke-width="0.6"/>
+            <line x1="292" y1="0" x2="222" y2="50" stroke="#ccc" stroke-width="0.6"/>
+            <circle cx="257" cy="25" r="9" fill="#ede9e0" stroke="#1a1a1a" stroke-width="1"/>
+
+            <rect x="0"   y="54" width="70" height="50" fill="white" stroke="#1a1a1a" stroke-width="1.2"/>
+            <line x1="0" y1="54" x2="70" y2="104" stroke="#ccc" stroke-width="0.6"/>
+            <line x1="70" y1="54" x2="0" y2="104" stroke="#ccc" stroke-width="0.6"/>
+            <circle cx="35" cy="79" r="9" fill="#ede9e0" stroke="#1a1a1a" stroke-width="1"/>
+
+            <rect x="74"  y="54" width="70" height="50" fill="white" stroke="#1a1a1a" stroke-width="1.2"/>
+            <line x1="74" y1="54" x2="144" y2="104" stroke="#ccc" stroke-width="0.6"/>
+            <line x1="144" y1="54" x2="74" y2="104" stroke="#ccc" stroke-width="0.6"/>
+            <circle cx="109" cy="79" r="9" fill="#ede9e0" stroke="#1a1a1a" stroke-width="1"/>
+
+            <rect x="148" y="54" width="70" height="50" fill="white" stroke="#1a1a1a" stroke-width="1.2"/>
+            <line x1="148" y1="54" x2="218" y2="104" stroke="#ccc" stroke-width="0.6"/>
+            <line x1="218" y1="54" x2="148" y2="104" stroke="#ccc" stroke-width="0.6"/>
+            <circle cx="183" cy="79" r="9" fill="#ede9e0" stroke="#1a1a1a" stroke-width="1"/>
+
+            <rect x="222" y="54" width="70" height="50" fill="white" stroke="#1a1a1a" stroke-width="1.2"/>
+            <line x1="222" y1="54" x2="292" y2="104" stroke="#ccc" stroke-width="0.6"/>
+            <line x1="292" y1="54" x2="222" y2="104" stroke="#ccc" stroke-width="0.6"/>
+            <circle cx="257" cy="79" r="9" fill="#ede9e0" stroke="#1a1a1a" stroke-width="1"/>
+          </g>
+          <!-- полоска свотчей внизу -->
+          <g transform="translate(14,178)">
+            <rect x="0"   y="0" width="14" height="10" fill="#c9a96e"/>
+            <rect x="16"  y="0" width="14" height="10" fill="#1a1a1a"/>
+            <rect x="32"  y="0" width="14" height="10" fill="#b76e79"/>
+            <rect x="48"  y="0" width="14" height="10" fill="#eadbc8"/>
+            <rect x="64"  y="0" width="14" height="10" fill="#7a5c4a"/>
+            <rect x="80"  y="0" width="14" height="10" fill="#a4b0a8"/>
+            <rect x="96"  y="0" width="14" height="10" fill="#e0b6a3"/>
+            <rect x="112" y="0" width="14" height="10" fill="#5d6b6e"/>
+            <rect x="128" y="0" width="14" height="10" fill="#d4af37"/>
+            <rect x="144" y="0" width="14" height="10" fill="#525252"/>
+          </g>
+        </svg>
+      </div>
+      <div class="v-body">
+        <div class="v-num">Вариант B</div>
+        <h2>Витрина-якорь</h2>
+        <p class="v-pitch">Каталог как лицо сайта. Все 8 товаров — крупной сеткой на&nbsp;первом экране, под ней лента палитры. «Вот всё, что мы&nbsp;продаём».</p>
+        <div class="schema">
+          <b>Порядок блоков</b>
+          Hero (витрина 8 товаров) → палитра → о&nbsp;бренде → партнёрство → ЛК → каналы → форма
+        </div>
+        <span class="v-open">Открыть V2 →</span>
+      </div>
+    </a>
+
+    <a href="v3/" class="variant">
+      <div class="v-thumb">
+        <!-- Превью V3: партнёрство-якорь, форма + цифры -->
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="200" fill="#ede9e0"/>
+          <rect x="0" y="0" width="320" height="22" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+          <rect x="6" y="6" width="40" height="10" fill="#1a1a1a" opacity="0.15"/>
+          <rect x="60" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="72" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="84" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="96" y="8" width="6" height="6" fill="#1a1a1a" opacity="0.4"/>
+          <rect x="270" y="6" width="44" height="10" fill="#1a1a1a"/>
+          <!-- hero тёмный -->
+          <rect x="0" y="22" width="320" height="120" fill="#1a1a1a"/>
+          <!-- левая часть: заголовок и цифры -->
+          <rect x="14" y="38" width="150" height="9" fill="white"/>
+          <rect x="14" y="52" width="120" height="9" fill="white"/>
+          <rect x="14" y="68" width="150" height="4" fill="#888"/>
+          <rect x="14" y="76" width="130" height="4" fill="#888"/>
+          <!-- 3 цифры -->
+          <g transform="translate(14,92)">
+            <rect x="0"   y="0" width="46" height="34" fill="none" stroke="white" stroke-width="1"/>
+            <text x="10" y="20" font-family="Caveat" font-size="18" font-weight="700" fill="white">8</text>
+            <text x="10" y="30" font-family="Caveat" font-size="8" fill="#aaa">товаров</text>
+            <rect x="50"  y="0" width="58" height="34" fill="none" stroke="white" stroke-width="1"/>
+            <text x="58" y="20" font-family="Caveat" font-size="14" font-weight="700" fill="#c9a96e">30–45</text>
+            <text x="60" y="30" font-family="Caveat" font-size="8" fill="#aaa">цветов</text>
+            <rect x="112" y="0" width="46" height="34" fill="none" stroke="white" stroke-width="1"/>
+            <text x="118" y="20" font-family="Caveat" font-size="18" font-weight="700" fill="white">B2B</text>
+            <text x="120" y="30" font-family="Caveat" font-size="8" fill="#aaa">только</text>
+          </g>
+          <!-- правая часть: форма заявки -->
+          <rect x="180" y="36" width="125" height="98" fill="white" stroke="#c9a96e" stroke-width="1.5"/>
+          <rect x="186" y="44" width="80" height="6" fill="#1a1a1a"/>
+          <rect x="186" y="56" width="113" height="12" fill="#f7f5f0" stroke="#1a1a1a" stroke-width="0.6"/>
+          <rect x="186" y="72" width="113" height="12" fill="#f7f5f0" stroke="#1a1a1a" stroke-width="0.6"/>
+          <rect x="186" y="88" width="113" height="12" fill="#f7f5f0" stroke="#1a1a1a" stroke-width="0.6"/>
+          <rect x="186" y="106" width="113" height="20" fill="#1a1a1a"/>
+          <text x="200" y="120" font-family="Caveat" font-size="11" font-weight="700" fill="white">Стать партнёром</text>
+          <!-- блоки под hero -->
+          <rect x="14" y="152" width="92" height="38" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+          <rect x="113" y="152" width="92" height="38" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+          <rect x="212" y="152" width="92" height="38" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="v-body">
+        <div class="v-num">Вариант C</div>
+        <h2>Партнёрство-якорь</h2>
+        <p class="v-pitch">Сайт как заявка на&nbsp;партнёрство, а&nbsp;не&nbsp;каталог. В&nbsp;hero — обещание + цифры + крупная форма «Стать дистрибьютором». Каталог глубже.</p>
+        <div class="schema">
+          <b>Порядок блоков</b>
+          Hero (форма + цифры) → условия партнёрства → о&nbsp;бренде → каталог-тизер → палитра → ЛК → каналы
+        </div>
+        <span class="v-open">Открыть V3 →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="notes">
+    <h3>📝 Что важно держать в&nbsp;уме при просмотре</h3>
+    <ul>
+      <li>Это&nbsp;<b>прототип-скетч</b>. Шрифт Caveat и&nbsp;«бумажная» палитра&nbsp;— нарочно, чтобы не&nbsp;цепляться за&nbsp;стиль. Финальный сайт&nbsp;— минималистичный, монохромная гамма + shimmer-акцент по&nbsp;брифу.</li>
+      <li>Все фото товаров — плейсхолдеры с&nbsp;диагональной заштриховкой. Подменятся после получения материалов от&nbsp;клиента (8 товаров по&nbsp;ТЗ).</li>
+      <li>Цветовая стена в&nbsp;прототипе&nbsp;— произвольная демонстрационная палитра 30+ оттенков. Реальные оттенки берём из&nbsp;ассортимента после уточнения.</li>
+      <li>Каталог и&nbsp;цены доступны только в&nbsp;закрытом ЛК&nbsp;— на&nbsp;витрине показываем плитку с&nbsp;фото и&nbsp;названиями, без&nbsp;цены (это критично для&nbsp;B2B-модели).</li>
+      <li>Форма заявки и&nbsp;окно входа в&nbsp;ЛК — модалками по&nbsp;кнопкам в&nbsp;шапке. Реализованы во&nbsp;всех трёх прототипах.</li>
+      <li>Жёлтые подписи&nbsp;— заметки для&nbsp;нас и&nbsp;клиента, на&nbsp;финале их&nbsp;не&nbsp;будет.</li>
+      <li>Адаптив проверен на&nbsp;980 / 720 / 420&nbsp;px. На&nbsp;мобильных все сетки схлопываются в&nbsp;одну колонку.</li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div><b>Crazy.Studio</b> · прототип-скетч · 2026-05-17</div>
+    <div>WOWSHIMMER · wowshimmer.ru</div>
+  </div>
+</footer>
+
+</body>
+</html>

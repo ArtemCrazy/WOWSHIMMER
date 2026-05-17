@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WOWSHIMMER · V3 «Партнёрство-якорь»</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #1a1a1a; --ink-mid: #555; --ink-light: #999; --ink-faint: #ccc;
+    --paper: #f7f5f0; --paper-dark: #ede9e0; --stroke: 2px;
+    --hl: #fffbe6; --hl-border: #d4a017;
+    --shimmer: #c9a96e;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Caveat', cursive; background: var(--paper); color: var(--ink); font-size: 17px; line-height: 1.5; }
+
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(0,0,0,0.03) 28px);
+    pointer-events: none; z-index: 0;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  /* Proto-banner */
+  .proto-banner {
+    background: var(--ink); color: var(--paper);
+    padding: 10px 20px; font-size: 15px;
+    border-bottom: 2px solid var(--ink);
+    display: flex; gap: 14px; align-items: center; justify-content: center; flex-wrap: wrap;
+  }
+  .proto-banner .label { font-weight: 700; }
+  .proto-banner .sub { opacity: 0.5; font-size: 14px; }
+  .proto-banner .switcher { display: inline-flex; gap: 6px; margin-left: 14px; }
+  .proto-banner .switcher a {
+    padding: 2px 10px; border: 1px solid rgba(255,255,255,0.4);
+    color: var(--paper); text-decoration: none; font-size: 14px;
+  }
+  .proto-banner .switcher a.active { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+  .proto-banner .home { margin-right: auto; padding-left: 10px; }
+  .proto-banner .home a { color: var(--paper); text-decoration: none; opacity: 0.7; font-size: 14px; }
+  .proto-banner .home a:hover { opacity: 1; }
+
+  /* Header — тёмный, чтобы стыковался с тёмным hero */
+  header { background: var(--ink); color: white; border-bottom: 2px solid var(--ink); }
+  .header-inner { display: flex; align-items: center; gap: 24px; padding: 16px 0; }
+  .logo-sketch { display: flex; align-items: center; gap: 10px; }
+  .logo-box { width: 46px; height: 46px; background: var(--shimmer); color: white; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
+  .logo-name { font-size: 22px; font-weight: 700; line-height: 1; color: white; }
+  .logo-sub { font-size: 13px; color: rgba(255,255,255,0.5); }
+  nav.menu { display: flex; gap: 22px; margin-left: 28px; }
+  nav.menu a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 18px; }
+  nav.menu a:hover { color: var(--shimmer); }
+  nav.menu a.muted { color: rgba(255,255,255,0.35); }
+  .header-right { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+  .phone-sketch { font-size: 18px; color: rgba(255,255,255,0.7); border-bottom: 1px dashed rgba(255,255,255,0.3); padding-bottom: 2px; }
+  .btn-solid { background: var(--shimmer); color: white; border: 2px solid var(--shimmer); padding: 8px 18px; font-family: 'Caveat', cursive; font-size: 17px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-solid.dark { background: var(--ink); border-color: var(--ink); }
+  .btn-outline-sk { background: transparent; color: white; border: 2px solid white; padding: 8px 18px; font-family: 'Caveat', cursive; font-size: 17px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-outline-sk.on-paper { color: var(--ink); border-color: var(--ink); background: white; }
+  .btn-solid:hover, .btn-outline-sk:hover { box-shadow: 3px 3px 0 rgba(0,0,0,0.25); transform: translate(-1px, -1px); }
+  .annotation { background: var(--hl); border: 1px dashed var(--hl-border); padding: 3px 10px; font-size: 14px; color: #8a6800; margin-left: 10px; display: inline-block; }
+
+  /* HERO V3 — тёмный, форма + цифры */
+  .hero {
+    background: var(--ink); color: white;
+    padding: 60px 0 80px; position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle at 80% 30%, rgba(201,169,110,0.16) 0, transparent 50%);
+  }
+  .hero-inner { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; position: relative; z-index: 2; }
+  .hero-left .hbadge {
+    display: inline-block; padding: 4px 12px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.25);
+    font-size: 13px; color: rgba(255,255,255,0.7);
+    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 18px;
+  }
+  .hero-left h1 { font-size: 54px; font-weight: 700; line-height: 1.05; margin-bottom: 18px; color: white; }
+  .hero-left h1 .accent { color: var(--shimmer); }
+  .hero-left .hsub { font-size: 18px; color: rgba(255,255,255,0.65); max-width: 520px; line-height: 1.55; margin-bottom: 28px; }
+
+  .hero-nums {
+    display: grid; grid-template-columns: repeat(3, auto); gap: 20px;
+    padding: 22px 0; margin: 0 0 28px;
+    border-top: 1px dashed rgba(255,255,255,0.2);
+    border-bottom: 1px dashed rgba(255,255,255,0.2);
+  }
+  .hero-nums .hn b { display: block; font-size: 42px; font-weight: 700; line-height: 1; }
+  .hero-nums .hn:nth-child(2) b { color: var(--shimmer); }
+  .hero-nums .hn span { font-size: 14px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; display: block; }
+
+  .hero-trust {
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    font-size: 15px; color: rgba(255,255,255,0.5);
+  }
+  .hero-trust .ht-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--shimmer); }
+
+  /* Карточка формы в hero */
+  .hero-form {
+    background: white; color: var(--ink);
+    border: 2px solid var(--shimmer);
+    padding: 30px 30px 26px; position: relative;
+    box-shadow: 10px 10px 0 rgba(0,0,0,0.35);
+  }
+  .hero-form .hf-tag {
+    position: absolute; top: -14px; left: 24px;
+    background: var(--shimmer); color: white; padding: 4px 14px;
+    font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px;
+  }
+  .hero-form h3 { font-size: 26px; margin-bottom: 4px; }
+  .hero-form .hf-sub { font-size: 16px; color: var(--ink-mid); margin-bottom: 18px; }
+  .form-row { margin-bottom: 12px; }
+  .form-row label { display: block; font-size: 13px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+  .form-row input, .form-row textarea, .form-row select {
+    width: 100%; padding: 10px 12px; border: 1.5px solid var(--ink); background: var(--paper);
+    font-family: 'Caveat', cursive; font-size: 17px; color: var(--ink);
+  }
+  .form-row .check-line { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--ink-mid); padding-top: 4px; }
+  .form-row .check-line input { width: auto; margin-top: 2px; }
+  .form-submit { width: 100%; padding: 14px; background: var(--ink); color: white; border: 2px solid var(--ink); font-family: 'Caveat', cursive; font-size: 20px; font-weight: 700; cursor: pointer; margin-top: 4px; }
+  .form-submit:hover { background: var(--shimmer); border-color: var(--shimmer); }
+  .hero-form .hf-foot { margin-top: 12px; font-size: 13px; color: var(--ink-light); text-align: center; }
+
+  /* Sections */
+  section { padding: 64px 0; position: relative; }
+  section:nth-of-type(even) { background: var(--paper-dark); }
+  .section-num { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--ink-light); margin-bottom: 8px; }
+  .section-title { font-size: 38px; font-weight: 700; margin-bottom: 14px; line-height: 1.15; }
+  .section-desc { font-size: 17px; color: var(--ink-mid); max-width: 720px; margin-bottom: 32px; }
+
+  /* БЛОК 1 · УСЛОВИЯ ПАРТНЁРСТВА — главный блок */
+  .terms-anchor {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px;
+  }
+  .terms-anchor .ta-card {
+    background: white; border: 2px solid var(--ink);
+    padding: 26px 22px 24px; position: relative;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .terms-anchor .ta-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink-faint); }
+  .terms-anchor .ta-card .ta-num { font-size: 40px; color: var(--shimmer); font-weight: 700; line-height: 1; margin-bottom: 12px; }
+  .terms-anchor .ta-card h4 { font-size: 22px; margin-bottom: 8px; line-height: 1.2; }
+  .terms-anchor .ta-card p { font-size: 15px; color: var(--ink-mid); line-height: 1.55; margin-bottom: 12px; }
+  .terms-anchor .ta-card .ta-meta { font-size: 13px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 1.5px; padding-top: 12px; border-top: 1px dashed var(--ink-faint); }
+
+  .terms-foot {
+    margin-top: 32px; padding: 22px 28px;
+    background: var(--ink); color: white;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .terms-foot .tf-text { font-size: 19px; }
+  .terms-foot .tf-text b { color: var(--shimmer); }
+  .terms-foot .btn-solid { background: var(--shimmer); border-color: var(--shimmer); color: white; font-size: 18px; padding: 12px 24px; }
+
+  /* О бренде */
+  .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: center; }
+  .about-photo {
+    aspect-ratio: 4/3; background: white;
+    border: var(--stroke) solid var(--ink); position: relative; overflow: hidden;
+  }
+  .about-photo::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(45deg, transparent 49%, rgba(0,0,0,0.06) 49%, rgba(0,0,0,0.06) 51%, transparent 51%);
+    background-size: 20px 20px;
+  }
+  .about-photo .ph-icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 60px; opacity: 0.4; }
+  .about-photo .ph-label { position: absolute; bottom: 16px; left: 16px; background: var(--hl); padding: 4px 10px; font-size: 14px; color: var(--ink-mid); border: 1px dashed var(--hl-border); }
+  .about-text h3 { font-size: 24px; margin-bottom: 12px; }
+  .about-text p { font-size: 17px; color: var(--ink-mid); margin-bottom: 14px; line-height: 1.6; }
+  .about-bullets { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+  .about-bullets .ab { padding: 12px 14px; background: white; border: 1px solid var(--ink); font-size: 15px; }
+  .about-bullets .ab b { display: block; font-size: 18px; margin-bottom: 2px; }
+
+  /* Каталог-тизер */
+  .catalog-teaser-head { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-bottom: 28px; }
+  .catalog-teaser-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .product-card {
+    background: white; border: 2px solid var(--ink);
+    cursor: pointer; position: relative;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .product-card:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink-faint); }
+  .product-photo {
+    aspect-ratio: 1; background: var(--paper-dark); position: relative;
+    border-bottom: 2px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .product-photo::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(45deg, transparent 49%, rgba(0,0,0,0.08) 49%, rgba(0,0,0,0.08) 51%, transparent 51%);
+    background-size: 14px 14px;
+  }
+  .product-photo .ph-label { position: relative; z-index: 2; background: var(--hl); padding: 4px 10px; font-size: 14px; color: var(--ink-mid); border: 1px dashed var(--hl-border); }
+  .product-photo .product-pill { position: absolute; top: 10px; left: 10px; z-index: 3; background: white; padding: 2px 8px; font-size: 13px; border: 1px solid var(--ink); text-transform: uppercase; letter-spacing: 1px; }
+  .product-info { padding: 14px 16px 18px; }
+  .product-info .p-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .product-info .p-art { font-size: 13px; color: var(--ink-light); margin-bottom: 8px; }
+  .product-swatches { display: flex; gap: 3px; flex-wrap: wrap; margin-bottom: 8px; }
+  .product-swatches .ps { width: 14px; height: 14px; border: 1px solid rgba(0,0,0,0.15); }
+  .product-swatches .more { background: white; border: 1px dashed var(--ink-faint); font-size: 11px; color: var(--ink-light); display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; min-width: 24px; height: 14px; }
+  .product-info .p-meta { font-size: 13px; color: var(--ink-light); }
+  .product-info .p-meta b { color: var(--ink); }
+
+  .teaser-cta {
+    margin-top: 22px; padding: 18px 22px;
+    background: var(--hl); border: 1px dashed var(--hl-border);
+    color: #8a6800; font-size: 16px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .teaser-cta b { color: var(--ink); }
+
+  /* Палитра — узкая лента */
+  .palette-mini {
+    background: white; border: var(--stroke) solid var(--ink);
+    padding: 22px; box-shadow: 6px 6px 0 var(--ink-faint);
+  }
+  .palette-mini .pm-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+  .palette-mini .pm-head h3 { font-size: 22px; }
+  .palette-mini .pm-head span { font-size: 14px; color: var(--ink-light); }
+  .palette-mini .pm-wall { display: grid; grid-template-columns: repeat(20, 1fr); gap: 3px; }
+  .palette-mini .pm-wall .sw { aspect-ratio: 1; cursor: pointer; transition: transform 0.1s; border: 1px solid rgba(0,0,0,0.08); }
+  .palette-mini .pm-wall .sw:hover { transform: scale(1.3); z-index: 5; box-shadow: 0 0 0 2px var(--ink); }
+
+  /* ЛК — компактный блок */
+  .lk-compact {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center;
+  }
+  .lk-compact .lkc-text h3 { font-size: 24px; margin-bottom: 12px; }
+  .lk-compact .lkc-text p { color: var(--ink-mid); margin-bottom: 14px; font-size: 17px; line-height: 1.55; }
+  .lk-compact .lkc-text ul { list-style: none; padding: 0; margin: 16px 0 20px; }
+  .lk-compact .lkc-text li { font-size: 17px; padding: 6px 0; padding-left: 28px; position: relative; }
+  .lk-compact .lkc-text li::before { content: '✓'; position: absolute; left: 0; top: 5px; color: var(--shimmer); font-weight: 700; font-size: 20px; }
+
+  .lk-mockup { background: white; border: 2px solid var(--ink); padding: 18px; box-shadow: 8px 8px 0 var(--ink-faint); }
+  .lk-mockup .lkm-bar { display: flex; gap: 6px; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--ink-faint); margin-bottom: 14px; }
+  .lk-mockup .lkm-bar .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-faint); }
+  .lk-mockup .lkm-bar .url { font-size: 13px; color: var(--ink-light); margin-left: 6px; }
+  .lk-mockup .lkm-title { font-size: 18px; margin-bottom: 8px; }
+  .lk-mockup .lkm-rows { display: grid; gap: 8px; }
+  .lk-mockup .lkm-row { display: flex; align-items: center; gap: 12px; padding: 10px; background: var(--paper); border: 1px solid var(--ink-faint); }
+  .lk-mockup .lkm-row .lkm-thumb { width: 36px; height: 36px; background: var(--paper-dark); border: 1px solid var(--ink); flex-shrink: 0; position: relative; overflow: hidden; }
+  .lk-mockup .lkm-row .lkm-thumb::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(45deg, transparent 49%, rgba(0,0,0,0.1) 49%, rgba(0,0,0,0.1) 51%, transparent 51%);
+    background-size: 8px 8px;
+  }
+  .lk-mockup .lkm-row .lkm-name { flex: 1; font-size: 15px; }
+  .lk-mockup .lkm-row .lkm-sw { display: flex; gap: 2px; }
+  .lk-mockup .lkm-row .lkm-sw span { width: 11px; height: 11px; border: 1px solid rgba(0,0,0,0.15); }
+  .lk-mockup .lkm-row .lkm-qty { font-size: 14px; padding: 2px 8px; background: white; border: 1px solid var(--ink); min-width: 40px; text-align: center; }
+  .lk-mockup .lkm-btn-row { margin-top: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .lk-mockup .lkm-btn-row span { font-size: 13px; color: var(--ink-light); }
+
+  /* Каналы */
+  .channels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .channel-card { background: white; border: 2px solid var(--ink); padding: 22px 20px; text-decoration: none; color: var(--ink); transition: transform 0.1s, box-shadow 0.1s; }
+  .channel-card:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink-faint); }
+  .channel-card .ch-icon { font-size: 28px; margin-bottom: 8px; }
+  .channel-card h4 { font-size: 19px; margin-bottom: 4px; }
+  .channel-card p { font-size: 14px; color: var(--ink-mid); }
+
+  /* Footer */
+  footer.site-footer { background: var(--ink); color: rgba(255,255,255,0.55); padding: 36px 0 20px; position: relative; z-index: 1; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 24px; }
+  .footer-grid h5 { color: white; font-size: 17px; margin-bottom: 10px; }
+  .footer-grid a { color: rgba(255,255,255,0.55); text-decoration: none; display: block; font-size: 15px; padding: 3px 0; }
+  .footer-grid a:hover { color: white; }
+  .footer-bottom { display: flex; justify-content: space-between; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 14px; flex-wrap: wrap; gap: 12px; }
+
+  /* Модалки */
+  .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .modal-bg.open { display: flex; }
+  .modal { background: white; border: 2px solid var(--ink); width: 100%; max-width: 460px; padding: 28px 28px 24px; box-shadow: 10px 10px 0 rgba(0,0,0,0.25); position: relative; }
+  .modal h3 { font-size: 26px; margin-bottom: 6px; }
+  .modal .modal-sub { color: var(--ink-mid); margin-bottom: 18px; font-size: 16px; }
+  .modal .close { position: absolute; top: 10px; right: 14px; cursor: pointer; font-size: 24px; color: var(--ink-light); background: none; border: none; font-family: 'Caveat', cursive; }
+  .modal .close:hover { color: var(--ink); }
+  .modal .switch-link { display: block; text-align: center; margin-top: 10px; font-size: 15px; color: var(--ink-mid); }
+  .modal .switch-link a { color: var(--shimmer); text-decoration: none; border-bottom: 1px dashed var(--shimmer); }
+
+  .to-top { position: fixed; right: 24px; bottom: 24px; width: 48px; height: 48px; border-radius: 50%; background: var(--ink); color: white; border: 2px solid var(--ink); font-family: 'Caveat', cursive; font-size: 22px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 4px 4px 0 var(--ink-faint); z-index: 50; }
+  .to-top.show { display: flex; }
+  .to-top:hover { background: var(--shimmer); border-color: var(--shimmer); }
+  .chat-icon { position: fixed; right: 88px; bottom: 24px; width: 48px; height: 48px; border-radius: 50%; background: white; color: var(--ink); border: 2px solid var(--ink); display: flex; align-items: center; justify-content: center; font-size: 22px; cursor: pointer; box-shadow: 4px 4px 0 var(--ink-faint); z-index: 50; }
+  .chat-icon:hover { background: var(--shimmer); color: white; border-color: var(--shimmer); }
+
+  @media (max-width: 980px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+    .hero-left h1 { font-size: 38px; }
+    .terms-anchor { grid-template-columns: repeat(2, 1fr); }
+    .catalog-teaser-grid { grid-template-columns: repeat(2, 1fr); }
+    .channels-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-grid, .lk-compact { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    nav.menu { display: none; }
+    .palette-mini .pm-wall { grid-template-columns: repeat(10, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .wrap { padding: 0 18px; }
+    .section-title { font-size: 28px; }
+    .hero-left h1 { font-size: 32px; }
+    .hero-nums { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .hero-nums .hn b { font-size: 28px; }
+    .terms-anchor, .catalog-teaser-grid, .channels-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
+    .palette-mini .pm-wall { grid-template-columns: repeat(8, 1fr); }
+    .phone-sketch { display: none; }
+    .about-bullets { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="proto-banner">
+  <span class="home"><a href="../">← К сравнению</a></span>
+  <span class="label">✏️ ПРОТОТИП-СКЕТЧ · V3 «Партнёрство-якорь»</span>
+  <span class="sub">Цвета, шрифты и фото — на этапе дизайна</span>
+  <span class="switcher">
+    <a href="../v1/">V1</a>
+    <a href="../v2/">V2</a>
+    <a href="../v3/" class="active">V3</a>
+  </span>
+</div>
+
+<header>
+  <div class="wrap header-inner">
+    <div class="logo-sketch">
+      <div class="logo-box">WS</div>
+      <div>
+        <div class="logo-name">WOWSHIMMER</div>
+        <div class="logo-sub">Бижутерия · B2B</div>
+      </div>
+    </div>
+    <nav class="menu">
+      <a href="#partner">Партнёрам</a>
+      <a href="#brand">О бренде</a>
+      <a href="#katalog">Каталог</a>
+      <a href="#palette">Палитра</a>
+      <a href="#" class="muted" onclick="event.preventDefault();alert('Заглушка: страница пока не подключена')">Контакты</a>
+    </nav>
+    <div class="header-right">
+      <span class="phone-sketch">+7 (___) ___-__-__</span>
+      <button class="btn-outline-sk" onclick="openLogin()">Войти в&nbsp;ЛК</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO V3 — тёмный, форма + цифры -->
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <span class="hbadge">✨ B2B-площадка · только для&nbsp;дистрибьюторов</span>
+        <h1>Станьте дистрибьютором <span class="accent">WOWSHIMMER.</span></h1>
+        <p class="hsub">
+          Это не&nbsp;маркетплейс. Розницу не&nbsp;продаём. Сюда приходят владелицы шоурумов,
+          онлайн-магазинов и&nbsp;розничных точек, чтобы открыть закрытый каталог
+          с&nbsp;ценами и&nbsp;собрать первый заказ.
+        </p>
+        <div class="hero-nums">
+          <div class="hn"><b>8</b><span>моделей<br>в&nbsp;линейке</span></div>
+          <div class="hn"><b>30–45</b><span>оттенков<br>на&nbsp;каждую</span></div>
+          <div class="hn"><b>1&nbsp;день</b><span>среднее время<br>ответа *</span></div>
+        </div>
+        <div class="hero-trust">
+          <span class="ht-dot"></span> Только B2B
+          <span class="ht-dot"></span> e-mail-заказы
+          <span class="ht-dot"></span> Без&nbsp;онлайн-оплаты
+          <span class="ht-dot"></span> Шифрованный ЛК
+        </div>
+      </div>
+
+      <form class="hero-form" onsubmit="event.preventDefault();formSubmitted(this)">
+        <span class="hf-tag">Заявка партнёра</span>
+        <h3>Открыть доступ в&nbsp;ЛК</h3>
+        <p class="hf-sub">Менеджер свяжется в&nbsp;течение рабочего дня</p>
+        <div class="form-row">
+          <label>Как обращаться</label>
+          <input type="text" placeholder="Имя и&nbsp;название магазина" required>
+        </div>
+        <div class="form-row">
+          <label>Телефон</label>
+          <input type="tel" placeholder="+7 (___) ___-__-__" required>
+        </div>
+        <div class="form-row">
+          <label>E-mail</label>
+          <input type="email" placeholder="на этот адрес придёт доступ" required>
+        </div>
+        <div class="form-row check-line">
+          <input type="checkbox" id="h-consent" required>
+          <label for="h-consent" style="text-transform:none;letter-spacing:0;color:var(--ink-mid);font-size:13px;margin:0">
+            Согласна на&nbsp;обработку ПД и&nbsp;<a href="#" onclick="event.preventDefault()" style="color:var(--shimmer)">политику конфиденциальности</a>
+          </label>
+        </div>
+        <button type="submit" class="form-submit">Стать партнёром →</button>
+        <p class="hf-foot">Уже есть доступ? <a href="#" onclick="event.preventDefault();openLogin()" style="color:var(--shimmer);border-bottom:1px dashed var(--shimmer);text-decoration:none">Войти в&nbsp;ЛК</a></p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- БЛОК 1 · УСЛОВИЯ ПАРТНЁРСТВА (главный блок в этом варианте) -->
+<section id="partner" style="background: var(--paper) !important">
+  <div class="wrap">
+    <div class="section-num">Блок 1 · Как стать дистрибьютором</div>
+    <div class="section-title">Четыре шага · никаких бумаг
+      <span class="annotation">✎ B2B-flow по брифу — главный блок этого варианта</span>
+    </div>
+    <p class="section-desc">Весь процесс через сайт. Заявка → одобрение → доступ в&nbsp;ЛК → первый заказ.</p>
+
+    <div class="terms-anchor">
+      <div class="ta-card">
+        <div class="ta-num">01</div>
+        <h4>Оставьте заявку</h4>
+        <p>Имя, телефон, e-mail, согласие на&nbsp;обработку ПД. Менеджер свяжется в&nbsp;течение рабочего дня.</p>
+        <div class="ta-meta">Время · 2 минуты</div>
+      </div>
+      <div class="ta-card">
+        <div class="ta-num">02</div>
+        <h4>Получите доступ в&nbsp;ЛК</h4>
+        <p>После одобрения логин и&nbsp;пароль приходят на&nbsp;e-mail. Доступ к&nbsp;закрытому каталогу с&nbsp;ценами.</p>
+        <div class="ta-meta">Срок · 1 рабочий день *</div>
+      </div>
+      <div class="ta-card">
+        <div class="ta-num">03</div>
+        <h4>Соберите заказ</h4>
+        <p>Выбирайте модели и&nbsp;оттенки, указывайте количество по&nbsp;каждой позиции в&nbsp;одной форме.</p>
+        <div class="ta-meta">Минималка · обсуждается *</div>
+      </div>
+      <div class="ta-card">
+        <div class="ta-num">04</div>
+        <h4>Отправьте на&nbsp;почту</h4>
+        <p>Состав уходит менеджеру одним кликом. Вам приходит экранное и&nbsp;e-mail подтверждение.</p>
+        <div class="ta-meta">Оплата · по&nbsp;договорённости</div>
+      </div>
+    </div>
+
+    <div class="terms-foot">
+      <div class="tf-text">Готовы? Заявка обрабатывается <b>в&nbsp;течение рабочего&nbsp;дня</b>.</div>
+      <button class="btn-solid" onclick="window.scrollTo({top:0,behavior:'smooth'})">Заполнить заявку ↑</button>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 2 · О БРЕНДЕ -->
+<section id="brand">
+  <div class="wrap">
+    <div class="section-num">Блок 2 · О бренде</div>
+    <div class="section-title">Кто такие WOWSHIMMER
+      <span class="annotation">✎ блок доверия для потенциального партнёра</span>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-photo">
+        <div class="ph-icon">✦</div>
+        <div class="ph-label">Имиджевое фото · витрина шоурума</div>
+      </div>
+      <div class="about-text">
+        <h3>Оптовый бренд бижутерии</h3>
+        <p>
+          Делаем простые силуэты в&nbsp;широкой цветовой палитре&nbsp;— чтобы каждая партнёрша
+          собрала ассортимент под&nbsp;свой бренд и&nbsp;аудиторию. Средне-бюджетный сегмент,
+          узнаваемый минималистичный стиль.
+        </p>
+        <p>
+          Работаем только с&nbsp;дистрибьюторами по&nbsp;всей России. Конечному покупателю на&nbsp;этом сайте
+          ничего не&nbsp;продаём&nbsp;— для&nbsp;него у&nbsp;нас есть Wildberries, Ozon и&nbsp;Instagram.
+        </p>
+        <div class="about-bullets">
+          <div class="ab"><b>Россия</b>География работы</div>
+          <div class="ab"><b>20XX</b>На&nbsp;рынке с&nbsp;*</div>
+          <div class="ab"><b>30–45</b>Оттенков на&nbsp;модель</div>
+          <div class="ab"><b>e-mail</b>Канал заказов</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 3 · КАТАЛОГ-ТИЗЕР -->
+<section id="katalog">
+  <div class="wrap">
+    <div class="catalog-teaser-head">
+      <div>
+        <div class="section-num">Блок 3 · Каталог-тизер</div>
+        <div class="section-title">Что вы будете продавать
+          <span class="annotation">✎ только превью — цены и&nbsp;полный каталог в&nbsp;ЛК</span>
+        </div>
+        <p style="font-size:17px;color:var(--ink-mid);max-width:640px">8 моделей, тизерно. Чтобы потенциальный партнёр понял уровень и&nbsp;стилистику до&nbsp;общения с&nbsp;менеджером.</p>
+      </div>
+      <button class="btn-outline-sk on-paper" onclick="openLogin()" style="background:var(--ink);color:white">Открыть в&nbsp;ЛК →</button>
+    </div>
+
+    <div class="catalog-teaser-grid" id="catalog-teaser-grid">
+      <!-- 8 карточек, генерируются JS -->
+    </div>
+
+    <div class="teaser-cta">
+      <div>💡 На&nbsp;витрине&nbsp;— только фото, тип и&nbsp;палитра. <b>Цены, наличие и&nbsp;форма заказа&nbsp;— в&nbsp;закрытом ЛК для&nbsp;партнёров.</b></div>
+      <button class="btn-outline-sk on-paper" onclick="window.scrollTo({top:0,behavior:'smooth'})">Стать партнёром ↑</button>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 4 · ПАЛИТРА -->
+<section id="palette">
+  <div class="wrap">
+    <div class="section-num">Блок 4 · Палитра</div>
+    <div class="section-title">30–45 оттенков · ваш ассортимент
+      <span class="annotation">✎ узкая лента, без интерактива — главное в этом варианте уже сказано выше</span>
+    </div>
+    <p class="section-desc">Каждая модель доступна в&nbsp;десятках оттенков&nbsp;— собирайте под&nbsp;любую аудиторию.</p>
+
+    <div class="palette-mini">
+      <div class="pm-head">
+        <h3>Демонстрационная палитра · 40 оттенков</h3>
+        <span>Финальный набор&nbsp;— из&nbsp;ассортимента</span>
+      </div>
+      <div class="pm-wall" id="pm-wall">
+        <!-- свотчи генерируются JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 5 · ЛК -->
+<section id="lk">
+  <div class="wrap">
+    <div class="section-num">Блок 5 · Личный кабинет</div>
+    <div class="section-title">Что вы получите после одобрения заявки
+      <span class="annotation">✎ превью того, что доступно после входа</span>
+    </div>
+
+    <div class="lk-compact">
+      <div class="lkc-text">
+        <h3>Закрытая B2B-витрина</h3>
+        <p>После того, как менеджер откроет вам доступ, вы&nbsp;получите ключи от&nbsp;закрытой части сайта&nbsp;— того, что конечный покупатель не&nbsp;видит.</p>
+        <ul>
+          <li>Полный каталог с&nbsp;ценами и&nbsp;всеми оттенками</li>
+          <li>Сборка заказа в&nbsp;одном окне</li>
+          <li>Отправка на&nbsp;e-mail менеджеру одним кликом</li>
+          <li>Подтверждение на&nbsp;экране и&nbsp;e-mail</li>
+          <li>История заявок * (фаза 2)</li>
+        </ul>
+        <button class="btn-outline-sk on-paper" onclick="openLogin()">Войти в&nbsp;ЛК</button>
+      </div>
+
+      <div class="lk-mockup">
+        <div class="lkm-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="url">wowshimmer.ru/cabinet · корзина</span>
+        </div>
+        <div class="lkm-title">Сборка заказа · 4 позиции</div>
+        <div class="lkm-rows">
+          <div class="lkm-row">
+            <div class="lkm-thumb"></div>
+            <div class="lkm-name">Серьги «Capella»</div>
+            <div class="lkm-sw">
+              <span style="background:#c9a96e"></span>
+              <span style="background:#b76e79"></span>
+              <span style="background:#eadbc8"></span>
+            </div>
+            <div class="lkm-qty">× 12</div>
+          </div>
+          <div class="lkm-row">
+            <div class="lkm-thumb"></div>
+            <div class="lkm-name">Колье «Lyra»</div>
+            <div class="lkm-sw">
+              <span style="background:#1a1a1a"></span>
+              <span style="background:#d4af37"></span>
+            </div>
+            <div class="lkm-qty">× 6</div>
+          </div>
+          <div class="lkm-row">
+            <div class="lkm-thumb"></div>
+            <div class="lkm-name">Браслет «Vega»</div>
+            <div class="lkm-sw">
+              <span style="background:#a5897a"></span>
+              <span style="background:#7a5c4a"></span>
+              <span style="background:#e0b6a3"></span>
+              <span style="background:#4a2c2a"></span>
+            </div>
+            <div class="lkm-qty">× 20</div>
+          </div>
+          <div class="lkm-row">
+            <div class="lkm-thumb"></div>
+            <div class="lkm-name">Кольцо «Sirius»</div>
+            <div class="lkm-sw">
+              <span style="background:#c9a96e"></span>
+              <span style="background:#1a1a1a"></span>
+            </div>
+            <div class="lkm-qty">× 8</div>
+          </div>
+        </div>
+        <div class="lkm-btn-row">
+          <span>Итого позиций: 46 шт.</span>
+          <button class="btn-solid dark" style="padding:6px 14px;font-size:15px;color:white">Отправить заявку →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 6 · КАНАЛЫ -->
+<section id="channels">
+  <div class="wrap">
+    <div class="section-num">Блок 6 · Каналы и&nbsp;маркетплейсы</div>
+    <div class="section-title">Где можно купить в&nbsp;розницу
+      <span class="annotation">✎ для конечного покупателя, не для опта</span>
+    </div>
+    <p class="section-desc">Если вы&nbsp;конечный покупатель и&nbsp;попали сюда случайно&nbsp;— ассортимент доступен в&nbsp;этих каналах.</p>
+
+    <div class="channels-grid">
+      <a href="#" class="channel-card" onclick="event.preventDefault()">
+        <div class="ch-icon">📷</div>
+        <h4>Instagram</h4>
+        <p>@wowshimmer · витрина новинок и&nbsp;коллабораций</p>
+      </a>
+      <a href="#" class="channel-card" onclick="event.preventDefault()">
+        <div class="ch-icon">🛍</div>
+        <h4>Wildberries</h4>
+        <p>Розничная витрина · доставка по&nbsp;РФ</p>
+      </a>
+      <a href="#" class="channel-card" onclick="event.preventDefault()">
+        <div class="ch-icon">📦</div>
+        <h4>Ozon</h4>
+        <p>Розничная витрина · доставка по&nbsp;РФ</p>
+      </a>
+      <a href="#" class="channel-card" onclick="event.preventDefault()">
+        <div class="ch-icon">💬</div>
+        <h4>Telegram</h4>
+        <p>Канал с&nbsp;анонсами обновлений каталога</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h5>WOWSHIMMER</h5>
+        <p style="color:rgba(255,255,255,0.55);font-size:15px;line-height:1.55;margin-bottom:10px">
+          Оптовая бижутерия. Работа только с&nbsp;дистрибьюторами&nbsp;— шоурумами,
+          розничными точками и&nbsp;онлайн-магазинами по&nbsp;всей России.
+        </p>
+        <p style="color:rgba(255,255,255,0.4);font-size:14px">© WOWSHIMMER · wowshimmer.ru</p>
+      </div>
+      <div>
+        <h5>Партнёрам</h5>
+        <a href="#partner">Условия партнёрства</a>
+        <a href="#" onclick="event.preventDefault();openLogin()">Войти в&nbsp;ЛК</a>
+        <a href="#" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">Стать партнёром</a>
+      </div>
+      <div>
+        <h5>Каталог</h5>
+        <a href="#katalog">Все модели</a>
+        <a href="#palette">Палитра оттенков</a>
+        <a href="#" onclick="event.preventDefault()">Новинки *</a>
+      </div>
+      <div>
+        <h5>Каналы</h5>
+        <a href="#channels">Instagram</a>
+        <a href="#channels">Wildberries</a>
+        <a href="#channels">Ozon</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>Crazy.Studio · прототип-скетч · 2026-05-17</div>
+      <div>Политика конфиденциальности · 18+</div>
+    </div>
+  </div>
+</footer>
+
+<!-- МОДАЛКА: вход в ЛК -->
+<div class="modal-bg" id="modal-login" onclick="if(event.target===this)closeLogin()">
+  <div class="modal">
+    <button class="close" onclick="closeLogin()">×</button>
+    <h3>Вход для&nbsp;партнёров</h3>
+    <p class="modal-sub">Доступ только для&nbsp;авторизованных дистрибьюторов</p>
+    <form onsubmit="event.preventDefault();loginSubmitted(this)">
+      <div class="form-row"><input type="email" placeholder="E-mail" required></div>
+      <div class="form-row"><input type="password" placeholder="Пароль" required></div>
+      <button type="submit" class="form-submit">Войти</button>
+      <p class="switch-link">
+        <a href="#" onclick="event.preventDefault();alert('Прототип: восстановление пароля — отдельный сценарий, оформляется письмом');">Забыли пароль?</a>
+        &nbsp;·&nbsp;
+        <a href="#" onclick="event.preventDefault();closeLogin();window.scrollTo({top:0,behavior:'smooth'});">Стать партнёром</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<button class="chat-icon" onclick="alert('Прототип: иконка чата (без всплывающего приглашения) · по ТЗ')" title="Чат">💬</button>
+<button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Наверх">↑</button>
+
+<script>
+  const PALETTE = [
+    {n:'Ink Black',     c:'#1a1a1a'}, {n:'Charcoal',      c:'#3a3a3a'},
+    {n:'Shimmer Gold',  c:'#c9a96e'}, {n:'Antique Gold',  c:'#d4af37'},
+    {n:'Rose Quartz',   c:'#b76e79'}, {n:'Champagne',     c:'#eadbc8'},
+    {n:'Mocha',         c:'#a5897a'}, {n:'Cocoa',         c:'#7a5c4a'},
+    {n:'Sand',          c:'#9c8b7a'}, {n:'Linen',         c:'#c5b8a5'},
+    {n:'Ivory',         c:'#e8d5b7'}, {n:'Terracotta',    c:'#a8654b'},
+    {n:'Espresso',      c:'#6b4423'}, {n:'Burgundy',      c:'#4a2c2a'},
+    {n:'Bronze',        c:'#8c7853'}, {n:'Pearl',         c:'#d9c2a6'},
+    {n:'Brass',         c:'#bda06a'}, {n:'Steel Blue',    c:'#7a8a99'},
+    {n:'Sage',          c:'#a4b0a8'}, {n:'Slate',         c:'#5d6b6e'},
+    {n:'Mist',          c:'#cfd4cd'}, {n:'Periwinkle',    c:'#8e9aaf'},
+    {n:'Silver',        c:'#b8b8b8'}, {n:'Graphite',      c:'#525252'},
+    {n:'Blush',         c:'#e0b6a3'}, {n:'Coral Dust',    c:'#c08877'},
+    {n:'Rust',          c:'#9b6a55'}, {n:'Wheat',         c:'#d2b48c'},
+    {n:'Taupe',         c:'#8b7e74'}, {n:'Walnut',        c:'#6c5a48'},
+    {n:'Khaki',         c:'#bca58a'}, {n:'Cream',         c:'#e6d3bb'},
+    {n:'Olive',         c:'#9aa07a'}, {n:'Forest',        c:'#525c45'},
+    {n:'Mauve',         c:'#a48ba0'}, {n:'Plum',          c:'#6b4858'},
+    {n:'Powder',        c:'#dbe0e3'}, {n:'Carbon',        c:'#2a2a2a'},
+    {n:'Honey',         c:'#d6a247'}, {n:'Smoke',         c:'#7e7e7e'}
+  ];
+  const PRODUCTS = [
+    {n:'Capella',   art:'WS-CAP-001', type:'Серьги',  pal:[2,4,5,11,24]},
+    {n:'Lyra',      art:'WS-LYR-002', type:'Колье',   pal:[0,3,8,9,38]},
+    {n:'Vega',      art:'WS-VEG-003', type:'Браслет', pal:[6,7,12,30]},
+    {n:'Sirius',    art:'WS-SIR-004', type:'Кольцо',  pal:[2,0,3,16]},
+    {n:'Polaris',   art:'WS-POL-005', type:'Кулон',   pal:[8,17,18,20]},
+    {n:'Andromeda', art:'WS-AND-006', type:'Серьги',  pal:[34,35,4,25]},
+    {n:'Orion',     art:'WS-ORI-007', type:'Колье',   pal:[1,2,3,23]},
+    {n:'Cassiopea', art:'WS-CAS-008', type:'Браслет', pal:[28,29,30,15]}
+  ];
+
+  (function buildTeaser() {
+    const grid = document.getElementById('catalog-teaser-grid');
+    PRODUCTS.forEach((pr, i) => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      const total = 30 + (i % 16);
+      const remaining = total - pr.pal.length;
+      const swatches = pr.pal.map(idx => `<span class="ps" style="background:${PALETTE[idx].c}" title="${PALETTE[idx].n}"></span>`).join('');
+      card.innerHTML = `
+        <div class="product-photo">
+          <div class="product-pill">${pr.type}</div>
+          <div class="ph-label">фото · ${pr.n}</div>
+        </div>
+        <div class="product-info">
+          <div class="p-name">«${pr.n}»</div>
+          <div class="p-art">${pr.art}</div>
+          <div class="product-swatches">${swatches}<span class="more">+${remaining}</span></div>
+          <div class="p-meta">Оттенков: <b>${total}</b> · цена&nbsp;— в&nbsp;ЛК</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  })();
+
+  (function buildPaletteMini() {
+    const wall = document.getElementById('pm-wall');
+    PALETTE.forEach((p) => {
+      const el = document.createElement('div');
+      el.className = 'sw';
+      el.style.background = p.c;
+      el.title = p.n + ' · ' + p.c;
+      wall.appendChild(el);
+    });
+  })();
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('toTop').classList.toggle('show', window.scrollY > window.innerHeight);
+  });
+
+  function openLogin() { document.getElementById('modal-login').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeLogin() { document.getElementById('modal-login').classList.remove('open'); document.body.style.overflow=''; }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLogin(); });
+
+  function formSubmitted(form) {
+    form.innerHTML = '<h4 style="text-align:center;padding:30px 0;color:var(--shimmer);font-size:24px">✓ Заявка отправлена</h4><p style="text-align:center;color:var(--ink-mid);margin-bottom:20px">Это прототип — реальной отправки не происходит.<br>В&nbsp;финале заявка уйдёт менеджеру на&nbsp;e-mail.</p>';
+  }
+  function loginSubmitted(form) {
+    form.innerHTML = '<h4 style="text-align:center;padding:30px 0;color:var(--shimmer)">⌧ Доступ закрыт</h4><p style="text-align:center;color:var(--ink-mid);margin-bottom:20px">Это прототип — авторизация пока заглушка.<br>В&nbsp;финале здесь будет вход в&nbsp;ЛК для&nbsp;дистрибьюторов.</p>';
+  }
+</script>
+
+</body>
+</html>
