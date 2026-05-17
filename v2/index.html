@@ -78,7 +78,7 @@
   /* HERO IMAGICAL — fullscreen, заполняет окно минус шапку */
   .hero-image {
     position: relative; width: 100%;
-    height: calc(100vh - 170px); min-height: 420px;
+    height: calc(100vh - 80px); min-height: 420px;
     background: var(--ink); overflow: hidden;
     border-bottom: var(--stroke) solid var(--ink);
   }
@@ -371,26 +371,6 @@
 </style>
 </head>
 <body>
-
-<div class="proto-banner">
-  <span class="home"><a href="../">← К сравнению</a></span>
-  <span class="label">✏️ ПРОТОТИП ГЛАВНОЙ · A «Витрина-якорь»</span>
-  <span class="sub">Цвета, шрифты и фото — на этапе дизайна</span>
-  <span class="switcher">
-    <a href="../v2/" class="active">A · Витрина</a>
-    <a href="../v3/">B · Бренд-витрина</a>
-  </span>
-</div>
-
-<div class="sitemap-stripe">
-  <span class="sm-label">📁 Карта сайта:</span>
-  <a href="#" class="current" onclick="event.preventDefault()">Главная (здесь)</a>
-  <a href="#" onclick="event.preventDefault();showStub('Каталог')">Каталог · розница</a>
-  <a href="#" onclick="event.preventDefault();showStub('Карточка товара')">Карточка</a>
-  <a href="#" onclick="event.preventDefault();showStub('О бренде')">О бренде</a>
-  <a href="#" onclick="event.preventDefault();showStub('Контакты')">Контакты + маркетплейсы</a>
-  <a href="#" onclick="event.preventDefault();openLogin()">🔒 ЛК партнёра · опт</a>
-</div>
 
 <header>
   <div class="wrap header-inner">
