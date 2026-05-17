@@ -77,11 +77,63 @@
   .btn-solid:hover, .btn-outline-sk:hover { box-shadow: 3px 3px 0 rgba(0,0,0,0.25); transform: translate(-1px, -1px); }
   .annotation { background: var(--hl); border: 1px dashed var(--hl-border); padding: 3px 10px; font-size: 14px; color: #8a6800; margin-left: 10px; display: inline-block; }
 
-  /* HERO IMAGICAL — общий */
+  /* HERO IMAGICAL — общий, для V3 «бренд-классика» */
   .hero-image {
     position: relative; width: 100%; height: 560px;
     background: var(--ink); overflow: hidden;
     border-bottom: var(--stroke) solid var(--ink);
+  }
+  .hero-image .hero-tagline {
+    font-size: 22px; color: white; max-width: 600px; line-height: 1.35;
+    margin-bottom: 12px; font-weight: 600;
+  }
+  .hero-image .hero-tagline .accent { color: var(--shimmer); }
+
+  /* Партнёрский блок (компактный) */
+  .partner-strip {
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px;
+    align-items: center; padding: 32px;
+    background: white; border: 2px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink-faint);
+  }
+  .partner-strip .ps-left h3 { font-size: 24px; margin-bottom: 12px; color: var(--ink); }
+  .partner-strip .ps-left p { font-size: 16px; color: var(--ink-mid); line-height: 1.55; margin-bottom: 18px; }
+  .partner-strip .ps-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .partner-strip .ps-flow { display: grid; gap: 8px; }
+  .partner-strip .ps-step {
+    background: var(--paper); border: 1px solid var(--ink-faint);
+    padding: 10px 14px; font-size: 15px; color: var(--ink-mid);
+  }
+  .partner-strip .ps-step b {
+    display: inline-block; background: var(--shimmer); color: white;
+    padding: 1px 8px; font-size: 13px; margin-right: 8px; font-weight: 700;
+  }
+
+  /* Контакты — финальный блок */
+  .contacts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .contact-card {
+    background: white; border: 2px solid var(--ink);
+    padding: 22px 20px; text-decoration: none; color: var(--ink);
+    transition: transform 0.1s, box-shadow 0.1s; display: block;
+    font-family: 'Caveat', cursive;
+  }
+  .contact-card.dark { background: var(--ink); color: white; border-color: var(--ink); cursor: pointer; }
+  .contact-card.dark h4 { color: white; }
+  .contact-card.dark p { color: rgba(255,255,255,0.5); }
+  .contact-card.dark .cc-icon { color: var(--shimmer); }
+  .contact-card:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink-faint); }
+  .contact-card .cc-icon { font-size: 28px; margin-bottom: 8px; }
+  .contact-card h4 { font-size: 19px; margin-bottom: 4px; }
+  .contact-card p { font-size: 14px; color: var(--ink-mid); }
+
+  /* Адаптив новых блоков */
+  @media (max-width: 980px) {
+    .partner-strip { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+    .contacts-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .contacts-grid { grid-template-columns: 1fr 1fr; }
+    .hero-image .hero-tagline { font-size: 17px; }
   }
   .hero-image .hero-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
   .hero-image .hero-svg svg { width: 100%; height: 100%; display: block; }
@@ -267,6 +319,13 @@
   .product-swatches .more { background: white; border: 1px dashed var(--ink-faint); font-size: 11px; color: var(--ink-light); display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; min-width: 24px; height: 14px; }
   .product-info .p-meta { font-size: 13px; color: var(--ink-light); }
   .product-info .p-meta b { color: var(--ink); }
+  /* Блок цены в карточке */
+  .product-info .p-price { padding: 10px 0 4px; border-top: 1px dashed var(--ink-faint); margin-top: 8px; }
+  .product-info .p-retail { font-size: 22px; font-weight: 700; color: var(--ink); line-height: 1; }
+  .product-info .p-retail-tag { font-size: 11px; font-weight: normal; color: var(--ink-light); text-transform: uppercase; letter-spacing: 1px; margin-left: 6px; }
+  .product-info .p-opt { font-size: 13px; color: var(--ink-mid); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+  .product-info .p-opt::before { content: '🔒'; font-size: 11px; opacity: 0.6; }
+  .product-info .p-opt a { color: var(--shimmer); text-decoration: none; border-bottom: 1px dashed var(--shimmer); }
 
   .teaser-cta {
     margin-top: 22px; padding: 18px 22px;
@@ -384,7 +443,7 @@
 
 <div class="proto-banner">
   <span class="home"><a href="../">← К сравнению</a></span>
-  <span class="label">✏️ ПРОТОТИП ГЛАВНОЙ · V3 «Партнёрство-якорь»</span>
+  <span class="label">✏️ ПРОТОТИП ГЛАВНОЙ · V3 «Бренд-витрина»</span>
   <span class="sub">Цвета, шрифты и фото — на этапе дизайна</span>
   <span class="switcher">
     <a href="../v1/">V1</a>
@@ -413,13 +472,14 @@
       </div>
     </div>
     <nav class="menu">
-      <a href="#" onclick="event.preventDefault();showStub('Каталог')">Каталог</a>
-      <a href="#" onclick="event.preventDefault();showStub('О бренде')">О бренде</a>
-      <a href="#" onclick="event.preventDefault();showStub('Контакты')">Контакты</a>
+      <a href="#katalog">Каталог</a>
+      <a href="#brand">О бренде</a>
+      <a href="#where-to-buy">Где купить</a>
+      <a href="#contacts">Контакты</a>
     </nav>
     <div class="header-right">
       <span class="phone-sketch">+7 (___) ___-__-__</span>
-      <button class="btn-outline-sk" onclick="openLogin()">Войти в&nbsp;ЛК</button>
+      <button class="btn-outline-sk" onclick="openLogin()">Вход для&nbsp;партнёров</button>
     </div>
   </div>
 </header>
@@ -490,131 +550,77 @@
     </svg>
   </div>
   <div class="hero-overlay">
-    <div class="hero-pre">✨ розница на&nbsp;витрине · опт после входа</div>
     <div class="hero-logo">WOW<span class="accent">SHIMMER</span></div>
-    <div class="hero-tag">бижутерия · опт и&nbsp;розница</div>
-    <h1 class="hero-h1">
-      Станьте дистрибьютором <span class="accent">WOWSHIMMER.</span>
-    </h1>
+    <div class="hero-tagline">Бижутерия в&nbsp;выразительной <span class="accent">палитре оттенков</span></div>
     <p class="hero-sub">
-      Каталог открыт для&nbsp;всех — розничные цены видны без&nbsp;регистрации.
-      Партнёры после авторизации получают оптовые цены и&nbsp;оформляют заявки одним кликом.
+      Коллекции украшений для&nbsp;повседневных и&nbsp;акцентных образов,
+      доступные в&nbsp;разных цветовых решениях.
     </p>
     <div class="hero-cta">
-      <button class="btn-solid-shimmer" onclick="document.getElementById('anchor-form').scrollIntoView({behavior:'smooth'})">Стать партнёром →</button>
-      <button class="btn-outline-w" onclick="showStub('Каталог')">Каталог</button>
-      <button class="btn-outline-w" onclick="openLogin()">Войти в&nbsp;ЛК</button>
+      <button class="btn-solid-shimmer" onclick="document.getElementById('katalog').scrollIntoView({behavior:'smooth'})">Смотреть каталог →</button>
+      <button class="btn-outline-w" onclick="document.getElementById('where-to-buy').scrollIntoView({behavior:'smooth'})">Где купить</button>
     </div>
   </div>
 </div>
 
-<!-- ЯКОРЬ V3 · ФОРМА + ЦИФРЫ -->
-<section class="anchor-section" id="anchor-form">
+<!-- БЛОК 1 · КАТАЛОГ-ТИЗЕР -->
+<section id="katalog">
   <div class="wrap">
-    <span class="anchor-tag">✎ якорь V3 · партнёрство</span>
-    <div class="section-title">Открыть доступ в&nbsp;ЛК — за&nbsp;1 день
-      <span class="annotation">главное действие сайта · оно сразу под имиджем</span>
+    <div class="catalog-teaser-head">
+      <div>
+        <div class="section-num">Блок 1 · Каталог</div>
+        <div class="section-title">Серьги, подвески и&nbsp;кольца
+          <span class="annotation">✎ публичный каталог · розничные цены</span>
+        </div>
+        <p style="font-size:17px;color:var(--ink-mid);max-width:640px;margin-top:8px">
+          8 моделей с&nbsp;кристаллами Swarovski и&nbsp;фианитами. На&nbsp;витрине&nbsp;— розничные цены.
+          Оптовые цены доступны партнёрам после входа в&nbsp;кабинет.
+        </p>
+      </div>
+      <button class="btn-outline-sk on-paper" onclick="showStub('Каталог')">Смотреть все →</button>
+    </div>
+
+    <div class="catalog-teaser-grid" id="catalog-grid">
+      <!-- 8 карточек, генерируются JS -->
+    </div>
+
+    <div class="teaser-cta">
+      <div>💡 На&nbsp;витрине каталога&nbsp;— фото, тип, палитра оттенков и&nbsp;<b>розничная цена</b>. После входа в&nbsp;ЛК партнёра цены сменяются на&nbsp;оптовые.</div>
+      <button class="btn-outline-sk on-paper" onclick="showStub('Каталог')">Полный каталог →</button>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 2 · ПАЛИТРА ОТТЕНКОВ -->
+<section id="palette" style="background:var(--paper-dark)">
+  <div class="wrap">
+    <div class="section-num">Блок 2 · Палитра оттенков</div>
+    <div class="section-title">Каждая модель в&nbsp;большой палитре
+      <span class="annotation">✎ цвета кристаллов — УТП бренда</span>
     </div>
     <p class="section-desc">
-      Заявка → менеджер связывается в&nbsp;течение рабочего дня → доступ в&nbsp;закрытый ЛК
-      с&nbsp;ценами и&nbsp;сборкой заказа.
+      Подбирайте украшения под&nbsp;стиль, сезон, коллекцию или&nbsp;конкретный образ.
+      Для&nbsp;разных моделей доступны десятки цветовых вариантов кристалла.
     </p>
 
-    <div class="anchor-grid">
-      <div class="anchor-left">
-        <h3>Что вы&nbsp;получите</h3>
-        <p>Закрытый каталог с&nbsp;ценами. Сборку заказа в&nbsp;одном окне. Отправку состава менеджеру одним кликом. Подтверждение на&nbsp;экран и&nbsp;e-mail.</p>
-        <div class="hero-nums">
-          <div class="hn"><b>8</b><span>моделей<br>в&nbsp;линейке</span></div>
-          <div class="hn"><b>30–45</b><span>оттенков<br>на&nbsp;каждую</span></div>
-          <div class="hn"><b>1&nbsp;день</b><span>среднее время<br>ответа *</span></div>
-        </div>
-        <div class="hero-trust">
-          <span class="ht-dot"></span> Только B2B
-          <span class="ht-dot"></span> e-mail-заказы
-          <span class="ht-dot"></span> Без&nbsp;онлайн-оплаты
-          <span class="ht-dot"></span> Шифрованный ЛК
-        </div>
+    <div class="palette-mini">
+      <div class="pm-head">
+        <h3>Демонстрационная палитра · 40 оттенков</h3>
+        <span>Финальный набор&nbsp;— из&nbsp;ассортимента</span>
       </div>
-
-      <form class="hero-form" onsubmit="event.preventDefault();formSubmitted(this)">
-        <span class="hf-tag">Заявка партнёра</span>
-        <h3>Открыть доступ в&nbsp;ЛК</h3>
-        <p class="hf-sub">Менеджер свяжется в&nbsp;течение рабочего дня</p>
-        <div class="form-row">
-          <label>Как обращаться</label>
-          <input type="text" placeholder="Имя и&nbsp;название магазина" required>
-        </div>
-        <div class="form-row">
-          <label>Телефон</label>
-          <input type="tel" placeholder="+7 (___) ___-__-__" required>
-        </div>
-        <div class="form-row">
-          <label>E-mail</label>
-          <input type="email" placeholder="на этот адрес придёт доступ" required>
-        </div>
-        <div class="form-row check-line">
-          <input type="checkbox" id="h-consent" required>
-          <label for="h-consent" style="text-transform:none;letter-spacing:0;color:var(--ink-mid);font-size:13px;margin:0">
-            Согласна на&nbsp;обработку ПД и&nbsp;<a href="#" onclick="event.preventDefault()" style="color:var(--shimmer)">политику конфиденциальности</a>
-          </label>
-        </div>
-        <button type="submit" class="form-submit">Стать партнёром →</button>
-        <p class="hf-foot">Уже есть доступ? <a href="#" onclick="event.preventDefault();openLogin()" style="color:var(--shimmer);border-bottom:1px dashed var(--shimmer);text-decoration:none">Войти в&nbsp;ЛК</a></p>
-      </form>
+      <div class="pm-wall" id="pm-wall">
+        <!-- свотчи генерируются JS -->
+      </div>
     </div>
   </div>
 </section>
 
-<!-- БЛОК 1 · УСЛОВИЯ ПАРТНЁРСТВА (главный блок в этом варианте) -->
-<section id="partner" style="background: var(--paper) !important">
-  <div class="wrap">
-    <div class="section-num">Блок 1 · Как стать дистрибьютором</div>
-    <div class="section-title">Четыре шага · никаких бумаг
-      <span class="annotation">✎ B2B-flow по брифу — главный блок этого варианта</span>
-    </div>
-    <p class="section-desc">Весь процесс через сайт. Заявка → одобрение → доступ в&nbsp;ЛК → первый заказ.</p>
-
-    <div class="terms-anchor">
-      <div class="ta-card">
-        <div class="ta-num">01</div>
-        <h4>Оставьте заявку</h4>
-        <p>Имя, телефон, e-mail, согласие на&nbsp;обработку ПД. Менеджер свяжется в&nbsp;течение рабочего дня.</p>
-        <div class="ta-meta">Время · 2 минуты</div>
-      </div>
-      <div class="ta-card">
-        <div class="ta-num">02</div>
-        <h4>Откроем оптовые цены</h4>
-        <p>После одобрения присылаем доступ в&nbsp;ЛК. На&nbsp;витрине каталога розничные цены сменяются на&nbsp;оптовые&nbsp;— на&nbsp;тех&nbsp;же товарах.</p>
-        <div class="ta-meta">Срок · 1 рабочий день *</div>
-      </div>
-      <div class="ta-card">
-        <div class="ta-num">03</div>
-        <h4>Соберите заказ</h4>
-        <p>Выбирайте модели и&nbsp;оттенки, указывайте количество по&nbsp;каждой позиции в&nbsp;одной форме.</p>
-        <div class="ta-meta">Минималка · обсуждается *</div>
-      </div>
-      <div class="ta-card">
-        <div class="ta-num">04</div>
-        <h4>Отправьте на&nbsp;почту</h4>
-        <p>Состав уходит менеджеру одним кликом. Вам приходит экранное и&nbsp;e-mail подтверждение.</p>
-        <div class="ta-meta">Оплата · по&nbsp;договорённости</div>
-      </div>
-    </div>
-
-    <div class="terms-foot">
-      <div class="tf-text">Готовы? Заявка обрабатывается <b>в&nbsp;течение рабочего&nbsp;дня</b>.</div>
-      <button class="btn-solid" onclick="document.getElementById('anchor-form').scrollIntoView({behavior:'smooth'})">Заполнить заявку ↑</button>
-    </div>
-  </div>
-</section>
-
-<!-- БЛОК 2 · О БРЕНДЕ -->
+<!-- БЛОК 3 · О БРЕНДЕ -->
 <section id="brand">
   <div class="wrap">
-    <div class="section-num">Блок 2 · О бренде</div>
-    <div class="section-title">Кто такие WOWSHIMMER
-      <span class="annotation">✎ блок доверия для потенциального партнёра</span>
+    <div class="section-num">Блок 3 · О бренде</div>
+    <div class="section-title">О WOWSHIMMER
+      <span class="annotation">✎ короткий имиджевый блок · подробная страница отдельно</span>
     </div>
 
     <div class="about-grid">
@@ -623,23 +629,122 @@
         <div class="ph-label">Имиджевое фото · витрина шоурума</div>
       </div>
       <div class="about-text">
-        <h3>Оптовый бренд бижутерии</h3>
+        <h3>Минимализм + цвет</h3>
         <p>
-          Делаем простые силуэты в&nbsp;широкой цветовой палитре&nbsp;— чтобы каждая партнёрша
-          собрала ассортимент под&nbsp;свой бренд и&nbsp;аудиторию. Средне-бюджетный сегмент,
-          узнаваемый минималистичный стиль.
+          WOWSHIMMER&nbsp;— российский бренд бижутерии с&nbsp;кристаллами Swarovski и&nbsp;фианитами.
+          Серьги-пусеты, штанги, подвески и&nbsp;кольца, доступные в&nbsp;десятках цветовых решений.
         </p>
         <p>
-          Работаем только с&nbsp;дистрибьюторами по&nbsp;всей России. Конечному покупателю на&nbsp;этом сайте
-          ничего не&nbsp;продаём&nbsp;— для&nbsp;него у&nbsp;нас есть Wildberries, Ozon и&nbsp;Instagram.
+          Узнаваемый минималистичный стиль, аккуратность работы, широкий ассортимент оттенков&nbsp;—
+          для&nbsp;тех, кто собирает образ с&nbsp;деталью, а&nbsp;не&nbsp;кричит.
         </p>
-        <div class="about-bullets">
-          <div class="ab"><b>Россия</b>География работы</div>
-          <div class="ab"><b>20XX</b>На&nbsp;рынке с&nbsp;*</div>
-          <div class="ab"><b>30–45</b>Оттенков на&nbsp;модель</div>
-          <div class="ab"><b>e-mail</b>Канал заказов</div>
+        <button class="btn-outline-sk on-paper" onclick="showStub('О бренде')" style="margin-top:8px">Подробнее о&nbsp;бренде →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 4 · ГДЕ КУПИТЬ -->
+<section id="where-to-buy" style="background:var(--paper-dark)">
+  <div class="wrap">
+    <div class="section-num">Блок 4 · Где купить</div>
+    <div class="section-title">Где купить WOWSHIMMER
+      <span class="annotation">✎ для конечного покупателя · розничные каналы</span>
+    </div>
+    <p class="section-desc">
+      Розничные покупки идут через маркетплейсы и&nbsp;соцсети&nbsp;— выберите удобный канал.
+    </p>
+
+    <div class="channels-grid">
+      <a href="#" class="channel-card" onclick="event.preventDefault()">
+        <div class="ch-icon">🛍</div>
+        <h4>Wildberries</h4>
+        <p>Розничная витрина · доставка по&nbsp;РФ</p>
+      </a>
+      <a href="#" class="channel-card" onclick="event.preventDefault()">
+        <div class="ch-icon">📦</div>
+        <h4>Ozon</h4>
+        <p>Магазин SWAROKA · доставка по&nbsp;РФ</p>
+      </a>
+      <a href="#" class="channel-card" onclick="event.preventDefault()">
+        <div class="ch-icon">📷</div>
+        <h4>Instagram</h4>
+        <p>Витрина новинок · @wowshimmer</p>
+      </a>
+      <a href="#" class="channel-card" onclick="event.preventDefault()">
+        <div class="ch-icon">💬</div>
+        <h4>Telegram</h4>
+        <p>Канал с&nbsp;анонсами и&nbsp;обновлениями</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 5 · ДЛЯ ПАРТНЁРОВ (компактный) -->
+<section id="partners">
+  <div class="wrap">
+    <div class="section-num">Блок 5 · Партнёрам</div>
+    <div class="section-title">Для магазинов, шоурумов и&nbsp;оптовых клиентов
+      <span class="annotation">✎ B2B-блок · не&nbsp;кричит, но&nbsp;виден</span>
+    </div>
+
+    <div class="partner-strip">
+      <div class="ps-left">
+        <h3>Хотите работать с&nbsp;WOWSHIMMER оптом?</h3>
+        <p>
+          Оставьте заявку или войдите в&nbsp;кабинет. После подтверждения доступа
+          в&nbsp;каталоге появятся оптовые цены, и&nbsp;можно собрать заявку из&nbsp;выбранных
+          товаров и&nbsp;цветов&nbsp;— она уходит менеджеру на&nbsp;e-mail.
+        </p>
+        <div class="ps-actions">
+          <button class="btn-solid" style="background:var(--shimmer);border-color:var(--shimmer);color:white" onclick="openModal()">Получить партнёрский доступ</button>
+          <button class="btn-outline-sk on-paper" onclick="openLogin()">Войти в&nbsp;кабинет</button>
         </div>
       </div>
+      <div class="ps-right">
+        <div class="ps-flow">
+          <div class="ps-step"><b>01</b> Оставьте заявку</div>
+          <div class="ps-step"><b>02</b> Менеджер одобрит</div>
+          <div class="ps-step"><b>03</b> Опт-цены в&nbsp;ЛК</div>
+          <div class="ps-step"><b>04</b> Сбор заявки → e-mail</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК 6 · КОНТАКТЫ / ФИНАЛЬНЫЙ CTA -->
+<section id="contacts" style="background:var(--paper-dark)">
+  <div class="wrap">
+    <div class="section-num">Блок 6 · Контакты</div>
+    <div class="section-title">Остались вопросы?
+      <span class="annotation">✎ финальный CTA · все каналы связи</span>
+    </div>
+    <p class="section-desc">
+      Напишите нам — расскажем про&nbsp;ассортимент, условия партнёрства и&nbsp;доставку.
+    </p>
+
+    <div class="contacts-grid">
+      <a href="#" class="contact-card" onclick="event.preventDefault();showStub('Контакты')">
+        <div class="cc-icon">💬</div>
+        <h4>Telegram</h4>
+        <p>Самый быстрый канал</p>
+      </a>
+      <a href="#" class="contact-card" onclick="event.preventDefault();showStub('Контакты')">
+        <div class="cc-icon">📧</div>
+        <h4>E-mail</h4>
+        <p>info@wowshimmer.ru</p>
+      </a>
+      <a href="#" class="contact-card" onclick="event.preventDefault();showStub('Контакты')">
+        <div class="cc-icon">📞</div>
+        <h4>Телефон</h4>
+        <p>+7 (___) ___-__-__</p>
+      </a>
+      <button class="contact-card dark" onclick="openModal()">
+        <div class="cc-icon">✦</div>
+        <h4>Партнёрская заявка</h4>
+        <p>Заявка на&nbsp;опт-доступ</p>
+      </button>
     </div>
   </div>
 </section>
@@ -658,9 +763,9 @@
       </div>
       <div>
         <h5>Партнёрам</h5>
-        <a href="#partner">Условия партнёрства</a>
+        <a href="#partners">Опт-доступ (на&nbsp;этой стр.)</a>
         <a href="#" onclick="event.preventDefault();openLogin()">Войти в&nbsp;ЛК</a>
-        <a href="#anchor-form" onclick="event.preventDefault();document.getElementById('anchor-form').scrollIntoView({behavior:'smooth'})">Стать партнёром</a>
+        <a href="#" onclick="event.preventDefault();openModal()">Стать партнёром</a>
       </div>
       <div>
         <h5>Страницы</h5>
@@ -683,6 +788,27 @@
   </div>
 </footer>
 
+<!-- МОДАЛКА: заявка партнёра -->
+<div class="modal-bg" id="modal-form" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="close" onclick="closeModal()">×</button>
+    <h3>Заявка партнёра</h3>
+    <p class="modal-sub">Менеджер свяжется в&nbsp;течение рабочего дня</p>
+    <form onsubmit="event.preventDefault();formSubmitted(this)">
+      <div class="form-row"><input type="text" placeholder="Имя и&nbsp;название магазина" required></div>
+      <div class="form-row"><input type="tel" placeholder="+7 (___) ___-__-__" required></div>
+      <div class="form-row"><input type="email" placeholder="E-mail — придёт доступ в ЛК" required></div>
+      <div class="form-row check-line">
+        <input type="checkbox" required id="m-consent">
+        <label for="m-consent" style="text-transform:none;letter-spacing:0;color:var(--ink-mid);font-size:14px;margin:0">
+          Согласна на&nbsp;обработку персональных данных
+        </label>
+      </div>
+      <button type="submit" class="form-submit">Отправить заявку →</button>
+    </form>
+  </div>
+</div>
+
 <!-- МОДАЛКА: вход в ЛК -->
 <div class="modal-bg" id="modal-login" onclick="if(event.target===this)closeLogin()">
   <div class="modal">
@@ -696,7 +822,7 @@
       <p class="switch-link">
         <a href="#" onclick="event.preventDefault();alert('Прототип: восстановление пароля — отдельный сценарий, оформляется письмом');">Забыли пароль?</a>
         &nbsp;·&nbsp;
-        <a href="#" onclick="event.preventDefault();closeLogin();document.getElementById('anchor-form').scrollIntoView({behavior:'smooth'});">Стать партнёром</a>
+        <a href="#" onclick="event.preventDefault();closeLogin();openModal();">Стать партнёром</a>
       </p>
     </form>
   </div>
@@ -728,27 +854,70 @@
     {n:'Powder',        c:'#dbe0e3'}, {n:'Carbon',        c:'#2a2a2a'},
     {n:'Honey',         c:'#d6a247'}, {n:'Smoke',         c:'#7e7e7e'}
   ];
-  // Реальный ассортимент по витрине Ozon (V3 их не рендерит — данные для консистентности)
+  // Реальный ассортимент + розничные цены по витрине Ozon
   const PRODUCTS = [
-    {n:'Серьги-пусеты Swarovski 4 мм',      art:'WS-SP4-001', type:'Серьги',   pal:[2,4,5,11,24]},
-    {n:'Серьги-пусеты Swarovski 6 мм',      art:'WS-SP6-002', type:'Серьги',   pal:[0,3,8,9,38]},
-    {n:'Серьги-пусеты Swarovski 8 мм',      art:'WS-SP8-003', type:'Серьги',   pal:[6,7,12,30]},
-    {n:'Серьга-штанга Swarovski 4 мм',      art:'WS-SH4-004', type:'Серьга',   pal:[2,0,3,16]},
-    {n:'Серьга-штанга Swarovski 6 мм',      art:'WS-SH6-005', type:'Серьга',   pal:[8,17,18,20]},
-    {n:'Подвеска на леске Swarovski 8 мм',  art:'WS-PL8-006', type:'Подвеска', pal:[34,35,4,25]},
-    {n:'Кольцо помолвочное Swarovski',      art:'WS-RNG-007', type:'Кольцо',   pal:[1,2,3,23]},
-    {n:'Серьги-гвоздики «сердечки» фианит', art:'WS-HRT-008', type:'Серьги',   pal:[28,29,30,15]}
+    {n:'Серьги-пусеты Swarovski 4 мм',      art:'WS-SP4-001', type:'Серьги',   retail:634, pal:[2,4,5,11,16,24]},
+    {n:'Серьги-пусеты Swarovski 6 мм',      art:'WS-SP6-002', type:'Серьги',   retail:732, pal:[0,3,8,9,10,38]},
+    {n:'Серьги-пусеты Swarovski 8 мм',      art:'WS-SP8-003', type:'Серьги',   retail:862, pal:[6,7,12,24,30,11]},
+    {n:'Серьга-штанга Swarovski 4 мм',      art:'WS-SH4-004', type:'Серьга',   retail:572, pal:[2,0,3,5,16]},
+    {n:'Серьга-штанга Swarovski 6 мм',      art:'WS-SH6-005', type:'Серьга',   retail:551, pal:[8,9,17,18,20]},
+    {n:'Подвеска на леске Swarovski 8 мм',  art:'WS-PL8-006', type:'Подвеска', retail:753, pal:[34,35,4,25,26]},
+    {n:'Кольцо помолвочное Swarovski',      art:'WS-RNG-007', type:'Кольцо',   retail:940, pal:[1,2,3,5,23]},
+    {n:'Серьги-гвоздики «сердечки» фианит', art:'WS-HRT-008', type:'Серьги',   retail:540, pal:[28,29,30,11,15]}
   ];
 
-  // V3 trimmed: catalog/palette/LK/channels removed — они отдельные страницы
+  // Каталог-тизер: карточки товаров с розничной ценой + бейдж «опт в ЛК»
+  (function buildTeaser() {
+    const grid = document.getElementById('catalog-grid');
+    if (!grid) return;
+    PRODUCTS.forEach((pr, i) => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      const total = 30 + (i % 16);
+      const remaining = total - pr.pal.length;
+      const swatches = pr.pal.map(idx => `<span class="ps" style="background:${PALETTE[idx].c}" title="${PALETTE[idx].n}"></span>`).join('');
+      card.innerHTML = `
+        <div class="product-photo">
+          <div class="product-pill">${pr.type}</div>
+          <div class="ph-label">фото · ${pr.n}</div>
+        </div>
+        <div class="product-info">
+          <div class="p-name">${pr.n}</div>
+          <div class="p-art">${pr.art}</div>
+          <div class="product-swatches">${swatches}<span class="more">+${remaining}</span></div>
+          <div class="p-meta">Цветов кристалла: <b>${total}</b></div>
+          <div class="p-price">
+            <div class="p-retail">${pr.retail}&nbsp;₽ <span class="p-retail-tag">розница</span></div>
+            <div class="p-opt">опт-цена — <a href="#" onclick="event.preventDefault();openLogin()">в&nbsp;ЛК</a></div>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  })();
+
+  // Палитра — лента 40 свотчей
+  (function buildPaletteMini() {
+    const wall = document.getElementById('pm-wall');
+    if (!wall) return;
+    PALETTE.forEach((p) => {
+      const el = document.createElement('div');
+      el.className = 'sw';
+      el.style.background = p.c;
+      el.title = p.n + ' · ' + p.c;
+      wall.appendChild(el);
+    });
+  })();
 
   window.addEventListener('scroll', () => {
     document.getElementById('toTop').classList.toggle('show', window.scrollY > window.innerHeight);
   });
 
+  function openModal() { document.getElementById('modal-form').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeModal() { document.getElementById('modal-form').classList.remove('open'); document.body.style.overflow=''; }
   function openLogin() { document.getElementById('modal-login').classList.add('open'); document.body.style.overflow='hidden'; }
   function closeLogin() { document.getElementById('modal-login').classList.remove('open'); document.body.style.overflow=''; }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLogin(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeLogin(); } });
 
   function formSubmitted(form) {
     form.innerHTML = '<h4 style="text-align:center;padding:30px 0;color:var(--shimmer);font-size:24px">✓ Заявка отправлена</h4><p style="text-align:center;color:var(--ink-mid);margin-bottom:20px">Это прототип — реальной отправки не происходит.<br>В&nbsp;финале заявка уйдёт менеджеру на&nbsp;e-mail.</p>';
