@@ -77,55 +77,88 @@
   .btn-solid:hover, .btn-outline-sk:hover { box-shadow: 3px 3px 0 var(--ink-faint); transform: translate(-1px, -1px); }
   .btn-shimmer { background: var(--shimmer); color: white; border-color: var(--shimmer); }
 
-  /* HERO */
-  .hero { padding: 56px 0 40px; position: relative; }
-  .hero-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: center; }
-  .hero-badge {
-    display: inline-block; padding: 4px 12px; background: white;
-    border: 1px solid var(--ink-light); font-size: 13px; color: var(--ink-mid);
-    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 18px;
+  /* HERO IMAGICAL — общий для всех вариантов */
+  .hero-image {
+    position: relative; width: 100%; height: 560px;
+    background: var(--ink); overflow: hidden;
+    border-bottom: var(--stroke) solid var(--ink);
   }
-  .hero h1 { font-size: 54px; font-weight: 700; line-height: 1.05; margin-bottom: 16px; }
-  .hero h1 .accent { color: var(--shimmer); }
-  .hero-sub { font-size: 18px; color: var(--ink-mid); margin-bottom: 24px; max-width: 460px; line-height: 1.55; }
-  .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
-  .hero-mini-facts { display: flex; gap: 28px; padding-top: 18px; border-top: 1px dashed var(--ink-faint); }
-  .hero-mini-facts .mf { font-size: 14px; color: var(--ink-mid); }
-  .hero-mini-facts .mf b { display: block; font-size: 30px; font-weight: 700; color: var(--ink); line-height: 1; }
+  .hero-image .hero-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .hero-image .hero-svg svg { width: 100%; height: 100%; display: block; }
+  .hero-image .hero-overlay {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 40px 32px; color: white;
+  }
+  .hero-image .hero-pre {
+    display: inline-block; padding: 5px 14px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.3);
+    font-size: 13px; color: rgba(255,255,255,0.85);
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 22px;
+  }
+  .hero-image .hero-logo {
+    font-family: 'Caveat', cursive; font-weight: 700; font-size: 84px;
+    line-height: 1; letter-spacing: 3px; color: white; margin-bottom: 4px;
+  }
+  .hero-image .hero-logo .accent { color: var(--shimmer); }
+  .hero-image .hero-tag {
+    font-size: 14px; color: rgba(255,255,255,0.55);
+    text-transform: uppercase; letter-spacing: 4px; margin-bottom: 26px;
+  }
+  .hero-image .hero-h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin-bottom: 14px; max-width: 760px; }
+  .hero-image .hero-h1 .accent { color: var(--shimmer); }
+  .hero-image .hero-sub { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 560px; line-height: 1.5; margin-bottom: 28px; }
+  .hero-image .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .hero-image .hero-cta .btn-solid { background: var(--shimmer); border-color: var(--shimmer); font-size: 17px; padding: 11px 24px; }
+  .hero-image .hero-cta .btn-outline-sk { color: white; border-color: white; background: transparent; font-size: 17px; padding: 11px 24px; }
+  .hero-image .hero-note {
+    position: absolute; top: 18px; left: 22px; z-index: 3;
+    background: rgba(255,251,230,0.95); border: 1px dashed var(--hl-border);
+    padding: 4px 12px; font-size: 14px; color: #8a6800;
+  }
+  .hero-image .hero-corner {
+    position: absolute; bottom: 14px; right: 22px; z-index: 3;
+    font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 1.5px;
+  }
 
-  /* Палитра-стена */
+  /* Якорь V1 = палитра-стена */
+  .anchor-section { padding: 64px 0; background: var(--paper-dark); }
+  .anchor-section .anchor-tag {
+    display: inline-block; padding: 4px 12px;
+    background: var(--shimmer); color: white;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
   .palette-box {
     background: white; border: var(--stroke) solid var(--ink);
-    padding: 14px; box-shadow: 8px 8px 0 var(--ink-faint);
+    padding: 24px; box-shadow: 8px 8px 0 var(--ink-faint);
     position: relative;
   }
-  .palette-title {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 10px; padding: 0 4px;
-  }
-  .palette-title b { font-size: 16px; color: var(--ink); }
-  .palette-title span { font-size: 13px; color: var(--ink-light); }
+  .palette-box .pb-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+  .palette-box .pb-head h3 { font-size: 24px; }
+  .palette-box .pb-head span { font-size: 14px; color: var(--ink-light); }
   .annotation {
     background: var(--hl); border: 1px dashed var(--hl-border);
     padding: 3px 10px; font-size: 14px; color: #8a6800;
     margin-left: 10px; display: inline-block;
   }
   .swatch-wall {
-    display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px;
+    display: grid; grid-template-columns: repeat(20, 1fr); gap: 3px;
   }
   .swatch {
     aspect-ratio: 1; cursor: pointer; position: relative;
     transition: transform 0.1s;
     border: 1px solid rgba(0,0,0,0.08);
   }
-  .swatch:hover { transform: scale(1.15); z-index: 5; box-shadow: 0 0 0 2px var(--ink); }
+  .swatch:hover { transform: scale(1.3); z-index: 5; box-shadow: 0 0 0 2px var(--ink); }
   .swatch.selected { box-shadow: 0 0 0 3px var(--shimmer); z-index: 4; }
   .swatch-meta {
-    margin-top: 12px; display: flex; justify-content: space-between;
-    font-size: 14px; color: var(--ink-mid); padding: 0 4px;
+    margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--ink-faint);
+    display: flex; justify-content: space-between;
+    font-size: 16px; color: var(--ink-mid); flex-wrap: wrap; gap: 10px;
   }
   .swatch-meta b { color: var(--ink); }
-  .swatch-meta .picker { display: inline-block; width: 14px; height: 14px; background: var(--shimmer); vertical-align: middle; margin-right: 4px; border: 1px solid var(--ink); }
+  .swatch-meta .picker { display: inline-block; width: 16px; height: 16px; background: var(--shimmer); vertical-align: middle; margin-right: 6px; border: 1px solid var(--ink); }
 
   /* Sections */
   section { padding: 64px 0; position: relative; }
@@ -353,22 +386,26 @@
 
   /* Адаптив */
   @media (max-width: 980px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 32px; }
-    .hero h1 { font-size: 38px; }
+    .hero-image { height: 500px; }
+    .hero-image .hero-logo { font-size: 64px; }
+    .hero-image .hero-h1 { font-size: 30px; }
     .catalog-grid { grid-template-columns: repeat(2, 1fr); }
     .terms-grid { grid-template-columns: repeat(2, 1fr); }
     .channels-grid { grid-template-columns: repeat(2, 1fr); }
     .about-grid, .lk-grid, .form-grid { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     nav.menu { display: none; }
-    .swatch-wall { grid-template-columns: repeat(6, 1fr); }
+    .swatch-wall { grid-template-columns: repeat(10, 1fr); }
   }
   @media (max-width: 540px) {
     .wrap { padding: 0 18px; }
     .section-title { font-size: 28px; }
+    .hero-image { height: 460px; }
+    .hero-image .hero-logo { font-size: 48px; letter-spacing: 1px; }
+    .hero-image .hero-h1 { font-size: 24px; }
+    .hero-image .hero-sub { font-size: 15px; }
     .catalog-grid, .terms-grid, .channels-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
-    .hero h1 { font-size: 32px; }
-    .swatch-wall { grid-template-columns: repeat(5, 1fr); }
+    .swatch-wall { grid-template-columns: repeat(8, 1fr); }
     .phone-sketch { display: none; }
     .about-bullets { grid-template-columns: 1fr; }
   }
@@ -411,45 +448,122 @@
   </div>
 </header>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="wrap">
-    <div class="hero-inner">
-      <div>
-        <span class="hero-badge">✨ WOWSHIMMER · оптовая бижутерия · с 20XX</span>
-        <h1>Соберите ассортимент <span class="accent">в любом оттенке.</span></h1>
-        <p class="hero-sub">
-          B2B-витрина для&nbsp;дистрибьюторов: 8 моделей бижутерии,
-          по&nbsp;30–45 оттенков на&nbsp;каждую. Выберите цвет&nbsp;— и&nbsp;витрина
-          сразу покажет, как товары смотрятся в&nbsp;нём.
-        </p>
-        <div class="hero-btns">
-          <a href="#katalog" class="btn-solid">К каталогу →</a>
-          <button class="btn-outline-sk" onclick="openLogin()">Войти как партнёр</button>
-        </div>
-        <div class="hero-mini-facts">
-          <div class="mf"><b>8</b>товаров</div>
-          <div class="mf"><b>30–45</b>оттенков</div>
-          <div class="mf"><b>1</b>заявка по&nbsp;e-mail *</div>
-        </div>
-      </div>
-
-      <div class="palette-box">
-        <div class="palette-title">
-          <b>✎ Кликните оттенок</b>
-          <span class="annotation">hover — увеличение · click — переокрашивает витрину ниже</span>
-        </div>
-        <div class="swatch-wall" id="swatch-wall">
-          <!-- 40 свотчей, генерируются JS -->
-        </div>
-        <div class="swatch-meta">
-          <span><span class="picker" id="picker-dot"></span>Выбрано: <b id="picker-name">Shimmer Gold</b></span>
-          <span id="picker-code">#c9a96e · 17 из 40</span>
-        </div>
-      </div>
+<!-- HERO IMAGICAL -->
+<div class="hero-image">
+  <span class="hero-note">✎ имидж · видео · фото — подменяется на финальный материал</span>
+  <span class="hero-corner">демо-баннер</span>
+  <div class="hero-svg">
+    <svg viewBox="0 0 1600 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="hatch1" patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="20" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        </pattern>
+        <radialGradient id="spot1" cx="50%" cy="45%" r="55%">
+          <stop offset="0%" stop-color="rgba(201,169,110,0.22)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+      </defs>
+      <rect width="1600" height="720" fill="#1a1a1a"/>
+      <rect width="1600" height="720" fill="url(#hatch1)"/>
+      <rect width="1600" height="720" fill="url(#spot1)"/>
+      <line x1="40" y1="40" x2="1560" y2="680" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="1560" y1="40" x2="40" y2="680" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <rect x="40" y="40" width="1520" height="640" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2" stroke-dasharray="10 8"/>
+      <!-- Левая серьга -->
+      <g opacity="0.85">
+        <circle cx="260" cy="220" r="14" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
+        <line x1="260" y1="234" x2="260" y2="288" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+        <circle cx="260" cy="350" r="62" fill="rgba(255,255,255,0.04)" stroke="#c9a96e" stroke-width="3"/>
+        <circle cx="260" cy="350" r="42" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+        <circle cx="260" cy="350" r="22" fill="rgba(201,169,110,0.35)"/>
+        <ellipse cx="240" cy="330" rx="10" ry="6" fill="rgba(255,255,255,0.4)"/>
+      </g>
+      <!-- Колье -->
+      <g opacity="0.9">
+        <path d="M 600 200 C 700 320 900 320 1000 200" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+        <path d="M 600 200 C 700 320 900 320 1000 200" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="6"/>
+        <line x1="800" y1="305" x2="800" y2="360" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+        <polygon points="800,360 770,400 800,460 830,400" fill="rgba(201,169,110,0.4)" stroke="#c9a96e" stroke-width="2.5"/>
+        <polygon points="800,360 770,400 800,420 830,400" fill="rgba(255,255,255,0.18)"/>
+      </g>
+      <!-- Кольцо -->
+      <g opacity="0.85">
+        <ellipse cx="1320" cy="450" rx="100" ry="32" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="3"/>
+        <ellipse cx="1320" cy="450" rx="100" ry="32" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="7"/>
+        <polygon points="1320,395 1295,418 1320,445 1345,418" fill="rgba(201,169,110,0.45)" stroke="#c9a96e" stroke-width="2.5"/>
+        <polygon points="1320,395 1308,407 1320,418 1332,407" fill="rgba(255,255,255,0.5)"/>
+      </g>
+      <!-- Браслет -->
+      <g opacity="0.6" transform="translate(160, 560)">
+        <ellipse cx="0" cy="0" rx="100" ry="26" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+        <circle cx="-72" cy="6" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="-36" cy="16" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="0" cy="20" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="36" cy="16" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="72" cy="6" r="7" fill="rgba(201,169,110,0.4)"/>
+      </g>
+      <!-- Блёстки -->
+      <g opacity="0.7" transform="translate(1430,180)">
+        <line x1="-14" y1="0" x2="14" y2="0" stroke="#c9a96e" stroke-width="1.5"/>
+        <line x1="0" y1="-14" x2="0" y2="14" stroke="#c9a96e" stroke-width="1.5"/>
+        <circle cx="0" cy="0" r="3" fill="#c9a96e"/>
+      </g>
+      <g opacity="0.5" transform="translate(1100,580)">
+        <line x1="-10" y1="0" x2="10" y2="0" stroke="#c9a96e" stroke-width="1.5"/>
+        <line x1="0" y1="-10" x2="0" y2="10" stroke="#c9a96e" stroke-width="1.5"/>
+      </g>
+      <g opacity="0.6" transform="translate(500,130)">
+        <line x1="-8" y1="0" x2="8" y2="0" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+        <line x1="0" y1="-8" x2="0" y2="8" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-overlay">
+    <div class="hero-pre">✨ B2B · только для дистрибьюторов</div>
+    <div class="hero-logo">WOW<span class="accent">SHIMMER</span></div>
+    <div class="hero-tag">оптовая бижутерия</div>
+    <h1 class="hero-h1">
+      8 моделей · <span class="accent">30–45 оттенков.</span><br>
+      Соберите ассортимент для&nbsp;своего магазина.
+    </h1>
+    <p class="hero-sub">
+      Закрытая B2B-площадка для&nbsp;шоурумов, розничных точек и&nbsp;онлайн-магазинов
+      бижутерии по&nbsp;всей России. Цены и&nbsp;заказ — после авторизации.
+    </p>
+    <div class="hero-cta">
+      <button class="btn-solid" onclick="openModal()">Стать партнёром →</button>
+      <button class="btn-outline-sk" onclick="openLogin()">Войти в&nbsp;ЛК</button>
     </div>
   </div>
 </div>
+
+<!-- ЯКОРЬ V1 · ПАЛИТРА -->
+<section class="anchor-section" id="palette">
+  <div class="wrap">
+    <span class="anchor-tag">✎ якорь V1 · палитра</span>
+    <div class="section-title">Выберите оттенок — витрина перерисуется
+      <span class="annotation">hover · click → подсветка в карточках товара</span>
+    </div>
+    <p class="section-desc">
+      30+ оттенков на&nbsp;каждую модель&nbsp;— ключевое УТП бренда. Клик по&nbsp;свотчу
+      переокрашивает превью товаров ниже. В&nbsp;финале реализуем подмену
+      изображения / CSS-фильтрами для&nbsp;mock-up.
+    </p>
+    <div class="palette-box">
+      <div class="pb-head">
+        <h3>✎ Демо-палитра · 40 оттенков</h3>
+        <span>финальный набор берётся из&nbsp;ассортимента клиента</span>
+      </div>
+      <div class="swatch-wall" id="swatch-wall">
+        <!-- 40 свотчей, генерируются JS -->
+      </div>
+      <div class="swatch-meta">
+        <span><span class="picker" id="picker-dot"></span>Выбрано: <b id="picker-name">Shimmer Gold</b></span>
+        <span id="picker-code">#c9a96e · 3 из 40</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- БЛОК 1 · КАТАЛОГ -->
 <section id="katalog">

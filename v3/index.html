@@ -65,43 +65,90 @@
   .btn-solid:hover, .btn-outline-sk:hover { box-shadow: 3px 3px 0 rgba(0,0,0,0.25); transform: translate(-1px, -1px); }
   .annotation { background: var(--hl); border: 1px dashed var(--hl-border); padding: 3px 10px; font-size: 14px; color: #8a6800; margin-left: 10px; display: inline-block; }
 
-  /* HERO V3 — тёмный, форма + цифры */
-  .hero {
-    background: var(--ink); color: white;
-    padding: 60px 0 80px; position: relative; overflow: hidden;
+  /* HERO IMAGICAL — общий */
+  .hero-image {
+    position: relative; width: 100%; height: 560px;
+    background: var(--ink); overflow: hidden;
+    border-bottom: var(--stroke) solid var(--ink);
   }
-  .hero::after {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background-image: radial-gradient(circle at 80% 30%, rgba(201,169,110,0.16) 0, transparent 50%);
+  .hero-image .hero-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .hero-image .hero-svg svg { width: 100%; height: 100%; display: block; }
+  .hero-image .hero-overlay {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 40px 32px; color: white;
   }
-  .hero-inner { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; position: relative; z-index: 2; }
-  .hero-left .hbadge {
-    display: inline-block; padding: 4px 12px;
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.25);
-    font-size: 13px; color: rgba(255,255,255,0.7);
-    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 18px;
+  .hero-image .hero-pre {
+    display: inline-block; padding: 5px 14px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.3);
+    font-size: 13px; color: rgba(255,255,255,0.85);
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 22px;
   }
-  .hero-left h1 { font-size: 54px; font-weight: 700; line-height: 1.05; margin-bottom: 18px; color: white; }
-  .hero-left h1 .accent { color: var(--shimmer); }
-  .hero-left .hsub { font-size: 18px; color: rgba(255,255,255,0.65); max-width: 520px; line-height: 1.55; margin-bottom: 28px; }
+  .hero-image .hero-logo {
+    font-family: 'Caveat', cursive; font-weight: 700; font-size: 84px;
+    line-height: 1; letter-spacing: 3px; color: white; margin-bottom: 4px;
+  }
+  .hero-image .hero-logo .accent { color: var(--shimmer); }
+  .hero-image .hero-tag {
+    font-size: 14px; color: rgba(255,255,255,0.55);
+    text-transform: uppercase; letter-spacing: 4px; margin-bottom: 26px;
+  }
+  .hero-image .hero-h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin-bottom: 14px; max-width: 760px; color: white; }
+  .hero-image .hero-h1 .accent { color: var(--shimmer); }
+  .hero-image .hero-sub { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 560px; line-height: 1.5; margin-bottom: 28px; }
+  .hero-image .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .hero-image .hero-cta .btn-solid-shimmer { background: var(--shimmer); border: 2px solid var(--shimmer); color: white; font-family: 'Caveat', cursive; font-size: 17px; font-weight: 700; padding: 11px 24px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .hero-image .hero-cta .btn-solid-shimmer:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 rgba(0,0,0,0.25); }
+  .hero-image .hero-cta .btn-outline-w { background: transparent; color: white; border: 2px solid white; font-family: 'Caveat', cursive; font-size: 17px; font-weight: 700; padding: 11px 24px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .hero-image .hero-cta .btn-outline-w:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 rgba(0,0,0,0.25); }
+  .hero-image .hero-note {
+    position: absolute; top: 18px; left: 22px; z-index: 3;
+    background: rgba(255,251,230,0.95); border: 1px dashed var(--hl-border);
+    padding: 4px 12px; font-size: 14px; color: #8a6800;
+  }
+  .hero-image .hero-corner {
+    position: absolute; bottom: 14px; right: 22px; z-index: 3;
+    font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 1.5px;
+  }
 
-  .hero-nums {
+  /* Якорь V3 = форма + цифры + доверие */
+  .anchor-section {
+    background: var(--ink) !important; color: white;
+    padding: 64px 0 56px;
+    position: relative;
+  }
+  .anchor-section::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle at 80% 30%, rgba(201,169,110,0.12) 0, transparent 50%);
+  }
+  .anchor-section .wrap { position: relative; z-index: 2; }
+  .anchor-section .anchor-tag {
+    display: inline-block; padding: 4px 12px;
+    background: var(--shimmer); color: white;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+  .anchor-section .section-title { color: white; margin-bottom: 14px; }
+  .anchor-section .section-desc { color: rgba(255,255,255,0.6); margin-bottom: 32px; }
+  .anchor-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
+  .anchor-left .hero-nums {
     display: grid; grid-template-columns: repeat(3, auto); gap: 20px;
-    padding: 22px 0; margin: 0 0 28px;
+    padding: 22px 0; margin: 0 0 24px;
     border-top: 1px dashed rgba(255,255,255,0.2);
     border-bottom: 1px dashed rgba(255,255,255,0.2);
   }
-  .hero-nums .hn b { display: block; font-size: 42px; font-weight: 700; line-height: 1; }
-  .hero-nums .hn:nth-child(2) b { color: var(--shimmer); }
-  .hero-nums .hn span { font-size: 14px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; display: block; }
-
-  .hero-trust {
+  .anchor-left .hero-nums .hn b { display: block; font-size: 42px; font-weight: 700; line-height: 1; color: white; }
+  .anchor-left .hero-nums .hn:nth-child(2) b { color: var(--shimmer); }
+  .anchor-left .hero-nums .hn span { font-size: 14px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; display: block; }
+  .anchor-left .hero-trust {
     display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
-    font-size: 15px; color: rgba(255,255,255,0.5);
+    font-size: 15px; color: rgba(255,255,255,0.55);
   }
-  .hero-trust .ht-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--shimmer); }
+  .anchor-left .hero-trust .ht-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--shimmer); }
+  .anchor-left h3 { font-size: 26px; color: white; margin-bottom: 10px; }
+  .anchor-left p { font-size: 17px; color: rgba(255,255,255,0.65); line-height: 1.55; margin-bottom: 14px; }
 
-  /* Карточка формы в hero */
+  /* Карточка формы в якоре */
   .hero-form {
     background: white; color: var(--ink);
     border: 2px solid var(--shimmer);
@@ -293,8 +340,10 @@
   .chat-icon:hover { background: var(--shimmer); color: white; border-color: var(--shimmer); }
 
   @media (max-width: 980px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 32px; }
-    .hero-left h1 { font-size: 38px; }
+    .hero-image { height: 500px; }
+    .hero-image .hero-logo { font-size: 64px; }
+    .hero-image .hero-h1 { font-size: 30px; }
+    .anchor-grid { grid-template-columns: 1fr; gap: 32px; }
     .terms-anchor { grid-template-columns: repeat(2, 1fr); }
     .catalog-teaser-grid { grid-template-columns: repeat(2, 1fr); }
     .channels-grid { grid-template-columns: repeat(2, 1fr); }
@@ -306,9 +355,12 @@
   @media (max-width: 540px) {
     .wrap { padding: 0 18px; }
     .section-title { font-size: 28px; }
-    .hero-left h1 { font-size: 32px; }
-    .hero-nums { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-    .hero-nums .hn b { font-size: 28px; }
+    .hero-image { height: 460px; }
+    .hero-image .hero-logo { font-size: 48px; letter-spacing: 1px; }
+    .hero-image .hero-h1 { font-size: 24px; }
+    .hero-image .hero-sub { font-size: 15px; }
+    .anchor-left .hero-nums { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .anchor-left .hero-nums .hn b { font-size: 28px; }
     .terms-anchor, .catalog-teaser-grid, .channels-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
     .palette-mini .pm-wall { grid-template-columns: repeat(8, 1fr); }
     .phone-sketch { display: none; }
@@ -352,18 +404,105 @@
   </div>
 </header>
 
-<!-- HERO V3 — тёмный, форма + цифры -->
-<div class="hero">
+<!-- HERO IMAGICAL -->
+<div class="hero-image">
+  <span class="hero-note">✎ имидж · видео · фото — подменяется на финальный материал</span>
+  <span class="hero-corner">демо-баннер</span>
+  <div class="hero-svg">
+    <svg viewBox="0 0 1600 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="hatch1" patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="20" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        </pattern>
+        <radialGradient id="spot1" cx="50%" cy="45%" r="55%">
+          <stop offset="0%" stop-color="rgba(201,169,110,0.22)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+      </defs>
+      <rect width="1600" height="720" fill="#1a1a1a"/>
+      <rect width="1600" height="720" fill="url(#hatch1)"/>
+      <rect width="1600" height="720" fill="url(#spot1)"/>
+      <line x1="40" y1="40" x2="1560" y2="680" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="1560" y1="40" x2="40" y2="680" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <rect x="40" y="40" width="1520" height="640" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2" stroke-dasharray="10 8"/>
+      <g opacity="0.85">
+        <circle cx="260" cy="220" r="14" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
+        <line x1="260" y1="234" x2="260" y2="288" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+        <circle cx="260" cy="350" r="62" fill="rgba(255,255,255,0.04)" stroke="#c9a96e" stroke-width="3"/>
+        <circle cx="260" cy="350" r="42" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+        <circle cx="260" cy="350" r="22" fill="rgba(201,169,110,0.35)"/>
+        <ellipse cx="240" cy="330" rx="10" ry="6" fill="rgba(255,255,255,0.4)"/>
+      </g>
+      <g opacity="0.9">
+        <path d="M 600 200 C 700 320 900 320 1000 200" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+        <path d="M 600 200 C 700 320 900 320 1000 200" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="6"/>
+        <line x1="800" y1="305" x2="800" y2="360" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+        <polygon points="800,360 770,400 800,460 830,400" fill="rgba(201,169,110,0.4)" stroke="#c9a96e" stroke-width="2.5"/>
+        <polygon points="800,360 770,400 800,420 830,400" fill="rgba(255,255,255,0.18)"/>
+      </g>
+      <g opacity="0.85">
+        <ellipse cx="1320" cy="450" rx="100" ry="32" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="3"/>
+        <ellipse cx="1320" cy="450" rx="100" ry="32" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="7"/>
+        <polygon points="1320,395 1295,418 1320,445 1345,418" fill="rgba(201,169,110,0.45)" stroke="#c9a96e" stroke-width="2.5"/>
+        <polygon points="1320,395 1308,407 1320,418 1332,407" fill="rgba(255,255,255,0.5)"/>
+      </g>
+      <g opacity="0.6" transform="translate(160, 560)">
+        <ellipse cx="0" cy="0" rx="100" ry="26" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+        <circle cx="-72" cy="6" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="-36" cy="16" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="0" cy="20" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="36" cy="16" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="72" cy="6" r="7" fill="rgba(201,169,110,0.4)"/>
+      </g>
+      <g opacity="0.7" transform="translate(1430,180)">
+        <line x1="-14" y1="0" x2="14" y2="0" stroke="#c9a96e" stroke-width="1.5"/>
+        <line x1="0" y1="-14" x2="0" y2="14" stroke="#c9a96e" stroke-width="1.5"/>
+        <circle cx="0" cy="0" r="3" fill="#c9a96e"/>
+      </g>
+      <g opacity="0.5" transform="translate(1100,580)">
+        <line x1="-10" y1="0" x2="10" y2="0" stroke="#c9a96e" stroke-width="1.5"/>
+        <line x1="0" y1="-10" x2="0" y2="10" stroke="#c9a96e" stroke-width="1.5"/>
+      </g>
+      <g opacity="0.6" transform="translate(500,130)">
+        <line x1="-8" y1="0" x2="8" y2="0" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+        <line x1="0" y1="-8" x2="0" y2="8" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-overlay">
+    <div class="hero-pre">✨ B2B · только для дистрибьюторов</div>
+    <div class="hero-logo">WOW<span class="accent">SHIMMER</span></div>
+    <div class="hero-tag">оптовая бижутерия</div>
+    <h1 class="hero-h1">
+      Станьте дистрибьютором <span class="accent">WOWSHIMMER.</span>
+    </h1>
+    <p class="hero-sub">
+      Это не&nbsp;маркетплейс. Розницу не&nbsp;продаём. Сюда приходят владелицы шоурумов
+      и&nbsp;онлайн-магазинов&nbsp;— чтобы открыть закрытый каталог и&nbsp;собрать первый заказ.
+    </p>
+    <div class="hero-cta">
+      <button class="btn-solid-shimmer" onclick="document.getElementById('anchor-form').scrollIntoView({behavior:'smooth'})">Стать партнёром →</button>
+      <button class="btn-outline-w" onclick="openLogin()">Войти в&nbsp;ЛК</button>
+    </div>
+  </div>
+</div>
+
+<!-- ЯКОРЬ V3 · ФОРМА + ЦИФРЫ -->
+<section class="anchor-section" id="anchor-form">
   <div class="wrap">
-    <div class="hero-inner">
-      <div class="hero-left">
-        <span class="hbadge">✨ B2B-площадка · только для&nbsp;дистрибьюторов</span>
-        <h1>Станьте дистрибьютором <span class="accent">WOWSHIMMER.</span></h1>
-        <p class="hsub">
-          Это не&nbsp;маркетплейс. Розницу не&nbsp;продаём. Сюда приходят владелицы шоурумов,
-          онлайн-магазинов и&nbsp;розничных точек, чтобы открыть закрытый каталог
-          с&nbsp;ценами и&nbsp;собрать первый заказ.
-        </p>
+    <span class="anchor-tag">✎ якорь V3 · партнёрство</span>
+    <div class="section-title">Открыть доступ в&nbsp;ЛК — за&nbsp;1 день
+      <span class="annotation">главное действие сайта · оно сразу под имиджем</span>
+    </div>
+    <p class="section-desc">
+      Заявка → менеджер связывается в&nbsp;течение рабочего дня → доступ в&nbsp;закрытый ЛК
+      с&nbsp;ценами и&nbsp;сборкой заказа.
+    </p>
+
+    <div class="anchor-grid">
+      <div class="anchor-left">
+        <h3>Что вы&nbsp;получите</h3>
+        <p>Закрытый каталог с&nbsp;ценами. Сборку заказа в&nbsp;одном окне. Отправку состава менеджеру одним кликом. Подтверждение на&nbsp;экран и&nbsp;e-mail.</p>
         <div class="hero-nums">
           <div class="hn"><b>8</b><span>моделей<br>в&nbsp;линейке</span></div>
           <div class="hn"><b>30–45</b><span>оттенков<br>на&nbsp;каждую</span></div>
@@ -404,7 +543,7 @@
       </form>
     </div>
   </div>
-</div>
+</section>
 
 <!-- БЛОК 1 · УСЛОВИЯ ПАРТНЁРСТВА (главный блок в этом варианте) -->
 <section id="partner" style="background: var(--paper) !important">
@@ -444,7 +583,7 @@
 
     <div class="terms-foot">
       <div class="tf-text">Готовы? Заявка обрабатывается <b>в&nbsp;течение рабочего&nbsp;дня</b>.</div>
-      <button class="btn-solid" onclick="window.scrollTo({top:0,behavior:'smooth'})">Заполнить заявку ↑</button>
+      <button class="btn-solid" onclick="document.getElementById('anchor-form').scrollIntoView({behavior:'smooth'})">Заполнить заявку ↑</button>
     </div>
   </div>
 </section>
@@ -504,7 +643,7 @@
 
     <div class="teaser-cta">
       <div>💡 На&nbsp;витрине&nbsp;— только фото, тип и&nbsp;палитра. <b>Цены, наличие и&nbsp;форма заказа&nbsp;— в&nbsp;закрытом ЛК для&nbsp;партнёров.</b></div>
-      <button class="btn-outline-sk on-paper" onclick="window.scrollTo({top:0,behavior:'smooth'})">Стать партнёром ↑</button>
+      <button class="btn-outline-sk on-paper" onclick="document.getElementById('anchor-form').scrollIntoView({behavior:'smooth'})">Стать партнёром ↑</button>
     </div>
   </div>
 </section>
@@ -658,7 +797,7 @@
         <h5>Партнёрам</h5>
         <a href="#partner">Условия партнёрства</a>
         <a href="#" onclick="event.preventDefault();openLogin()">Войти в&nbsp;ЛК</a>
-        <a href="#" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">Стать партнёром</a>
+        <a href="#anchor-form" onclick="event.preventDefault();document.getElementById('anchor-form').scrollIntoView({behavior:'smooth'})">Стать партнёром</a>
       </div>
       <div>
         <h5>Каталог</h5>
@@ -693,7 +832,7 @@
       <p class="switch-link">
         <a href="#" onclick="event.preventDefault();alert('Прототип: восстановление пароля — отдельный сценарий, оформляется письмом');">Забыли пароль?</a>
         &nbsp;·&nbsp;
-        <a href="#" onclick="event.preventDefault();closeLogin();window.scrollTo({top:0,behavior:'smooth'});">Стать партнёром</a>
+        <a href="#" onclick="event.preventDefault();closeLogin();document.getElementById('anchor-form').scrollIntoView({behavior:'smooth'});">Стать партнёром</a>
       </p>
     </form>
   </div>

@@ -63,25 +63,60 @@
   .btn-solid:hover, .btn-outline-sk:hover { box-shadow: 3px 3px 0 var(--ink-faint); transform: translate(-1px, -1px); }
   .annotation { background: var(--hl); border: 1px dashed var(--hl-border); padding: 3px 10px; font-size: 14px; color: #8a6800; margin-left: 10px; display: inline-block; }
 
-  /* HERO V2 — VITRINA */
-  .hero { padding: 40px 0 24px; }
-  .hero-head {
-    display: flex; gap: 32px; align-items: flex-end;
-    margin-bottom: 26px; flex-wrap: wrap;
+  /* HERO IMAGICAL — общий */
+  .hero-image {
+    position: relative; width: 100%; height: 560px;
+    background: var(--ink); overflow: hidden;
+    border-bottom: var(--stroke) solid var(--ink);
   }
-  .hero-head .htxt { flex: 1; min-width: 280px; }
-  .hero-head .hbadge {
-    display: inline-block; padding: 4px 12px; background: white;
-    border: 1px solid var(--ink-light); font-size: 13px; color: var(--ink-mid);
-    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px;
+  .hero-image .hero-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .hero-image .hero-svg svg { width: 100%; height: 100%; display: block; }
+  .hero-image .hero-overlay {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 40px 32px; color: white;
   }
-  .hero-head h1 { font-size: 46px; font-weight: 700; line-height: 1.05; }
-  .hero-head h1 .accent { color: var(--shimmer); }
-  .hero-head .hsub { font-size: 17px; color: var(--ink-mid); max-width: 520px; margin-top: 10px; line-height: 1.55; }
-  .hero-head .hbtns { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
-  .hero-head .hfacts { display: flex; gap: 32px; padding-left: 24px; border-left: 2px dashed var(--ink-faint); }
-  .hero-head .hfacts .f b { display: block; font-size: 36px; font-weight: 700; line-height: 1; }
-  .hero-head .hfacts .f span { font-size: 13px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 1.5px; }
+  .hero-image .hero-pre {
+    display: inline-block; padding: 5px 14px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.3);
+    font-size: 13px; color: rgba(255,255,255,0.85);
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 22px;
+  }
+  .hero-image .hero-logo {
+    font-family: 'Caveat', cursive; font-weight: 700; font-size: 84px;
+    line-height: 1; letter-spacing: 3px; color: white; margin-bottom: 4px;
+  }
+  .hero-image .hero-logo .accent { color: var(--shimmer); }
+  .hero-image .hero-tag {
+    font-size: 14px; color: rgba(255,255,255,0.55);
+    text-transform: uppercase; letter-spacing: 4px; margin-bottom: 26px;
+  }
+  .hero-image .hero-h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin-bottom: 14px; max-width: 760px; }
+  .hero-image .hero-h1 .accent { color: var(--shimmer); }
+  .hero-image .hero-sub { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 560px; line-height: 1.5; margin-bottom: 28px; }
+  .hero-image .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .hero-image .hero-cta .btn-solid { background: var(--shimmer); border-color: var(--shimmer); font-size: 17px; padding: 11px 24px; }
+  .hero-image .hero-cta .btn-outline-sk { color: white; border-color: white; background: transparent; font-size: 17px; padding: 11px 24px; }
+  .hero-image .hero-note {
+    position: absolute; top: 18px; left: 22px; z-index: 3;
+    background: rgba(255,251,230,0.95); border: 1px dashed var(--hl-border);
+    padding: 4px 12px; font-size: 14px; color: #8a6800;
+  }
+  .hero-image .hero-corner {
+    position: absolute; bottom: 14px; right: 22px; z-index: 3;
+    font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 1.5px;
+  }
+
+  /* Якорь V2 = витрина 8 товаров */
+  .anchor-section { padding: 56px 0 40px; background: var(--paper-dark); }
+  .anchor-section .anchor-tag {
+    display: inline-block; padding: 4px 12px;
+    background: var(--shimmer); color: white;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+  .anchor-section .section-title { margin-bottom: 14px; }
+  .anchor-section .section-desc { margin-bottom: 28px; }
 
   /* Витрина 8 товаров — 4×2 */
   .vitrina {
@@ -291,7 +326,9 @@
     .palette-band .pb-wall { grid-template-columns: repeat(10, 1fr); }
   }
   @media (max-width: 980px) {
-    .hero-head .hfacts { padding-left: 0; border-left: none; padding-top: 18px; border-top: 2px dashed var(--ink-faint); }
+    .hero-image { height: 500px; }
+    .hero-image .hero-logo { font-size: 64px; }
+    .hero-image .hero-h1 { font-size: 30px; }
     .vitrina { grid-template-columns: repeat(2, 1fr); }
     .terms-grid { grid-template-columns: repeat(2, 1fr); }
     .channels-grid { grid-template-columns: repeat(2, 1fr); }
@@ -302,7 +339,10 @@
   @media (max-width: 540px) {
     .wrap { padding: 0 18px; }
     .section-title { font-size: 28px; }
-    .hero-head h1 { font-size: 32px; }
+    .hero-image { height: 460px; }
+    .hero-image .hero-logo { font-size: 48px; letter-spacing: 1px; }
+    .hero-image .hero-h1 { font-size: 24px; }
+    .hero-image .hero-sub { font-size: 15px; }
     .vitrina, .terms-grid, .channels-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
     .palette-band .pb-wall { grid-template-columns: repeat(8, 1fr); }
     .phone-sketch { display: none; }
@@ -347,41 +387,112 @@
   </div>
 </header>
 
-<!-- HERO V2 = заголовок + витрина 8 товаров -->
-<div class="hero">
-  <div class="wrap">
-    <div class="hero-head">
-      <div class="htxt">
-        <span class="hbadge">✨ WOWSHIMMER · оптовая бижутерия · с 20XX</span>
-        <h1>Весь каталог<br><span class="accent">на одном экране.</span></h1>
-        <p class="hsub">
-          8 моделей бижутерии. По&nbsp;30–45 оттенков у&nbsp;каждой.
-          Партнёр видит ассортимент целиком за&nbsp;3 секунды&nbsp;— и&nbsp;понимает, нужен&nbsp;ли ему доступ в&nbsp;закрытый ЛК.
-        </p>
-        <div class="hbtns">
-          <button class="btn-solid" onclick="openLogin()">Открыть в&nbsp;ЛК →</button>
-          <button class="btn-outline-sk" onclick="openModal()">Получить доступ</button>
-        </div>
-      </div>
-      <div class="hfacts">
-        <div class="f"><b>8</b><span>моделей</span></div>
-        <div class="f"><b>30–45</b><span>оттенков</span></div>
-        <div class="f"><b>RU</b><span>работаем</span></div>
-      </div>
+<!-- HERO IMAGICAL -->
+<div class="hero-image">
+  <span class="hero-note">✎ имидж · видео · фото — подменяется на финальный материал</span>
+  <span class="hero-corner">демо-баннер</span>
+  <div class="hero-svg">
+    <svg viewBox="0 0 1600 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="hatch1" patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="20" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        </pattern>
+        <radialGradient id="spot1" cx="50%" cy="45%" r="55%">
+          <stop offset="0%" stop-color="rgba(201,169,110,0.22)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+      </defs>
+      <rect width="1600" height="720" fill="#1a1a1a"/>
+      <rect width="1600" height="720" fill="url(#hatch1)"/>
+      <rect width="1600" height="720" fill="url(#spot1)"/>
+      <line x1="40" y1="40" x2="1560" y2="680" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="1560" y1="40" x2="40" y2="680" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <rect x="40" y="40" width="1520" height="640" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2" stroke-dasharray="10 8"/>
+      <g opacity="0.85">
+        <circle cx="260" cy="220" r="14" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
+        <line x1="260" y1="234" x2="260" y2="288" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+        <circle cx="260" cy="350" r="62" fill="rgba(255,255,255,0.04)" stroke="#c9a96e" stroke-width="3"/>
+        <circle cx="260" cy="350" r="42" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+        <circle cx="260" cy="350" r="22" fill="rgba(201,169,110,0.35)"/>
+        <ellipse cx="240" cy="330" rx="10" ry="6" fill="rgba(255,255,255,0.4)"/>
+      </g>
+      <g opacity="0.9">
+        <path d="M 600 200 C 700 320 900 320 1000 200" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+        <path d="M 600 200 C 700 320 900 320 1000 200" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="6"/>
+        <line x1="800" y1="305" x2="800" y2="360" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+        <polygon points="800,360 770,400 800,460 830,400" fill="rgba(201,169,110,0.4)" stroke="#c9a96e" stroke-width="2.5"/>
+        <polygon points="800,360 770,400 800,420 830,400" fill="rgba(255,255,255,0.18)"/>
+      </g>
+      <g opacity="0.85">
+        <ellipse cx="1320" cy="450" rx="100" ry="32" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="3"/>
+        <ellipse cx="1320" cy="450" rx="100" ry="32" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="7"/>
+        <polygon points="1320,395 1295,418 1320,445 1345,418" fill="rgba(201,169,110,0.45)" stroke="#c9a96e" stroke-width="2.5"/>
+        <polygon points="1320,395 1308,407 1320,418 1332,407" fill="rgba(255,255,255,0.5)"/>
+      </g>
+      <g opacity="0.6" transform="translate(160, 560)">
+        <ellipse cx="0" cy="0" rx="100" ry="26" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+        <circle cx="-72" cy="6" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="-36" cy="16" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="0" cy="20" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="36" cy="16" r="7" fill="rgba(201,169,110,0.4)"/>
+        <circle cx="72" cy="6" r="7" fill="rgba(201,169,110,0.4)"/>
+      </g>
+      <g opacity="0.7" transform="translate(1430,180)">
+        <line x1="-14" y1="0" x2="14" y2="0" stroke="#c9a96e" stroke-width="1.5"/>
+        <line x1="0" y1="-14" x2="0" y2="14" stroke="#c9a96e" stroke-width="1.5"/>
+        <circle cx="0" cy="0" r="3" fill="#c9a96e"/>
+      </g>
+      <g opacity="0.5" transform="translate(1100,580)">
+        <line x1="-10" y1="0" x2="10" y2="0" stroke="#c9a96e" stroke-width="1.5"/>
+        <line x1="0" y1="-10" x2="0" y2="10" stroke="#c9a96e" stroke-width="1.5"/>
+      </g>
+      <g opacity="0.6" transform="translate(500,130)">
+        <line x1="-8" y1="0" x2="8" y2="0" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+        <line x1="0" y1="-8" x2="0" y2="8" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-overlay">
+    <div class="hero-pre">✨ B2B · только для дистрибьюторов</div>
+    <div class="hero-logo">WOW<span class="accent">SHIMMER</span></div>
+    <div class="hero-tag">оптовая бижутерия</div>
+    <h1 class="hero-h1">
+      Весь каталог<br><span class="accent">на&nbsp;одном экране.</span>
+    </h1>
+    <p class="hero-sub">
+      8 моделей бижутерии. По&nbsp;30–45 оттенков у&nbsp;каждой.
+      Закрытая B2B-площадка для&nbsp;шоурумов и&nbsp;онлайн-магазинов России.
+    </p>
+    <div class="hero-cta">
+      <button class="btn-solid" onclick="openModal()">Стать партнёром →</button>
+      <button class="btn-outline-sk" onclick="openLogin()">Войти в&nbsp;ЛК</button>
     </div>
+  </div>
+</div>
+
+<!-- ЯКОРЬ V2 · ВИТРИНА -->
+<section class="anchor-section" id="katalog">
+  <div class="wrap">
+    <span class="anchor-tag">✎ якорь V2 · витрина</span>
+    <div class="section-title">Весь ассортимент за&nbsp;3 секунды
+      <span class="annotation">клик → карточка товара (внутри — все 30–45 оттенков)</span>
+    </div>
+    <p class="section-desc">
+      Все 8 моделей сетки сразу под&nbsp;имиджем. Партнёр оценивает уровень и&nbsp;стилистику
+      без&nbsp;скроллинга и&nbsp;понимает, нужен&nbsp;ли ему доступ в&nbsp;закрытый ЛК.
+    </p>
 
     <div class="vitrina" id="vitrina">
-      <span class="v-note">✎ клик → карточка товара (внутри — все 30–45 оттенков)</span>
       <!-- 8 карточек, генерируются JS -->
     </div>
 
     <div class="vitrina-strip">
       <div class="vs-text"><b>Цена видна только в&nbsp;ЛК.</b> На&nbsp;витрине&nbsp;— модель, тип, палитра.</div>
       <div class="vs-mini" id="vs-mini" title="лента самых популярных оттенков"></div>
-      <button class="btn-outline-sk" onclick="document.getElementById('palette').scrollIntoView({behavior:'smooth'})" style="padding:6px 14px;font-size:15px">Вся палитра ↓</button>
+      <button class="btn-outline-sk" onclick="document.getElementById('palette').scrollIntoView({behavior:'smooth'})" style="padding:6px 14px;font-size:15px;color:var(--ink);border-color:var(--ink);background:white">Вся палитра ↓</button>
     </div>
   </div>
-</div>
+</section>
 
 <!-- БЛОК 1 · ПАЛИТРА -->
 <section id="palette">
