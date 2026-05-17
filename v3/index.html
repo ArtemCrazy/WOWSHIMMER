@@ -394,13 +394,13 @@
 </div>
 
 <div class="sitemap-stripe">
-  <span class="sm-label">📁 Многостраничный сайт · карта:</span>
+  <span class="sm-label">📁 Карта сайта:</span>
   <a href="#" class="current" onclick="event.preventDefault()">Главная (здесь)</a>
-  <a href="#" onclick="event.preventDefault();showStub('Каталог')">Каталог</a>
-  <a href="#" onclick="event.preventDefault();showStub('Карточка товара')">Карточка товара</a>
+  <a href="#" onclick="event.preventDefault();showStub('Каталог')">Каталог · розница</a>
+  <a href="#" onclick="event.preventDefault();showStub('Карточка товара')">Карточка</a>
   <a href="#" onclick="event.preventDefault();showStub('О бренде')">О бренде</a>
-  <a href="#" onclick="event.preventDefault();showStub('Контакты')">Контакты</a>
-  <a href="#" onclick="event.preventDefault();openLogin()">Личный кабинет (модалка)</a>
+  <a href="#" onclick="event.preventDefault();showStub('Контакты')">Контакты + маркетплейсы</a>
+  <a href="#" onclick="event.preventDefault();openLogin()">🔒 ЛК партнёра · опт</a>
 </div>
 
 <header>
@@ -490,18 +490,19 @@
     </svg>
   </div>
   <div class="hero-overlay">
-    <div class="hero-pre">✨ B2B · только для дистрибьюторов</div>
+    <div class="hero-pre">✨ розница на&nbsp;витрине · опт после входа</div>
     <div class="hero-logo">WOW<span class="accent">SHIMMER</span></div>
-    <div class="hero-tag">оптовая бижутерия</div>
+    <div class="hero-tag">бижутерия · опт и&nbsp;розница</div>
     <h1 class="hero-h1">
       Станьте дистрибьютором <span class="accent">WOWSHIMMER.</span>
     </h1>
     <p class="hero-sub">
-      Это не&nbsp;маркетплейс. Розницу не&nbsp;продаём. Сюда приходят владелицы шоурумов
-      и&nbsp;онлайн-магазинов&nbsp;— чтобы открыть закрытый каталог и&nbsp;собрать первый заказ.
+      Каталог открыт для&nbsp;всех — розничные цены видны без&nbsp;регистрации.
+      Партнёры после авторизации получают оптовые цены и&nbsp;оформляют заявки одним кликом.
     </p>
     <div class="hero-cta">
       <button class="btn-solid-shimmer" onclick="document.getElementById('anchor-form').scrollIntoView({behavior:'smooth'})">Стать партнёром →</button>
+      <button class="btn-outline-w" onclick="showStub('Каталог')">Каталог</button>
       <button class="btn-outline-w" onclick="openLogin()">Войти в&nbsp;ЛК</button>
     </div>
   </div>
@@ -583,8 +584,8 @@
       </div>
       <div class="ta-card">
         <div class="ta-num">02</div>
-        <h4>Получите доступ в&nbsp;ЛК</h4>
-        <p>После одобрения логин и&nbsp;пароль приходят на&nbsp;e-mail. Доступ к&nbsp;закрытому каталогу с&nbsp;ценами.</p>
+        <h4>Откроем оптовые цены</h4>
+        <p>После одобрения присылаем доступ в&nbsp;ЛК. На&nbsp;витрине каталога розничные цены сменяются на&nbsp;оптовые&nbsp;— на&nbsp;тех&nbsp;же товарах.</p>
         <div class="ta-meta">Срок · 1 рабочий день *</div>
       </div>
       <div class="ta-card">

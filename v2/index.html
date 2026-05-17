@@ -180,8 +180,16 @@
   .product-swatches { display: flex; gap: 3px; flex-wrap: wrap; margin-bottom: 10px; }
   .product-swatches .ps { width: 14px; height: 14px; border: 1px solid rgba(0,0,0,0.15); }
   .product-swatches .more { background: white; border: 1px dashed var(--ink-faint); font-size: 11px; color: var(--ink-light); display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; min-width: 24px; height: 14px; }
-  .product-info .p-meta { font-size: 13px; color: var(--ink-light); margin-top: auto; }
+  .product-info .p-meta { font-size: 13px; color: var(--ink-light); }
   .product-info .p-meta b { color: var(--ink); }
+
+  /* Блок цены — розница видна всем, опт за авторизацией */
+  .product-info .p-price { padding: 10px 0 8px; border-top: 1px dashed var(--ink-faint); margin-top: 8px; margin-bottom: 6px; }
+  .product-info .p-retail { font-size: 22px; font-weight: 700; color: var(--ink); line-height: 1; }
+  .product-info .p-retail-tag { font-size: 11px; font-weight: normal; color: var(--ink-light); text-transform: uppercase; letter-spacing: 1px; margin-left: 6px; }
+  .product-info .p-opt { font-size: 13px; color: var(--ink-mid); margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+  .product-info .p-opt::before { content: '🔒'; font-size: 11px; opacity: 0.6; }
+  .product-info .p-opt a { color: var(--shimmer); text-decoration: none; border-bottom: 1px dashed var(--shimmer); }
 
   .vitrina-strip {
     margin-top: 18px; padding: 14px 16px; background: white;
@@ -376,13 +384,13 @@
 </div>
 
 <div class="sitemap-stripe">
-  <span class="sm-label">📁 Многостраничный сайт · карта:</span>
+  <span class="sm-label">📁 Карта сайта:</span>
   <a href="#" class="current" onclick="event.preventDefault()">Главная (здесь)</a>
-  <a href="#" onclick="event.preventDefault();showStub('Каталог')">Каталог</a>
-  <a href="#" onclick="event.preventDefault();showStub('Карточка товара')">Карточка товара</a>
+  <a href="#" onclick="event.preventDefault();showStub('Каталог')">Каталог · розница</a>
+  <a href="#" onclick="event.preventDefault();showStub('Карточка товара')">Карточка</a>
   <a href="#" onclick="event.preventDefault();showStub('О бренде')">О бренде</a>
-  <a href="#" onclick="event.preventDefault();showStub('Контакты')">Контакты</a>
-  <a href="#" onclick="event.preventDefault();openLogin()">Личный кабинет (модалка)</a>
+  <a href="#" onclick="event.preventDefault();showStub('Контакты')">Контакты + маркетплейсы</a>
+  <a href="#" onclick="event.preventDefault();openLogin()">🔒 ЛК партнёра · опт</a>
 </div>
 
 <header>
@@ -473,19 +481,20 @@
     </svg>
   </div>
   <div class="hero-overlay">
-    <div class="hero-pre">✨ B2B · только для дистрибьюторов</div>
+    <div class="hero-pre">✨ розница на&nbsp;витрине · опт после входа</div>
     <div class="hero-logo">WOW<span class="accent">SHIMMER</span></div>
-    <div class="hero-tag">оптовая бижутерия</div>
+    <div class="hero-tag">бижутерия · опт и&nbsp;розница</div>
     <h1 class="hero-h1">
       Весь каталог<br><span class="accent">на&nbsp;одном экране.</span>
     </h1>
     <p class="hero-sub">
-      8 моделей бижутерии. По&nbsp;30–45 оттенков у&nbsp;каждой.
-      Закрытая B2B-площадка для&nbsp;шоурумов и&nbsp;онлайн-магазинов России.
+      Серьги, подвески и&nbsp;кольца с&nbsp;кристаллами. Розничные цены видны всем,
+      оптовые — партнёрам после входа в&nbsp;ЛК.
     </p>
     <div class="hero-cta">
-      <button class="btn-solid" onclick="openModal()">Стать партнёром →</button>
+      <button class="btn-solid" onclick="showStub('Каталог')">Смотреть каталог →</button>
       <button class="btn-outline-sk" onclick="openLogin()">Войти в&nbsp;ЛК</button>
+      <button class="btn-outline-sk" onclick="openModal()">Стать партнёром</button>
     </div>
   </div>
 </div>
@@ -507,9 +516,9 @@
     </div>
 
     <div class="vitrina-strip">
-      <div class="vs-text"><b>Цена видна только в&nbsp;ЛК.</b> На&nbsp;витрине&nbsp;— модель, тип, палитра.</div>
+      <div class="vs-text"><b>Розница</b> видна всем · <b>опт</b> — после входа в&nbsp;ЛК партнёра · <b>розничные покупки</b> идут через маркетплейсы.</div>
       <div class="vs-mini" id="vs-mini" title="лента самых популярных оттенков"></div>
-      <button class="btn-outline-sk" onclick="document.getElementById('palette').scrollIntoView({behavior:'smooth'})" style="padding:6px 14px;font-size:15px;color:var(--ink);border-color:var(--ink);background:white">Вся палитра ↓</button>
+      <button class="btn-outline-sk" onclick="showStub('Каталог')" style="padding:6px 14px;font-size:15px;color:var(--ink);border-color:var(--ink);background:white">Полный каталог →</button>
     </div>
   </div>
 </section>
@@ -565,8 +574,8 @@
       </div>
       <div class="terms-card">
         <div class="t-num">02</div>
-        <h4>Получите доступ в&nbsp;ЛК</h4>
-        <p>Логин и&nbsp;пароль приходят на&nbsp;e-mail после одобрения. Закрытый каталог с&nbsp;ценами.</p>
+        <h4>Откроем оптовые цены</h4>
+        <p>После одобрения присылаем доступ в&nbsp;ЛК. На&nbsp;витрине каталога розничные цены сменяются на&nbsp;оптовые.</p>
       </div>
       <div class="terms-card">
         <div class="t-num">03</div>
@@ -749,16 +758,16 @@
     {n:'Honey',         c:'#d6a247'}, {n:'Smoke',         c:'#7e7e7e'}
   ];
 
-  // 8 товаров — реальный ассортимент по витрине Ozon
+  // 8 товаров — реальный ассортимент + розничные цены по витрине Ozon
   const PRODUCTS = [
-    {n:'Серьги-пусеты Swarovski 4 мм',      art:'WS-SP4-001', type:'Серьги',   pal:[2,4,5,11,16,24,3]},
-    {n:'Серьги-пусеты Swarovski 6 мм',      art:'WS-SP6-002', type:'Серьги',   pal:[0,3,8,9,10,38]},
-    {n:'Серьги-пусеты Swarovski 8 мм',      art:'WS-SP8-003', type:'Серьги',   pal:[6,7,12,24,30,11,29]},
-    {n:'Серьга-штанга Swarovski 4 мм',      art:'WS-SH4-004', type:'Серьга',   pal:[2,0,3,5,16,23]},
-    {n:'Серьга-штанга Swarovski 6 мм',      art:'WS-SH6-005', type:'Серьга',   pal:[8,9,17,18,20,21,22]},
-    {n:'Подвеска на леске Swarovski 8 мм',  art:'WS-PL8-006', type:'Подвеска', pal:[34,35,4,25,26,11]},
-    {n:'Кольцо помолвочное Swarovski',      art:'WS-RNG-007', type:'Кольцо',   pal:[1,2,3,5,38,23,16]},
-    {n:'Серьги-гвоздики «сердечки» фианит', art:'WS-HRT-008', type:'Серьги',   pal:[28,29,30,31,11,15,8]}
+    {n:'Серьги-пусеты Swarovski 4 мм',      art:'WS-SP4-001', type:'Серьги',   retail:634, pal:[2,4,5,11,16,24,3]},
+    {n:'Серьги-пусеты Swarovski 6 мм',      art:'WS-SP6-002', type:'Серьги',   retail:732, pal:[0,3,8,9,10,38]},
+    {n:'Серьги-пусеты Swarovski 8 мм',      art:'WS-SP8-003', type:'Серьги',   retail:862, pal:[6,7,12,24,30,11,29]},
+    {n:'Серьга-штанга Swarovski 4 мм',      art:'WS-SH4-004', type:'Серьга',   retail:572, pal:[2,0,3,5,16,23]},
+    {n:'Серьга-штанга Swarovski 6 мм',      art:'WS-SH6-005', type:'Серьга',   retail:551, pal:[8,9,17,18,20,21,22]},
+    {n:'Подвеска на леске Swarovski 8 мм',  art:'WS-PL8-006', type:'Подвеска', retail:753, pal:[34,35,4,25,26,11]},
+    {n:'Кольцо помолвочное Swarovski',      art:'WS-RNG-007', type:'Кольцо',   retail:940, pal:[1,2,3,5,38,23,16]},
+    {n:'Серьги-гвоздики «сердечки» фианит', art:'WS-HRT-008', type:'Серьги',   retail:540, pal:[28,29,30,31,11,15,8]}
   ];
 
   // Витрина в hero
@@ -781,7 +790,11 @@
           <div class="p-name">${pr.n}</div>
           <div class="p-art">${pr.art}</div>
           <div class="product-swatches">${swatches}<span class="more">+${remaining}</span></div>
-          <div class="p-meta">Цветов кристалла: <b>${total}</b> · цена&nbsp;— в&nbsp;ЛК</div>
+          <div class="p-meta">Цветов кристалла: <b>${total}</b></div>
+          <div class="p-price">
+            <div class="p-retail">${pr.retail}&nbsp;₽ <span class="p-retail-tag">розница</span></div>
+            <div class="p-opt">опт-цена — <a href="#" onclick="event.preventDefault();openLogin()">в&nbsp;ЛК</a></div>
+          </div>
         </div>
       `;
       grid.appendChild(card);

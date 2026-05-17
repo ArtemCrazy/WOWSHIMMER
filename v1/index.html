@@ -440,13 +440,13 @@
 </div>
 
 <div class="sitemap-stripe">
-  <span class="sm-label">📁 Многостраничный сайт · карта:</span>
+  <span class="sm-label">📁 Карта сайта:</span>
   <a href="#" class="current" onclick="event.preventDefault()">Главная (здесь)</a>
-  <a href="#" onclick="event.preventDefault();showStub('Каталог')">Каталог</a>
-  <a href="#" onclick="event.preventDefault();showStub('Карточка товара')">Карточка товара</a>
+  <a href="#" onclick="event.preventDefault();showStub('Каталог')">Каталог · розница</a>
+  <a href="#" onclick="event.preventDefault();showStub('Карточка товара')">Карточка</a>
   <a href="#" onclick="event.preventDefault();showStub('О бренде')">О бренде</a>
-  <a href="#" onclick="event.preventDefault();showStub('Контакты')">Контакты</a>
-  <a href="#" onclick="event.preventDefault();openLogin()">Личный кабинет (модалка)</a>
+  <a href="#" onclick="event.preventDefault();showStub('Контакты')">Контакты + маркетплейсы</a>
+  <a href="#" onclick="event.preventDefault();openLogin()">🔒 ЛК партнёра · опт</a>
 </div>
 
 <header>
@@ -542,20 +542,21 @@
     </svg>
   </div>
   <div class="hero-overlay">
-    <div class="hero-pre">✨ B2B · только для дистрибьюторов</div>
+    <div class="hero-pre">✨ розница на&nbsp;витрине · опт после входа</div>
     <div class="hero-logo">WOW<span class="accent">SHIMMER</span></div>
-    <div class="hero-tag">оптовая бижутерия</div>
+    <div class="hero-tag">бижутерия · опт и&nbsp;розница</div>
     <h1 class="hero-h1">
-      8 моделей · <span class="accent">30–45 оттенков.</span><br>
-      Соберите ассортимент для&nbsp;своего магазина.
+      Серьги, подвески и&nbsp;кольца<br>
+      для <span class="accent">розницы и&nbsp;опта.</span>
     </h1>
     <p class="hero-sub">
-      Закрытая B2B-площадка для&nbsp;шоурумов, розничных точек и&nbsp;онлайн-магазинов
-      бижутерии по&nbsp;всей России. Цены и&nbsp;заказ — после авторизации.
+      Розничные цены видны всем. Оптовые — партнёрам после авторизации в&nbsp;ЛК.
+      Покупки в&nbsp;розницу&nbsp;— через маркетплейсы Ozon, Wildberries.
     </p>
     <div class="hero-cta">
-      <button class="btn-solid" onclick="openModal()">Стать партнёром →</button>
+      <button class="btn-solid" onclick="showStub('Каталог')">Смотреть каталог →</button>
       <button class="btn-outline-sk" onclick="openLogin()">Войти в&nbsp;ЛК</button>
+      <button class="btn-outline-sk" onclick="openModal()">Стать партнёром</button>
     </div>
   </div>
 </div>
@@ -640,8 +641,8 @@
       </div>
       <div class="terms-card">
         <div class="t-num">02</div>
-        <h4>Получите доступ в&nbsp;ЛК</h4>
-        <p>Логин и&nbsp;пароль приходят на&nbsp;e-mail после одобрения. Закрытый каталог с&nbsp;ценами.</p>
+        <h4>Откроем оптовые цены</h4>
+        <p>После одобрения присылаем доступ в&nbsp;ЛК. На&nbsp;витрине каталога розничные цены сменяются на&nbsp;оптовые.</p>
       </div>
       <div class="terms-card">
         <div class="t-num">03</div>
