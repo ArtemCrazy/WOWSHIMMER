@@ -58,7 +58,8 @@
   .meta-strip .item p { font-size: 15px; color: var(--ink-mid); line-height: 1.5; margin: 0; }
 
   .variants {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+    max-width: 880px; margin: 0 auto;
     padding-bottom: 48px;
   }
   .variant {
@@ -131,8 +132,8 @@
 <div class="wrap">
   <div class="intro">
     <span class="stamp">📁 WOWSHIMMER · 2026-05-17</span>
-    <h1>Три варианта структуры главной страницы</h1>
-    <p>Это lo-fi прототипы-скетчи <b>главной страницы многостраничного сайта</b>. Модель проекта: <b>публичная витрина бренда + закрытый партнёрский слой</b>. Каталог открыт для всех с&nbsp;розничными ценами; партнёр после авторизации видит оптовые цены и&nbsp;собирает заявку. Розничные покупки уходят на&nbsp;маркетплейсы (Ozon, WB). На&nbsp;главной — hero → якорь варианта → О&nbsp;бренде (тизер) → условия партнёрства → форма заявки. Hero общий: имиджевое фото/видео + логотип. Разница — в&nbsp;первом блоке под&nbsp;имиджем: палитра / витрина / форма.</p>
+    <h1>Два варианта структуры главной страницы</h1>
+    <p>Это lo-fi прототипы-скетчи <b>главной страницы многостраничного сайта</b>. Модель проекта: <b>публичная витрина бренда + закрытый партнёрский слой</b>. Каталог открыт для всех с&nbsp;розничными ценами; партнёр после авторизации видит оптовые цены и&nbsp;собирает заявку. Розничные покупки уходят на&nbsp;маркетплейсы (Ozon, WB). Hero у&nbsp;обоих вариантов общий — имиджевое фото/видео + логотип. Разница — в&nbsp;структуре главной: <b>«Витрина-якорь»</b> ведёт каталогом сразу под hero, <b>«Бренд-витрина»</b> — это полноценная брендовая главная с&nbsp;каталогом, палитрой, «где купить» и&nbsp;аккуратным партнёрским блоком ниже.</p>
   </div>
 
   <div class="meta-strip">
@@ -151,109 +152,6 @@
   </div>
 
   <div class="variants">
-
-    <a href="v1/" class="variant">
-      <div class="v-thumb">
-        <!-- Превью V1: общий имиджевый hero + палитра-якорь -->
-        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
-          <rect width="320" height="200" fill="#ede9e0"/>
-          <!-- Браузерная плашка -->
-          <rect x="0" y="0" width="320" height="14" fill="white" stroke="#1a1a1a" stroke-width="1"/>
-          <circle cx="6" cy="7" r="1.5" fill="#1a1a1a" opacity="0.3"/>
-          <circle cx="11" cy="7" r="1.5" fill="#1a1a1a" opacity="0.3"/>
-          <circle cx="16" cy="7" r="1.5" fill="#1a1a1a" opacity="0.3"/>
-          <!-- Шапка тёмная -->
-          <rect x="0" y="14" width="320" height="14" fill="#1a1a1a"/>
-          <rect x="6" y="18" width="30" height="6" fill="#c9a96e"/>
-          <rect x="240" y="18" width="32" height="6" fill="white" opacity="0.7"/>
-          <rect x="276" y="18" width="38" height="6" fill="#c9a96e"/>
-          <!-- HERO IMAGICAL (28-100) -->
-          <rect x="0" y="28" width="320" height="72" fill="#1a1a1a"/>
-          <rect x="4" y="32" width="312" height="64" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="0.8" stroke-dasharray="3 3"/>
-          <!-- Силуэт серьги слева -->
-          <circle cx="50" cy="68" r="12" fill="none" stroke="#c9a96e" stroke-width="1.2"/>
-          <circle cx="50" cy="68" r="5" fill="rgba(201,169,110,0.4)"/>
-          <!-- Колье центр -->
-          <path d="M 130 44 Q 160 70 190 44" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-          <polygon points="160,68 154,76 160,86 166,76" fill="rgba(201,169,110,0.5)" stroke="#c9a96e" stroke-width="0.8"/>
-          <!-- Кольцо справа -->
-          <ellipse cx="270" cy="78" rx="20" ry="6" fill="none" stroke="#c9a96e" stroke-width="1"/>
-          <polygon points="270,66 264,72 270,78 276,72" fill="#c9a96e" opacity="0.7"/>
-          <!-- Лого центр -->
-          <text x="160" y="62" font-family="Caveat,cursive" font-size="14" font-weight="700" fill="white" text-anchor="middle">WOW<tspan fill="#c9a96e">SHIMMER</tspan></text>
-          <text x="160" y="73" font-family="Caveat,cursive" font-size="5" fill="rgba(255,255,255,0.5)" text-anchor="middle" letter-spacing="1">ОПТОВАЯ БИЖУТЕРИЯ</text>
-          <!-- CTA pills -->
-          <rect x="120" y="84" width="36" height="10" fill="#c9a96e"/>
-          <rect x="160" y="84" width="36" height="10" fill="none" stroke="white" stroke-width="0.8"/>
-          <!-- ЯКОРЬ V1 = палитра -->
-          <rect x="0" y="100" width="320" height="100" fill="#ede9e0"/>
-          <rect x="6" y="106" width="40" height="6" fill="#c9a96e"/>
-          <rect x="6" y="116" width="180" height="5" fill="#1a1a1a"/>
-          <!-- Палитра-стена 20×3 -->
-          <g transform="translate(8,128)">
-            <rect x="0"   y="0" width="12" height="9" fill="#1a1a1a"/>
-            <rect x="14"  y="0" width="12" height="9" fill="#3a3a3a"/>
-            <rect x="28"  y="0" width="12" height="9" fill="#c9a96e"/>
-            <rect x="42"  y="0" width="12" height="9" fill="#d4af37"/>
-            <rect x="56"  y="0" width="12" height="9" fill="#b76e79"/>
-            <rect x="70"  y="0" width="12" height="9" fill="#eadbc8"/>
-            <rect x="84"  y="0" width="12" height="9" fill="#a5897a"/>
-            <rect x="98"  y="0" width="12" height="9" fill="#7a5c4a"/>
-            <rect x="112" y="0" width="12" height="9" fill="#9c8b7a"/>
-            <rect x="126" y="0" width="12" height="9" fill="#c5b8a5"/>
-            <rect x="140" y="0" width="12" height="9" fill="#e8d5b7"/>
-            <rect x="154" y="0" width="12" height="9" fill="#a8654b"/>
-            <rect x="168" y="0" width="12" height="9" fill="#6b4423"/>
-            <rect x="182" y="0" width="12" height="9" fill="#4a2c2a"/>
-            <rect x="196" y="0" width="12" height="9" fill="#8c7853"/>
-            <rect x="210" y="0" width="12" height="9" fill="#d9c2a6"/>
-            <rect x="224" y="0" width="12" height="9" fill="#bda06a"/>
-            <rect x="238" y="0" width="12" height="9" fill="#7a8a99"/>
-            <rect x="252" y="0" width="12" height="9" fill="#a4b0a8"/>
-            <rect x="266" y="0" width="12" height="9" fill="#5d6b6e"/>
-            <rect x="0"   y="11" width="12" height="9" fill="#cfd4cd"/>
-            <rect x="14"  y="11" width="12" height="9" fill="#8e9aaf"/>
-            <rect x="28"  y="11" width="12" height="9" fill="#b8b8b8"/>
-            <rect x="42"  y="11" width="12" height="9" fill="#525252"/>
-            <rect x="56"  y="11" width="12" height="9" fill="#e0b6a3"/>
-            <rect x="70"  y="11" width="12" height="9" fill="#c08877"/>
-            <rect x="84"  y="11" width="12" height="9" fill="#9b6a55"/>
-            <rect x="98"  y="11" width="12" height="9" fill="#d2b48c"/>
-            <rect x="112" y="11" width="12" height="9" fill="#8b7e74"/>
-            <rect x="126" y="11" width="12" height="9" fill="#6c5a48"/>
-            <rect x="140" y="11" width="12" height="9" fill="#bca58a"/>
-            <rect x="154" y="11" width="12" height="9" fill="#e6d3bb"/>
-            <rect x="168" y="11" width="12" height="9" fill="#9aa07a"/>
-            <rect x="182" y="11" width="12" height="9" fill="#525c45"/>
-            <rect x="196" y="11" width="12" height="9" fill="#a48ba0"/>
-            <rect x="210" y="11" width="12" height="9" fill="#6b4858"/>
-            <rect x="224" y="11" width="12" height="9" fill="#dbe0e3"/>
-            <rect x="238" y="11" width="12" height="9" fill="#2a2a2a"/>
-            <rect x="252" y="11" width="12" height="9" fill="#d6a247"/>
-            <rect x="266" y="11" width="12" height="9" fill="#7e7e7e"/>
-            <!-- выделенный -->
-            <rect x="28" y="0" width="12" height="9" fill="#c9a96e" stroke="#1a1a1a" stroke-width="1.5"/>
-          </g>
-          <!-- мини-карточки товаров -->
-          <rect x="8" y="156" width="48" height="38" fill="white" stroke="#1a1a1a" stroke-width="0.8"/>
-          <rect x="60" y="156" width="48" height="38" fill="white" stroke="#1a1a1a" stroke-width="0.8"/>
-          <rect x="112" y="156" width="48" height="38" fill="white" stroke="#1a1a1a" stroke-width="0.8"/>
-          <rect x="164" y="156" width="48" height="38" fill="white" stroke="#1a1a1a" stroke-width="0.8"/>
-          <rect x="216" y="156" width="48" height="38" fill="white" stroke="#1a1a1a" stroke-width="0.8"/>
-          <rect x="268" y="156" width="44" height="38" fill="white" stroke="#1a1a1a" stroke-width="0.8"/>
-        </svg>
-      </div>
-      <div class="v-body">
-        <div class="v-num">Вариант A</div>
-        <h2>Палитра-якорь</h2>
-        <p class="v-pitch">Под имиджевым hero — стена из&nbsp;30+ свотчей. Клик по&nbsp;оттенку перерисовывает превью товаров. Цвет как главный аргумент.</p>
-        <div class="schema">
-          <b>Главная: порядок блоков</b>
-          Имиджевый hero → <b style="color:var(--shimmer)">палитра-якорь</b> → о&nbsp;бренде (тизер) → условия партнёрства → форма заявки
-        </div>
-        <span class="v-open">Открыть V1 →</span>
-      </div>
-    </a>
 
     <a href="v2/" class="variant">
       <div class="v-thumb">
@@ -306,7 +204,7 @@
         </svg>
       </div>
       <div class="v-body">
-        <div class="v-num">Вариант B</div>
+        <div class="v-num">Вариант A</div>
         <h2>Витрина-якорь</h2>
         <p class="v-pitch">Под имиджевым hero — все 8 товаров крупной сеткой. «Вот всё, что мы продаём, и оно красивое». Каталог как лицо сайта.</p>
         <div class="schema">
@@ -403,7 +301,7 @@
         </svg>
       </div>
       <div class="v-body">
-        <div class="v-num">Вариант C</div>
+        <div class="v-num">Вариант B</div>
         <h2>Бренд-витрина</h2>
         <p class="v-pitch">Классическая брендовая главная для&nbsp;обычного посетителя. Каталог с&nbsp;розничными ценами открыт, маркетплейсы для&nbsp;покупки, партнёрский блок аккуратно ниже&nbsp;— не&nbsp;кричит.</p>
         <div class="schema">
