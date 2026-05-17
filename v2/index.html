@@ -131,7 +131,55 @@
   .anchor-section .section-title { margin-bottom: 14px; }
   .anchor-section .section-desc { margin-bottom: 28px; }
 
-  /* Витрина 8 товаров — 4×2 */
+  /* Витрина категорий — 1×3 (Серьги / Подвески / Кольца) */
+  .categories-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+    position: relative;
+  }
+  .category-card {
+    background: white; border: var(--stroke) solid var(--ink);
+    cursor: pointer; position: relative; overflow: hidden;
+    transition: transform 0.1s, box-shadow 0.1s;
+    display: flex; flex-direction: column;
+    text-decoration: none; color: var(--ink);
+  }
+  .category-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink-faint); }
+  .category-photo {
+    aspect-ratio: 5/3; background: var(--paper-dark); position: relative;
+    border-bottom: var(--stroke) solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .category-photo::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(45deg, transparent 49%, rgba(0,0,0,0.06) 49%, rgba(0,0,0,0.06) 51%, transparent 51%);
+    background-size: 18px 18px;
+  }
+  .category-photo .cat-banner {
+    position: relative; z-index: 2;
+    font-family: 'Caveat', cursive; font-size: 44px; font-weight: 700;
+    color: var(--ink); letter-spacing: 1px;
+    background: rgba(255,251,230,0.92); padding: 6px 22px;
+    border: 1.5px dashed var(--hl-border);
+  }
+  .category-photo .cat-count {
+    position: absolute; top: 12px; right: 12px; z-index: 3;
+    background: var(--ink); color: white; padding: 3px 10px;
+    font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px;
+  }
+  .category-info { padding: 18px 20px 22px; flex: 1; display: flex; flex-direction: column; }
+  .category-info h3 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .category-info .cat-sub { font-size: 13px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+  .category-info .cat-desc { font-size: 15px; color: var(--ink-mid); line-height: 1.5; margin-bottom: 14px; flex: 1; }
+  .category-info .cat-swatches { display: flex; gap: 3px; flex-wrap: wrap; margin-bottom: 14px; }
+  .category-info .cat-swatches span { width: 14px; height: 14px; border: 1px solid rgba(0,0,0,0.15); }
+  .category-info .cat-cta {
+    margin-top: auto; display: inline-flex; align-items: center; gap: 6px;
+    color: var(--shimmer); font-size: 16px; font-weight: 700;
+    border-bottom: 1px dashed var(--shimmer); align-self: flex-start; padding-bottom: 2px;
+  }
+
+  /* Витрина 8 товаров — 4×2 (UNUSED после перевода на категории, оставлено для возможного rollback) */
   .vitrina {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
     position: relative;
@@ -346,6 +394,11 @@
     .vitrina { grid-template-columns: repeat(3, 1fr); }
     .palette-band .pb-wall { grid-template-columns: repeat(10, 1fr); }
   }
+  @media (max-width: 880px) {
+    .categories-grid { grid-template-columns: 1fr; }
+    .category-photo { aspect-ratio: 5/2; }
+    .category-photo .cat-banner { font-size: 36px; }
+  }
   @media (max-width: 980px) {
     .hero-image .hero-logo { font-size: 64px; }
     .hero-image .hero-h1 { font-size: 30px; }
@@ -478,25 +531,25 @@
   </div>
 </div>
 
-<!-- ЯКОРЬ V2 · ВИТРИНА -->
+<!-- ЯКОРЬ V2 · КАТЕГОРИИ -->
 <section class="anchor-section" id="katalog">
   <div class="wrap">
-    <span class="anchor-tag">✎ якорь V2 · витрина</span>
-    <div class="section-title">Весь ассортимент за&nbsp;3 секунды
-      <span class="annotation">клик → карточка товара (внутри — все 30–45 оттенков)</span>
+    <span class="anchor-tag">✎ якорь A · категории</span>
+    <div class="section-title">Каталог по&nbsp;категориям
+      <span class="annotation">клик по&nbsp;категории → раскрывается список товаров в&nbsp;ней</span>
     </div>
     <p class="section-desc">
-      Все 8 моделей сетки сразу под&nbsp;имиджем. Партнёр оценивает уровень и&nbsp;стилистику
-      без&nbsp;скроллинга и&nbsp;понимает, нужен&nbsp;ли ему доступ в&nbsp;закрытый ЛК.
+      8 моделей в&nbsp;3 категориях. Когда у&nbsp;бренда есть структура&nbsp;— каталог
+      раскрывается через категории, и&nbsp;партнёр сразу видит, какие типы украшений доступны.
     </p>
 
-    <div class="vitrina" id="vitrina">
-      <!-- 8 карточек, генерируются JS -->
+    <div class="categories-grid" id="categories-grid">
+      <!-- 3 категории, генерируются JS -->
     </div>
 
     <div class="vitrina-strip">
       <div class="vs-text"><b>Розница</b> видна всем · <b>опт</b> — после входа в&nbsp;ЛК партнёра · <b>розничные покупки</b> идут через маркетплейсы.</div>
-      <div class="vs-mini" id="vs-mini" title="лента самых популярных оттенков"></div>
+      <div class="vs-mini" id="vs-mini" title="лента популярных оттенков"></div>
       <button class="btn-outline-sk" onclick="showStub('Каталог')" style="padding:6px 14px;font-size:15px;color:var(--ink);border-color:var(--ink);background:white">Полный каталог →</button>
     </div>
   </div>
@@ -749,31 +802,52 @@
     {n:'Серьги-гвоздики «сердечки» фианит', art:'WS-HRT-008', type:'Серьги',   retail:540, pal:[28,29,30,31,11,15,8]}
   ];
 
-  // Витрина в hero
-  (function buildVitrina() {
-    const grid = document.getElementById('vitrina');
-    PRODUCTS.forEach((pr, i) => {
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      const visible = pr.pal.slice(0, 6);
-      const total = 30 + (i % 16);
-      const remaining = total - visible.length;
-      const swatches = visible.map(idx => `<span class="ps" style="background:${PALETTE[idx].c}" title="${PALETTE[idx].n}"></span>`).join('');
+  // 3 категории каталога — для варианта A «Категории-якорь»
+  const CATEGORIES = [
+    {
+      name: 'Серьги',
+      count: 6,
+      sub: 'Пусеты · Штанги · С декором',
+      desc: 'Серьги-пусеты Swarovski 4/6/8&nbsp;мм, штанги, гвоздики с фианитом (сердечки, кресты).',
+      swatches: [2,3,4,5,11,16,24,8,38,30]
+    },
+    {
+      name: 'Подвески',
+      count: 1,
+      sub: 'На леске',
+      desc: 'Подвеска на&nbsp;леске с&nbsp;кристаллом Swarovski 8&nbsp;мм. Подходит для повседневных и&nbsp;вечерних образов.',
+      swatches: [2,34,35,4,25,11]
+    },
+    {
+      name: 'Кольца',
+      count: 1,
+      sub: 'Помолвочные',
+      desc: 'Кольцо помолвочное с&nbsp;крупным кристаллом Swarovski. Минималистичная оправа из&nbsp;стали.',
+      swatches: [1,2,3,5,23,38]
+    }
+  ];
+
+  (function buildCategories() {
+    const grid = document.getElementById('categories-grid');
+    if (!grid) return;
+    CATEGORIES.forEach(cat => {
+      const card = document.createElement('a');
+      card.className = 'category-card';
+      card.href = '#';
+      card.onclick = (e) => { e.preventDefault(); showStub('Каталог · ' + cat.name); };
+      const swatches = cat.swatches.map(idx => `<span style="background:${PALETTE[idx].c}" title="${PALETTE[idx].n}"></span>`).join('');
+      const modelsWord = cat.count === 1 ? 'модель' : (cat.count < 5 ? 'модели' : 'моделей');
       card.innerHTML = `
-        <div class="product-photo">
-          <div class="product-pill">${pr.type}</div>
-          <div class="product-num">${String(i+1).padStart(2,'0')}/08</div>
-          <div class="ph-label">фото · ${pr.n}</div>
+        <div class="category-photo">
+          <div class="cat-count">${cat.count} ${modelsWord}</div>
+          <div class="cat-banner">${cat.name}</div>
         </div>
-        <div class="product-info">
-          <div class="p-name">${pr.n}</div>
-          <div class="p-art">${pr.art}</div>
-          <div class="product-swatches">${swatches}<span class="more">+${remaining}</span></div>
-          <div class="p-meta">Цветов кристалла: <b>${total}</b></div>
-          <div class="p-price">
-            <div class="p-retail">${pr.retail}&nbsp;₽ <span class="p-retail-tag">розница</span></div>
-            <div class="p-opt">опт-цена — <a href="#" onclick="event.preventDefault();openLogin()">в&nbsp;ЛК</a></div>
-          </div>
+        <div class="category-info">
+          <h3>${cat.name}</h3>
+          <div class="cat-sub">${cat.sub}</div>
+          <p class="cat-desc">${cat.desc}</p>
+          <div class="cat-swatches">${swatches}</div>
+          <span class="cat-cta">Смотреть категорию →</span>
         </div>
       `;
       grid.appendChild(card);
