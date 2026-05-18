@@ -392,37 +392,25 @@
     box-shadow: 0 16px 40px rgba(0,0,0,0.5);
   }
 
-  /* Фото-плейсхолдер */
+  /* Фото товара (тестовый плейсхолдер — одна фотография для всех 8 карточек) */
   .product-photo {
     position: relative;
     aspect-ratio: 1;
-    background:
-      radial-gradient(ellipse at 50% 45%, rgba(201,169,110,0.14) 0%, transparent 55%),
-      linear-gradient(135deg, #131313 0%, #1c1c1c 100%);
+    background-color: #131313;
+    background-image: url('../img/wowshimmer.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     border-bottom: 1px solid var(--w-12);
     overflow: hidden;
   }
-  .product-photo::before {
-    /* силуэт кристалла по центру — мягкий маркер «здесь будет фото товара» */
+  /* Лёгкое затемнение поверх фото — чтобы pill-метки в углах читались */
+  .product-photo::after {
     content: '';
     position: absolute;
-    left: 50%; top: 47%;
-    transform: translate(-50%, -50%);
-    width: 56px; height: 56px;
-    background:
-      radial-gradient(circle at 40% 35%, rgba(255,255,255,0.55) 0%, rgba(201,169,110,0.35) 35%, transparent 70%);
-    filter: blur(0.5px);
-  }
-  .product-photo::after {
-    content: 'PHOTO';
-    position: absolute;
-    bottom: 14px; left: 50%;
-    transform: translateX(-50%);
-    font-size: 9px;
-    color: var(--w-22);
-    letter-spacing: 3px;
-    font-family: var(--font-body);
-    font-weight: 500;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.18) 0%, transparent 35%, transparent 70%, rgba(0,0,0,0.15) 100%);
+    pointer-events: none;
   }
 
   .product-type {
