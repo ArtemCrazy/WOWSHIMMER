@@ -1428,13 +1428,13 @@
   })();
 
   // ── Слайдер фото в карточках товара ──────────────────────────────
-  // На hover карточки фото переключаются автоматически.
-  // Клик по индикатору-точке тоже работает.
   (function setupCardSliders() {
-    document.querySelectorAll('#products .product').forEach(card => {
+    const cards = document.querySelectorAll('#products .product');
+    console.log('[Slider] карточек найдено:', cards.length);
+    cards.forEach((card, ci) => {
       const slides = card.querySelectorAll('.product-photo .slide');
       const dots = card.querySelectorAll('.photo-dots .dot');
-      if (slides.length < 2) return;
+      if (slides.length < 2) { console.warn('[Slider] карта', ci, 'без слайдов'); return; }
 
       let idx = 0;
       let timer = null;
@@ -1447,25 +1447,32 @@
         dots[idx].classList.add('active');
       };
 
-      // Авто-плей при наведении
-      card.addEventListener('mouseenter', () => {
-        timer = setInterval(() => show(idx + 1), 1400);
-      });
-      card.addEventListener('mouseleave', () => {
-        clearInterval(timer);
-        show(0); // возвращаем на первый кадр
-      });
+      const startSlider = () => {
+        if (timer) return;
+        show(idx + 1); // моментальный первый переход при наведении
+        timer = setInterval(() => show(idx + 1), 1000);
+      };
+      const stopSlider = () => {
+        if (timer) { clearInterval(timer); timer = null; }
+        show(0); // вернуться на первый кадр
+      };
+
+      // Привязываемся И к самой карточке, И к photo — чтобы точно ловить hover
+      card.addEventListener('mouseenter', startSlider);
+      card.addEventListener('mouseleave', stopSlider);
 
       // Клик по точке — переключить вручную
       dots.forEach((dot, i) => {
         dot.addEventListener('click', e => {
           e.preventDefault();
           e.stopPropagation();
+          if (timer) { clearInterval(timer); timer = null; }
           show(i);
         });
         dot.style.cursor = 'pointer';
       });
     });
+    console.log('[Slider] инициализация завершена');
   })();
 
   // ── Рендер палитры кристаллов ────────────────────────────────────
