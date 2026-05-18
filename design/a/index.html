@@ -886,59 +886,102 @@
   }
   .about-btn:hover .arrow { transform: translateX(4px); }
 
-  /* ── CHANNELS / WHERE TO BUY (светлая) ───────────────────────── */
+  /* ── CHANNELS / WHERE TO BUY (светлая, плашки с обводкой) ────── */
   .channels-section {
     background: #fafaf7;
-    padding: 100px 0;
+    padding: 100px 0 120px;
   }
   .channels-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 28px;
   }
   .channel-card {
+    position: relative;
     display: flex;
     flex-direction: column;
-    background: white;
-    border: 1px solid rgba(0,0,0,0.08);
-    padding: 32px 28px;
+    align-items: center;
+    text-align: center;
+    background: #fefefb;
+    border: 1px solid rgba(201,169,110,0.40);
+    border-radius: 18px;
+    padding: 56px 28px 40px;
     text-decoration: none;
     color: inherit;
+    min-height: 460px;
     transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
   }
   .channel-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(0,0,0,0.18);
-    box-shadow: 0 14px 32px rgba(0,0,0,0.06);
+    transform: translateY(-4px);
+    border-color: var(--gold);
+    box-shadow: 0 18px 36px rgba(138,118,81,0.10);
   }
-  .channel-icon { font-size: 32px; margin-bottom: 18px; line-height: 1; }
-  .channel-icon img { display: block; width: 40px; height: 40px; }
+
+  /* Иконка в круге с тонким золотым кольцом + ✦ снизу */
+  .channel-icon {
+    position: relative;
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,169,110,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 44px;
+  }
+  .channel-icon::after {
+    content: '✦';
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    transform: translateX(-50%);
+    color: var(--gold);
+    font-size: 11px;
+    background: #fefefb;
+    padding: 0 5px;
+    line-height: 1;
+  }
+  .channel-icon img {
+    width: 56px;
+    height: 56px;
+    display: block;
+    border-radius: 14px;
+  }
+
   .channel-card h3 {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 22px;
+    font-weight: 400;
+    font-size: 28px;
     color: var(--ink);
-    margin-bottom: 6px;
+    margin: 0 0 18px;
     letter-spacing: -0.2px;
+    line-height: 1;
   }
   .channel-card p {
-    font-size: 14px;
+    font-size: 13px;
     color: rgba(0,0,0,0.55);
-    margin-bottom: 0;
-    line-height: 1.5;
+    line-height: 1.55;
+    margin: 0 0 36px;
     flex: 1;
+    font-weight: 400;
   }
   .channel-link {
-    margin-top: 18px;
+    margin-top: auto;
     font-size: 11px;
     color: var(--gold-deep);
-    letter-spacing: 1.5px;
+    letter-spacing: 2.2px;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 6px;
     border-bottom: 1px solid var(--gold-deep);
-    padding-bottom: 2px;
-    align-self: flex-start;
+    transition: color 0.2s, border-color 0.2s, gap 0.2s;
   }
+  .channel-link .arrow { font-size: 13px; line-height: 1; transition: transform 0.2s; }
+  .channel-card:hover .channel-link { color: var(--ink); border-color: var(--ink); }
+  .channel-card:hover .channel-link .arrow { transform: translateX(3px); }
 
   /* ── PARTNERS (для партнёров, тёмная, по референсу) ─────────── */
   .partners-section {
@@ -1453,26 +1496,26 @@
       <a href="#" class="channel-card">
         <div class="channel-icon"><img src="../img/wildberries.svg" alt="Wildberries"></div>
         <h3>Wildberries</h3>
-        <p>Официальный магазин на&nbsp;Wildberries</p>
-        <span class="channel-link">Открыть на&nbsp;WB →</span>
+        <p>Официальный магазин<br>на&nbsp;Wildberries</p>
+        <span class="channel-link">Открыть на&nbsp;WB <span class="arrow">→</span></span>
       </a>
       <a href="#" class="channel-card">
         <div class="channel-icon"><img src="../img/ozon.svg" alt="Ozon"></div>
         <h3>Ozon</h3>
-        <p>Официальный магазин на&nbsp;Ozon</p>
-        <span class="channel-link">Открыть на&nbsp;Ozon →</span>
+        <p>Официальный магазин<br>на&nbsp;Ozon</p>
+        <span class="channel-link">Открыть на&nbsp;Ozon <span class="arrow">→</span></span>
       </a>
       <a href="#" class="channel-card">
         <div class="channel-icon"><img src="../img/instagram.svg" alt="Instagram"></div>
         <h3>Instagram</h3>
-        <p>Витрина новинок · @wowshimmer</p>
-        <span class="channel-link">Перейти в&nbsp;Instagram →</span>
+        <p>Витрина новинок ·<br>@wowshimmer</p>
+        <span class="channel-link">Перейти в&nbsp;Instagram <span class="arrow">→</span></span>
       </a>
       <a href="#" class="channel-card">
         <div class="channel-icon"><img src="../img/telegram.svg" alt="Telegram"></div>
         <h3>Telegram</h3>
-        <p>Канал с&nbsp;анонсами и&nbsp;обновлениями</p>
-        <span class="channel-link">Перейти в&nbsp;Telegram →</span>
+        <p>Канал с&nbsp;анонсами<br>и&nbsp;обновлениями</p>
+        <span class="channel-link">Перейти в&nbsp;Telegram <span class="arrow">→</span></span>
       </a>
     </div>
   </div>
