@@ -930,48 +930,67 @@
     background: #fafaf7;
     padding: 100px 0 110px;
   }
-  .contacts-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-  .contact-card {
-    display: block;
+  .contacts-card {
     background: white;
     border: 1px solid rgba(0,0,0,0.08);
-    padding: 32px 28px;
+    padding: 56px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .contact-item {
+    text-align: center;
+    padding: 0 24px;
+    border-right: 1px solid rgba(0,0,0,0.07);
     text-decoration: none;
     color: inherit;
-    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    transition: transform 0.2s;
   }
-  .contact-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(0,0,0,0.18);
-    box-shadow: 0 14px 32px rgba(0,0,0,0.06);
+  .contact-item:last-child { border-right: none; }
+  .contact-item:hover { transform: translateY(-2px); }
+  .contact-icon-circle {
+    width: 76px;
+    height: 76px;
+    border: 1.5px solid rgba(201,169,110,0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 26px;
+    color: var(--gold-deep);
+    transition: border-color 0.2s, color 0.2s;
   }
-  .contact-card--accent {
-    background: var(--ink);
-    color: var(--w-92);
-    border-color: var(--ink);
-  }
-  .contact-card--accent h3 { color: var(--white); }
-  .contact-card--accent p { color: var(--w-55); }
-  .contact-card--accent .contact-icon { color: var(--gold); }
-  .contact-card--accent:hover { border-color: var(--gold); box-shadow: 0 14px 32px rgba(0,0,0,0.25); }
-  .contact-icon { font-size: 28px; margin-bottom: 16px; line-height: 1; }
-  .contact-card h3 {
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 22px;
+  .contact-item:hover .contact-icon-circle {
+    border-color: var(--gold-deep);
     color: var(--ink);
-    margin-bottom: 6px;
-    letter-spacing: -0.2px;
   }
-  .contact-card p {
-    font-size: 14px;
-    color: rgba(0,0,0,0.55);
+  .contact-icon-circle svg {
+    width: 30px;
+    height: 30px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .contact-item h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--ink);
     margin: 0;
-    line-height: 1.5;
+    letter-spacing: -0.3px;
+  }
+  .contact-divider {
+    margin: 18px auto 20px;
+    font-size: 10px;
+    color: var(--gold-deep);
+    opacity: 0.65;
+  }
+  .contact-value {
+    font-size: 15px;
+    color: rgba(0,0,0,0.55);
+    font-weight: 300;
+    letter-spacing: 0.2px;
   }
 
   /* ── FOOTER (тёмный, минимал) ────────────────────────────────── */
@@ -1040,7 +1059,7 @@
   /* ── Адаптив для всех новых блоков ───────────────────────────── */
   @media (max-width: 1080px) {
     .palette-grid { grid-template-columns: repeat(15, 1fr); }
-    .channels-grid, .contacts-grid { grid-template-columns: repeat(2, 1fr); }
+    .channels-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 880px) {
     .about-grid, .partners-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -1057,7 +1076,10 @@
     .hero-cta { flex-direction: column; align-items: stretch; gap: 10px; width: 100%; max-width: 300px; }
     .btn { padding: 13px 22px; }
     .hero-sub::before, .hero-sub::after { width: 16px; margin: 0 10px; }
-    .channels-grid, .contacts-grid { grid-template-columns: 1fr; }
+    .channels-grid { grid-template-columns: 1fr; }
+    .contacts-card { grid-template-columns: 1fr; padding: 32px 16px; }
+    .contact-item { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.07); padding: 28px 16px; }
+    .contact-item:last-child { border-bottom: none; }
     .footer-grid { grid-template-columns: 1fr; gap: 32px; }
     .palette-grid { grid-template-columns: repeat(8, 1fr); }
     .footer-bottom { flex-direction: column; align-items: flex-start; }
@@ -1292,26 +1314,40 @@
       </p>
     </div>
 
-    <div class="contacts-grid">
-      <a href="#" class="contact-card">
-        <div class="contact-icon">💬</div>
+    <div class="contacts-card">
+      <a href="#" class="contact-item">
+        <div class="contact-icon-circle">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.5 3L2.5 10.5L10 13.5L13 21L21.5 3Z"/>
+            <path d="M10 13.5L14 9.5"/>
+          </svg>
+        </div>
         <h3>Telegram</h3>
-        <p>Самый быстрый канал</p>
+        <div class="contact-divider">✦</div>
+        <div class="contact-value">@wowshimmer</div>
       </a>
-      <a href="#" class="contact-card">
-        <div class="contact-icon">📧</div>
+
+      <a href="mailto:info@wowshimmer.ru" class="contact-item">
+        <div class="contact-icon-circle">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2.5" y="5" width="19" height="14" rx="1"/>
+            <path d="M3 6L12 13L21 6"/>
+          </svg>
+        </div>
         <h3>E-mail</h3>
-        <p>info@wowshimmer.ru</p>
+        <div class="contact-divider">✦</div>
+        <div class="contact-value">info@wowshimmer.ru</div>
       </a>
-      <a href="#" class="contact-card">
-        <div class="contact-icon">📞</div>
+
+      <a href="tel:+79991234567" class="contact-item">
+        <div class="contact-icon-circle">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 16.92V19.92C22 20.47 21.78 21 21.39 21.39C21 21.78 20.47 22 19.92 22C16.5 21.79 13.22 20.5 10.5 18.5C8 16.6 6 14.27 4.7 11.5C2.95 8.4 2.21 5.5 2 2.08C2 1.53 2.22 1 2.61 0.61C3 0.22 3.53 0 4.08 0H7.08C8.05 0 8.88 0.7 9.05 1.64L9.95 5.64C10.07 6.22 9.89 6.83 9.47 7.25L7.95 8.77C9.34 11.27 11.27 13.2 13.77 14.59L15.29 13.07C15.71 12.65 16.32 12.47 16.9 12.59L20.9 13.49C21.84 13.66 22.54 14.49 22.54 15.46L22 16.92Z"/>
+          </svg>
+        </div>
         <h3>Телефон</h3>
-        <p>+7 (___) ___-__-__</p>
-      </a>
-      <a href="#" class="contact-card contact-card--accent">
-        <div class="contact-icon">✦</div>
-        <h3>Партнёрская заявка</h3>
-        <p>Заявка на&nbsp;опт-доступ</p>
+        <div class="contact-divider">✦</div>
+        <div class="contact-value">+7 (999) 123-45-67</div>
       </a>
     </div>
   </div>
