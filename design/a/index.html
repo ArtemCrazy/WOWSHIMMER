@@ -774,25 +774,27 @@
   }
   .about-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 0;
+    align-items: stretch;       /* фото и плашка одной высоты */
     position: relative;
   }
 
-  /* Visual: фото с мягкой круглой маской + W-монограмма внизу */
+  /* Visual: фото в виде «капсулы» с большим эллиптическим скруглением */
   .about-visual {
     position: relative;
+    z-index: 2;
+    margin-right: -70px;        /* перекрытие правого края плашки */
   }
   .about-photo {
-    aspect-ratio: 4/5;
+    width: 100%;
+    height: 100%;
+    min-height: 580px;
     background-image: url('../img/company.png');
     background-size: cover;
-    background-position: center;
+    background-position: 32% center;
     background-color: #131313;
-    /* Овальная мягкая маска по краям — фото «вписано» в фон */
-    -webkit-mask-image: radial-gradient(ellipse 75% 90% at 50% 50%, #000 55%, rgba(0,0,0,0.65) 75%, transparent 100%);
-            mask-image: radial-gradient(ellipse 75% 90% at 50% 50%, #000 55%, rgba(0,0,0,0.65) 75%, transparent 100%);
+    border-radius: 50% / 38%;   /* эллиптическое скругление сверху и снизу */
   }
   .about-monogram {
     position: absolute;
@@ -817,12 +819,18 @@
   /* Текстовая тёмная плашка с тонкой обводкой */
   .about-text {
     position: relative;
+    z-index: 1;
+    display: flex;
   }
   .about-card {
     position: relative;
+    width: 100%;
     background: rgba(255,255,255,0.015);
     border: 1px solid rgba(255,255,255,0.10);
-    padding: 56px 56px 52px;
+    padding: 60px 56px 56px 130px;   /* левый отступ под перекрывающее фото */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   /* Eyebrow «О БРЕНДЕ ─── ✦» — длинная линия + звёздочка справа */
@@ -1179,7 +1187,9 @@
     .channels-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 880px) {
-    .about-grid, .partners-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-grid, .partners-grid { grid-template-columns: 1fr; gap: 32px; }
+    .about-visual { margin-right: 0; }
+    .about-photo { min-height: 460px; border-radius: 50% / 22%; }
     .about-card { padding: 36px 28px 32px; }
     .about-section { padding: 80px 0; }
     .about-section::after { top: 60px; right: 24px; }
