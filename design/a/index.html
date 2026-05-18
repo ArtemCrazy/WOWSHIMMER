@@ -239,7 +239,7 @@
   /* ── CATALOG INTRO (peek-блок) ────────────────────────────────── */
   .catalog-intro {
     background: var(--ink);
-    padding: 80px 0 60px;
+    padding: 100px 0 60px;
     color: var(--w-92);
   }
   .catalog-tagline {
@@ -263,6 +263,333 @@
   }
   .catalog-tagline::after { margin: 32px auto 0; }
   .catalog-tagline em { color: var(--gold); font-style: italic; }
+
+  /* ── CATALOG (товары) ─────────────────────────────────────────── */
+  .catalog {
+    background: linear-gradient(180deg, var(--ink) 0%, #0c0c0c 100%);
+    padding: 40px 0 120px;
+    color: var(--w-92);
+  }
+
+  .catalog-head {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .catalog-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .catalog-eyebrow::before, .catalog-eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--gold);
+    vertical-align: middle;
+    margin: 0 12px;
+    opacity: 0.6;
+  }
+  .catalog-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .catalog-lead {
+    font-size: 16px;
+    color: var(--w-55);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* Категории-вкладки */
+  .cat-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding: 0 16px;
+  }
+  .cat-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 22px;
+    background: transparent;
+    border: 1px solid var(--w-22);
+    color: var(--w-72);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .cat-tab:hover {
+    border-color: var(--gold);
+    color: var(--white);
+  }
+  .cat-tab span {
+    font-size: 11px;
+    padding: 1px 7px;
+    background: var(--w-12);
+    color: var(--w-72);
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+  }
+  .cat-tab.active {
+    background: var(--gold);
+    color: var(--ink);
+    border-color: var(--gold);
+  }
+  .cat-tab.active span {
+    background: rgba(0,0,0,0.2);
+    color: var(--ink);
+  }
+  .cat-tab--ph {
+    border-style: dashed;
+    border-color: rgba(201,169,110,0.4);
+    color: rgba(201,169,110,0.7);
+  }
+  .cat-tab--ph span {
+    background: rgba(201,169,110,0.15);
+    color: var(--gold);
+  }
+
+  /* Сетка карточек */
+  .products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .product {
+    display: block;
+    background: var(--ink-2);
+    border: 1px solid var(--w-12);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    overflow: hidden;
+  }
+  .product:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  }
+
+  /* Фото-плейсхолдер */
+  .product-photo {
+    position: relative;
+    aspect-ratio: 1;
+    background:
+      radial-gradient(ellipse at 50% 45%, rgba(201,169,110,0.14) 0%, transparent 55%),
+      linear-gradient(135deg, #131313 0%, #1c1c1c 100%);
+    border-bottom: 1px solid var(--w-12);
+    overflow: hidden;
+  }
+  .product-photo::before {
+    /* силуэт кристалла по центру — мягкий маркер «здесь будет фото товара» */
+    content: '';
+    position: absolute;
+    left: 50%; top: 47%;
+    transform: translate(-50%, -50%);
+    width: 56px; height: 56px;
+    background:
+      radial-gradient(circle at 40% 35%, rgba(255,255,255,0.55) 0%, rgba(201,169,110,0.35) 35%, transparent 70%);
+    filter: blur(0.5px);
+  }
+  .product-photo::after {
+    content: 'PHOTO';
+    position: absolute;
+    bottom: 14px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: var(--w-22);
+    letter-spacing: 3px;
+    font-family: var(--font-body);
+    font-weight: 500;
+  }
+
+  .product-type {
+    position: absolute;
+    top: 14px; left: 14px;
+    z-index: 2;
+    padding: 4px 10px;
+    background: rgba(10,10,10,0.65);
+    border: 1px solid var(--w-22);
+    font-size: 10px;
+    color: var(--w-92);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    backdrop-filter: blur(4px);
+  }
+  .product-num {
+    position: absolute;
+    top: 14px; right: 14px;
+    z-index: 2;
+    font-size: 11px;
+    color: var(--w-40);
+    font-weight: 500;
+    letter-spacing: 1.5px;
+  }
+
+  /* Info-зона карточки */
+  .product-info {
+    padding: 18px 20px 22px;
+  }
+  .product-name {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+    line-height: 1.3;
+  }
+  .product-art {
+    font-size: 11px;
+    color: var(--w-40);
+    letter-spacing: 1.2px;
+    font-family: var(--font-body);
+    margin-bottom: 12px;
+  }
+  .product-swatches {
+    display: flex;
+    gap: 3px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .product-swatches span {
+    width: 13px; height: 13px;
+    border: 1px solid rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+  .product-swatches .more {
+    background: transparent;
+    border: 1px solid var(--w-22);
+    color: var(--w-55);
+    font-size: 10px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    min-width: 26px;
+    height: 13px;
+    letter-spacing: 0.3px;
+  }
+  .product-meta {
+    font-size: 12px;
+    color: var(--w-55);
+    margin-bottom: 14px;
+    letter-spacing: 0.3px;
+  }
+  .product-meta b { color: var(--white); font-weight: 500; }
+
+  /* Блок цены */
+  .product-price {
+    padding-top: 12px;
+    border-top: 1px solid var(--w-12);
+  }
+  .price-retail {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--white);
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .price-retail .ph-tag {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--w-40);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .price-opt {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .price-opt::before {
+    content: '🔒';
+    font-size: 9px;
+    opacity: 0.7;
+  }
+
+  /* Нижняя полоса */
+  .catalog-foot {
+    margin-top: 16px;
+    padding: 24px 28px;
+    border: 1px solid var(--w-12);
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .catalog-foot p {
+    font-size: 13px;
+    color: var(--w-55);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .catalog-foot p b { color: var(--white); font-weight: 500; }
+  .btn-link {
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-link:hover {
+    color: var(--white);
+    border-color: var(--white);
+  }
+
+  /* Адаптив каталога */
+  @media (max-width: 1180px) {
+    .products { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 880px) {
+    .products { grid-template-columns: repeat(2, 1fr); }
+    .catalog { padding: 32px 0 80px; }
+    .catalog-head { margin-bottom: 36px; }
+    .cat-tabs { margin-bottom: 36px; gap: 8px; }
+    .cat-tab { padding: 9px 16px; font-size: 11px; letter-spacing: 1.2px; }
+  }
+  @media (max-width: 480px) {
+    .products { grid-template-columns: 1fr; gap: 16px; }
+    .catalog-foot { flex-direction: column; align-items: flex-start; }
+  }
 
   /* Variant label (служебная плашка вверху справа — снимем перед финалом) */
   .variant-label {
@@ -349,11 +676,121 @@
   </p>
 </section>
 
+<section class="catalog" id="catalog">
+  <div class="wrap">
+    <div class="catalog-head">
+      <span class="catalog-eyebrow">Каталог</span>
+      <h2 class="catalog-title">Серьги, подвески, кольца</h2>
+      <p class="catalog-lead">
+        8 моделей с&nbsp;кристаллами Swarovski и&nbsp;фианитами. Розничные цены видны всем —
+        оптовые открываются после авторизации партнёра.
+      </p>
+    </div>
+
+    <div class="cat-tabs" id="catTabs">
+      <button class="cat-tab active" data-cat="all">Все <span>8</span></button>
+      <button class="cat-tab" data-cat="earrings">Серьги <span>5</span></button>
+      <button class="cat-tab" data-cat="pendants">Подвески <span>2</span></button>
+      <button class="cat-tab" data-cat="rings">Кольца <span>1</span></button>
+      <button class="cat-tab cat-tab--ph" data-cat="bracelets">Браслеты <span>·</span></button>
+    </div>
+
+    <div class="products" id="products">
+      <!-- 8 карточек, генерируются JS -->
+    </div>
+
+    <div class="catalog-foot">
+      <p>
+        <b>Розница</b> видна всем посетителям. <b>Опт-цена</b> открывается после входа партнёра
+        в&nbsp;ЛК. Браслеты — отдельная коллекция «с&nbsp;аффирмациями».
+      </p>
+      <a href="#" class="btn-link">Полный каталог →</a>
+    </div>
+  </div>
+</section>
+
 <script>
+  // ── Header scroll effect ─────────────────────────────────────────
   const header = document.getElementById('siteHeader');
   const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  // ── PALETTE: цвета кристаллов Swarovski (демо) ───────────────────
+  const PALETTE = [
+    '#1a1a1a','#3a3a3a','#c9a96e','#d4af37','#b76e79','#eadbc8','#a5897a','#7a5c4a',
+    '#9c8b7a','#c5b8a5','#e8d5b7','#a8654b','#6b4423','#4a2c2a','#8c7853','#d9c2a6',
+    '#bda06a','#7a8a99','#a4b0a8','#5d6b6e','#cfd4cd','#8e9aaf','#b8b8b8','#525252',
+    '#e0b6a3','#c08877','#9b6a55','#d2b48c','#8b7e74','#6c5a48','#bca58a','#e6d3bb',
+    '#9aa07a','#525c45','#a48ba0','#6b4858','#dbe0e3','#2a2a2a','#d6a247','#7e7e7e'
+  ];
+
+  // ── PRODUCTS: 8 SKU по списку Алёны от 18.05 ─────────────────────
+  const PRODUCTS = [
+    {n:'Пусеты Swarovski 8 мм',  art:'WS-PUS-08', type:'Серьги',   cat:'earrings', retail:862, pal:[2,3,4,5,11,16,24]},
+    {n:'Подвеска на леске',       art:'WS-PND-LK', type:'Подвеска', cat:'pendants', retail:753, pal:[34,35,4,25,26,11]},
+    {n:'Кольцо',                  art:'WS-RNG-01', type:'Кольцо',   cat:'rings',    retail:940, pal:[1,2,3,5,23,38]},
+    {n:'Серьги-протяжки',         art:'WS-PRT-01', type:'Серьги',   cat:'earrings', retail:480, pal:[2,0,3,16,11]},
+    {n:'Серьги-штанги',           art:'WS-SHT-01', type:'Серьги',   cat:'earrings', retail:551, pal:[8,9,17,18,20]},
+    {n:'Пусеты Swarovski 4 мм',   art:'WS-PUS-04', type:'Серьги',   cat:'earrings', retail:634, pal:[2,4,5,11,16,24]},
+    {n:'Пусеты Swarovski 6 мм',   art:'WS-PUS-06', type:'Серьги',   cat:'earrings', retail:732, pal:[0,3,8,9,10,38]},
+    {n:'Подвеска на цепи',        art:'WS-PND-CH', type:'Подвеска', cat:'pendants', retail:890, pal:[2,3,4,5,38,23]}
+  ];
+
+  // ── Рендер карточек ──────────────────────────────────────────────
+  (function buildProducts() {
+    const grid = document.getElementById('products');
+    if (!grid) return;
+    PRODUCTS.forEach((pr, i) => {
+      const card = document.createElement('a');
+      card.className = 'product';
+      card.href = '#';
+      card.dataset.cat = pr.cat;
+      card.addEventListener('click', e => e.preventDefault());
+
+      const total = 30 + (i % 16);
+      const remaining = total - pr.pal.length;
+      const swatches = pr.pal.map(idx => `<span style="background:${PALETTE[idx]}" title="${PALETTE[idx]}"></span>`).join('');
+      const more = remaining > 0 ? `<span class="more">+${remaining}</span>` : '';
+
+      card.innerHTML = `
+        <div class="product-photo">
+          <span class="product-type">${pr.type}</span>
+          <span class="product-num">${String(i+1).padStart(2,'0')} / 08</span>
+        </div>
+        <div class="product-info">
+          <div class="product-name">${pr.n}</div>
+          <div class="product-art">${pr.art}</div>
+          <div class="product-swatches">${swatches}${more}</div>
+          <div class="product-meta">Цветов кристалла: <b>${total}</b></div>
+          <div class="product-price">
+            <div class="price-retail">${pr.retail.toLocaleString('ru-RU')}&nbsp;₽ <span class="ph-tag">розница</span></div>
+            <div class="price-opt">опт-цена — в ЛК партнёра</div>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  })();
+
+  // ── Фильтрация по категориям ────────────────────────────────────
+  (function setupTabs() {
+    const tabs = document.querySelectorAll('#catTabs .cat-tab');
+    if (!tabs.length) return;
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const cat = tab.dataset.cat;
+        if (cat === 'bracelets') {
+          alert('«Браслеты — коллекция с аффирмациями»\n\nЭто отдельная линейка бренда. На главной не выводится — будет своей страницей /collection/affirmations/');
+          return;
+        }
+        tabs.forEach(t => t.classList.toggle('active', t === tab));
+        document.querySelectorAll('#products .product').forEach(card => {
+          card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+        });
+      });
+    });
+  })();
 </script>
 
 </body>
