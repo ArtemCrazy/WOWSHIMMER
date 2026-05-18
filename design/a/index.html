@@ -957,6 +957,23 @@
     width: 60%; height: 80%;
     background: radial-gradient(ellipse at 70% 50%, rgba(201,169,110,0.14) 0%, transparent 55%);
     pointer-events: none;
+    z-index: 0;
+  }
+  /* Декоративное фото украшения справа снизу */
+  .partners-gem {
+    position: absolute;
+    right: -80px;
+    bottom: -60px;
+    width: 420px;
+    height: 420px;
+    background-image: url('../img/wowshimmer3.webp');
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.85;
+    -webkit-mask-image: radial-gradient(ellipse at 70% 60%, #000 0%, #000 35%, transparent 75%);
+            mask-image: radial-gradient(ellipse at 70% 60%, #000 0%, #000 35%, transparent 75%);
   }
   .partners-grid {
     display: grid;
@@ -964,6 +981,7 @@
     gap: 80px;
     align-items: center;
     position: relative;
+    z-index: 1;
   }
 
   /* Flow с цифрами и вертикальной золотой линией (слева) */
@@ -971,20 +989,16 @@
     position: relative;
     padding-left: 30px;
   }
+  /* Непрерывная вертикальная золотая линия — продолжается чуть выше первой и ниже последней цифры */
   .partners-flow::before {
-    /* вертикальная золотая линия */
     content: '';
     position: absolute;
     left: 110px;
-    top: 40px;
-    bottom: 40px;
+    top: -16px;
+    bottom: -16px;
     width: 1px;
-    background: linear-gradient(180deg,
-      transparent 0%,
-      var(--gold) 8%,
-      var(--gold) 92%,
-      transparent 100%);
-    opacity: 0.6;
+    background: var(--gold);
+    opacity: 0.55;
   }
   .flow-step {
     display: grid;
@@ -994,26 +1008,27 @@
     position: relative;
     align-items: center;
   }
-  /* Точка-маркер на линии возле каждого шага */
+  /* Точка-маркер прямо на линии (без обводки, чтобы линия не разрывалась) */
   .flow-step::after {
     content: '';
     position: absolute;
     left: 110px;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 8px; height: 8px;
+    width: 7px; height: 7px;
     background: var(--gold);
     border-radius: 50%;
     z-index: 2;
-    box-shadow: 0 0 0 4px var(--ink);
   }
   .flow-num {
     font-family: var(--font-display);
-    font-weight: 300;
+    font-weight: 400;
     font-size: 46px;
     color: var(--gold);
     line-height: 1;
     letter-spacing: 1px;
+    font-variant-numeric: lining-nums;
+    font-feature-settings: "lnum" 1;
   }
   .flow-content h4 {
     font-family: var(--font-display);
@@ -1467,6 +1482,7 @@
 <!-- ДЛЯ ПАРТНЁРОВ                                               -->
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="partners-section" id="partners">
+  <div class="partners-gem" aria-hidden="true"></div>
   <div class="wrap">
     <div class="partners-grid">
       <div class="partners-flow">
