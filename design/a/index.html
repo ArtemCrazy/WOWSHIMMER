@@ -608,6 +608,446 @@
     /* На мобильном баннер портретный (bg4, 4:5) — переключается через <picture> */
     .hero-overlay::before { width: 88%; height: 38%; min-height: 220px; max-height: 320px; }
   }
+  /* ──────────────────────────────────────────────────────────────
+     ОБЩИЕ СТИЛИ для блоков ниже каталога
+     ────────────────────────────────────────────────────────────── */
+  .section-head {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-eyebrow::before, .section-eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--gold);
+    vertical-align: middle;
+    margin: 0 12px;
+    opacity: 0.6;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+    text-align: center;
+  }
+  .section-lead {
+    font-size: 16px;
+    color: var(--w-55);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: 300;
+    text-align: center;
+  }
+  /* Светлые версии для светлых секций */
+  .section-light .section-title { color: var(--ink); }
+  .section-light .section-lead { color: rgba(0,0,0,0.55); }
+  .section-light .section-eyebrow { color: var(--gold-deep); }
+  .section-light .section-eyebrow::before,
+  .section-light .section-eyebrow::after { background: var(--gold-deep); }
+
+  /* Кнопка-контур для тёмного фона */
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--w-22);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* Кнопка-золото для тёмного фона */
+  .btn-gold {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .btn-gold:hover { background: var(--white); border-color: var(--white); transform: translate(-1px, -1px); }
+
+  /* ── PALETTE (палитра кристаллов, тёмная) ────────────────────── */
+  .palette-section {
+    background: var(--ink);
+    padding: 100px 0 120px;
+    color: var(--w-92);
+  }
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    gap: 4px;
+    max-width: 1100px;
+    margin: 0 auto 28px;
+    padding: 0 24px;
+  }
+  .palette-grid .sw {
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: transform 0.18s;
+    border: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+  }
+  .palette-grid .sw:hover {
+    transform: scale(1.45);
+    z-index: 2;
+    box-shadow: 0 0 0 1px var(--gold), 0 6px 16px rgba(0,0,0,0.5);
+  }
+  .palette-note {
+    font-size: 11px;
+    color: var(--w-40);
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* ── ABOUT (о бренде, тёмная) ────────────────────────────────── */
+  .about-section {
+    background: var(--ink);
+    padding: 100px 0;
+    color: var(--w-92);
+    border-top: 1px solid var(--w-6);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .about-photo {
+    aspect-ratio: 4/5;
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(201,169,110,0.18) 0%, transparent 60%),
+      linear-gradient(135deg, #131313 0%, #1c1c1c 100%);
+    border: 1px solid var(--w-12);
+    position: relative;
+    overflow: hidden;
+  }
+  .about-photo::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 45%;
+    transform: translate(-50%, -50%);
+    width: 90px; height: 90px;
+    background: radial-gradient(circle at 40% 35%, rgba(255,255,255,0.55) 0%, rgba(201,169,110,0.35) 35%, transparent 70%);
+    filter: blur(1px);
+  }
+  .about-photo .ph-label {
+    position: absolute;
+    bottom: 18px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--w-40);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .about-text .section-eyebrow {
+    margin: 0 0 14px;
+  }
+  .about-text .section-eyebrow::before,
+  .about-text .section-eyebrow::after { display: none; }
+  .about-text .section-title {
+    text-align: left;
+    margin-bottom: 24px;
+  }
+  .about-text p {
+    font-size: 16px;
+    color: var(--w-72);
+    line-height: 1.7;
+    margin-bottom: 16px;
+    font-weight: 300;
+  }
+  .about-text p strong { color: var(--white); font-weight: 500; }
+  .about-text .btn-outline { margin-top: 16px; }
+
+  /* ── CHANNELS / WHERE TO BUY (светлая) ───────────────────────── */
+  .channels-section {
+    background: #fafaf7;
+    padding: 100px 0;
+  }
+  .channels-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .channel-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 32px 28px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+  .channel-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0,0,0,0.18);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.06);
+  }
+  .channel-icon { font-size: 32px; margin-bottom: 18px; line-height: 1; }
+  .channel-card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+  .channel-card p {
+    font-size: 14px;
+    color: rgba(0,0,0,0.55);
+    margin-bottom: 0;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .channel-link {
+    margin-top: 18px;
+    font-size: 11px;
+    color: var(--gold-deep);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid var(--gold-deep);
+    padding-bottom: 2px;
+    align-self: flex-start;
+  }
+
+  /* ── PARTNERS (для партнёров, тёмная с акцентом) ─────────────── */
+  .partners-section {
+    background: var(--ink);
+    padding: 100px 0;
+    color: var(--w-92);
+    position: relative;
+    border-top: 1px solid var(--w-6);
+    overflow: hidden;
+  }
+  .partners-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 75% 50%, rgba(201,169,110,0.10) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .partners-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+  }
+  .partners-left .section-eyebrow {
+    margin: 0 0 14px;
+  }
+  .partners-left .section-eyebrow::before,
+  .partners-left .section-eyebrow::after { display: none; }
+  .partners-left .section-title {
+    text-align: left;
+    margin-bottom: 24px;
+  }
+  .partners-left p {
+    font-size: 16px;
+    color: var(--w-72);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+  .partners-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .partners-flow { display: grid; gap: 10px; }
+  .flow-step {
+    padding: 18px 24px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--w-12);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .flow-step:hover {
+    border-color: var(--gold);
+    background: rgba(201,169,110,0.04);
+  }
+  .flow-num {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 36px;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 48px;
+  }
+  .flow-step h4 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 2px;
+    letter-spacing: -0.1px;
+  }
+  .flow-step .flow-desc {
+    font-size: 12px;
+    color: var(--w-55);
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+  }
+
+  /* ── CONTACTS (контакты, светлая) ────────────────────────────── */
+  .contacts-section {
+    background: #fafaf7;
+    padding: 100px 0 110px;
+  }
+  .contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .contact-card {
+    display: block;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 32px 28px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+  .contact-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0,0,0,0.18);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.06);
+  }
+  .contact-card--accent {
+    background: var(--ink);
+    color: var(--w-92);
+    border-color: var(--ink);
+  }
+  .contact-card--accent h3 { color: var(--white); }
+  .contact-card--accent p { color: var(--w-55); }
+  .contact-card--accent .contact-icon { color: var(--gold); }
+  .contact-card--accent:hover { border-color: var(--gold); box-shadow: 0 14px 32px rgba(0,0,0,0.25); }
+  .contact-icon { font-size: 28px; margin-bottom: 16px; line-height: 1; }
+  .contact-card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+  .contact-card p {
+    font-size: 14px;
+    color: rgba(0,0,0,0.55);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER (тёмный, минимал) ────────────────────────────────── */
+  .site-footer {
+    background: var(--ink);
+    color: var(--w-55);
+    padding: 80px 0 32px;
+    border-top: 1px solid var(--w-12);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 56px;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--white);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .footer-brand p {
+    font-size: 14px;
+    color: var(--w-55);
+    line-height: 1.65;
+    max-width: 340px;
+    font-weight: 300;
+  }
+  .footer-col h5 {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--w-72);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .footer-col a {
+    display: block;
+    color: var(--w-55);
+    font-size: 14px;
+    padding: 5px 0;
+    transition: color 0.2s;
+    font-weight: 300;
+  }
+  .footer-col a:hover { color: var(--white); }
+
+  .footer-bottom {
+    border-top: 1px solid var(--w-12);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--w-40);
+    letter-spacing: 0.3px;
+  }
+  .footer-bottom a { color: var(--w-72); text-decoration: none; transition: color 0.2s; }
+  .footer-bottom a:hover { color: var(--white); }
+
+  /* ── Адаптив для всех новых блоков ───────────────────────────── */
+  @media (max-width: 1080px) {
+    .palette-grid { grid-template-columns: repeat(15, 1fr); }
+    .channels-grid, .contacts-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 880px) {
+    .about-grid, .partners-grid { grid-template-columns: 1fr; gap: 48px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .palette-grid { grid-template-columns: repeat(10, 1fr); }
+    .palette-section, .about-section, .channels-section, .partners-section, .contacts-section { padding: 70px 0 80px; }
+    .site-footer { padding: 60px 0 24px; }
+  }
+
   @media (max-width: 540px) {
     .wrap { padding: 0 20px; }
     .logo { font-size: 18px; letter-spacing: 3px; }
@@ -615,6 +1055,14 @@
     .hero-cta { flex-direction: column; align-items: stretch; gap: 10px; width: 100%; max-width: 300px; }
     .btn { padding: 13px 22px; }
     .hero-sub::before, .hero-sub::after { width: 16px; margin: 0 10px; }
+    .channels-grid, .contacts-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .palette-grid { grid-template-columns: repeat(8, 1fr); }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+    .partners-cta { flex-direction: column; align-items: stretch; }
+    .partners-cta a { width: 100%; justify-content: center; }
+    .flow-num { font-size: 28px; min-width: 36px; }
+    .flow-step { padding: 14px 18px; gap: 14px; }
   }
 </style>
 </head>
@@ -697,6 +1145,231 @@
   </div>
 </section>
 
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- ПАЛИТРА КРИСТАЛЛОВ                                          -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="palette-section" id="palette">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Палитра кристаллов</span>
+      <h2 class="section-title">Десятки оттенков под&nbsp;каждую модель</h2>
+      <p class="section-lead">
+        У&nbsp;каждой модели — 30–45 цветов кристаллов Swarovski. Подбирайте под&nbsp;образ,
+        сезон или конкретную коллекцию.
+      </p>
+    </div>
+
+    <div class="palette-grid" id="paletteGrid"></div>
+
+    <p class="palette-note">Финальный набор оттенков формируется из&nbsp;актуального ассортимента бренда</p>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- О БРЕНДЕ                                                    -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="about-section" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-photo">
+        <div class="ph-label">Фото · витрина шоурума</div>
+      </div>
+      <div class="about-text">
+        <span class="section-eyebrow">О бренде</span>
+        <h2 class="section-title">Минимализм + цвет</h2>
+        <p>
+          WOWSHIMMER&nbsp;— российский бренд бижутерии с&nbsp;кристаллами Swarovski и&nbsp;фианитами.
+          Пусеты, штанги, серьги-протяжки, подвески и&nbsp;кольца&nbsp;— в&nbsp;десятках цветовых решений.
+        </p>
+        <p>
+          Ранее ассортимент бренда продавался под&nbsp;маркой <strong>SWAROKA</strong>;
+          с&nbsp;2025&nbsp;года мы&nbsp;зарегистрировали новую торговую марку
+          <strong>WOWSHIMMER</strong> и&nbsp;постепенно переводим линейку на&nbsp;неё.
+        </p>
+        <p>
+          Узнаваемый минималистичный стиль, аккуратность работы, широкий ассортимент оттенков&nbsp;—
+          для&nbsp;тех, кто собирает образ с&nbsp;деталью, а&nbsp;не&nbsp;кричит.
+        </p>
+        <a href="#" class="btn-outline">Подробнее о&nbsp;бренде →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- ГДЕ КУПИТЬ                                                  -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="channels-section section-light" id="where-to-buy">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Где купить</span>
+      <h2 class="section-title">Розница — на&nbsp;маркетплейсах</h2>
+      <p class="section-lead">
+        Розничные покупки идут через маркетплейсы и&nbsp;соцсети. Выберите удобный канал.
+      </p>
+    </div>
+
+    <div class="channels-grid">
+      <a href="#" class="channel-card">
+        <div class="channel-icon">🛍</div>
+        <h3>Wildberries</h3>
+        <p>Розничная витрина · доставка по&nbsp;РФ</p>
+        <span class="channel-link">Открыть на&nbsp;WB →</span>
+      </a>
+      <a href="#" class="channel-card">
+        <div class="channel-icon">📦</div>
+        <h3>Ozon</h3>
+        <p>Магазин SWAROKA · доставка по&nbsp;РФ</p>
+        <span class="channel-link">Открыть на&nbsp;Ozon →</span>
+      </a>
+      <a href="#" class="channel-card">
+        <div class="channel-icon">📷</div>
+        <h3>Instagram</h3>
+        <p>Витрина новинок · @wowshimmer</p>
+        <span class="channel-link">Перейти в&nbsp;Instagram →</span>
+      </a>
+      <a href="#" class="channel-card">
+        <div class="channel-icon">💬</div>
+        <h3>Telegram</h3>
+        <p>Канал с&nbsp;анонсами и&nbsp;обновлениями</p>
+        <span class="channel-link">Перейти в&nbsp;Telegram →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- ДЛЯ ПАРТНЁРОВ                                               -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="partners-section" id="partners">
+  <div class="wrap">
+    <div class="partners-grid">
+      <div class="partners-left">
+        <span class="section-eyebrow">Партнёрам</span>
+        <h2 class="section-title">Для магазинов, шоурумов и&nbsp;оптовых клиентов</h2>
+        <p>
+          Если вы&nbsp;хотите работать с&nbsp;WOWSHIMMER оптом&nbsp;— оставьте заявку
+          или войдите в&nbsp;личный кабинет. После подтверждения доступа в&nbsp;каталоге
+          появятся оптовые цены, и&nbsp;можно собрать заявку из&nbsp;выбранных товаров и&nbsp;цветов.
+        </p>
+        <div class="partners-cta">
+          <a href="#" class="btn-gold">Получить партнёрский доступ →</a>
+          <a href="#" class="btn-outline">Войти в&nbsp;кабинет</a>
+        </div>
+      </div>
+      <div class="partners-flow">
+        <div class="flow-step">
+          <div class="flow-num">01</div>
+          <div>
+            <h4>Оставьте заявку</h4>
+            <div class="flow-desc">Имя, телефон, e-mail и&nbsp;согласие на&nbsp;обработку ПД</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">02</div>
+          <div>
+            <h4>Менеджер одобрит</h4>
+            <div class="flow-desc">В&nbsp;течение рабочего дня*. Доступ присылаем на&nbsp;e-mail</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">03</div>
+          <div>
+            <h4>Опт-цены в&nbsp;ЛК</h4>
+            <div class="flow-desc">Каталог открывается с&nbsp;оптовыми ценами вместо розничных</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">04</div>
+          <div>
+            <h4>Сбор заявки</h4>
+            <div class="flow-desc">Состав заказа уходит менеджеру на&nbsp;e-mail одним кликом</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- КОНТАКТЫ                                                    -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="contacts-section section-light" id="contacts">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Контакты</span>
+      <h2 class="section-title">Остались вопросы?</h2>
+      <p class="section-lead">
+        Напишите нам&nbsp;— расскажем про&nbsp;ассортимент, условия партнёрства и&nbsp;доставку.
+      </p>
+    </div>
+
+    <div class="contacts-grid">
+      <a href="#" class="contact-card">
+        <div class="contact-icon">💬</div>
+        <h3>Telegram</h3>
+        <p>Самый быстрый канал</p>
+      </a>
+      <a href="#" class="contact-card">
+        <div class="contact-icon">📧</div>
+        <h3>E-mail</h3>
+        <p>info@wowshimmer.ru</p>
+      </a>
+      <a href="#" class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h3>Телефон</h3>
+        <p>+7 (___) ___-__-__</p>
+      </a>
+      <a href="#" class="contact-card contact-card--accent">
+        <div class="contact-icon">✦</div>
+        <h3>Партнёрская заявка</h3>
+        <p>Заявка на&nbsp;опт-доступ</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- FOOTER                                                       -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">WOWSHIMMER</div>
+        <p>
+          Бижутерия с&nbsp;кристаллами Swarovski. Опт для&nbsp;магазинов, шоурумов
+          и&nbsp;онлайн-площадок. Розница&nbsp;— на&nbsp;маркетплейсах.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h5>Страницы</h5>
+        <a href="#">Каталог</a>
+        <a href="#">О бренде</a>
+        <a href="#">Где купить</a>
+        <a href="#">Контакты</a>
+      </div>
+      <div class="footer-col">
+        <h5>Партнёрам</h5>
+        <a href="#">Стать партнёром</a>
+        <a href="#">Войти в&nbsp;ЛК</a>
+        <a href="#">Условия сотрудничества</a>
+      </div>
+      <div class="footer-col">
+        <h5>Каналы</h5>
+        <a href="#">Wildberries</a>
+        <a href="#">Ozon (SWAROKA)</a>
+        <a href="#">Instagram</a>
+        <a href="#">Telegram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 WOWSHIMMER · wowshimmer.ru</div>
+      <div><a href="#">Политика конфиденциальности</a> · 18+</div>
+    </div>
+  </div>
+</footer>
+
 <script>
   // ── Header scroll effect ─────────────────────────────────────────
   const header = document.getElementById('siteHeader');
@@ -764,6 +1437,19 @@
         </div>
       `;
       grid.appendChild(card);
+    });
+  })();
+
+  // ── Рендер палитры кристаллов ────────────────────────────────────
+  (function buildPalette() {
+    const grid = document.getElementById('paletteGrid');
+    if (!grid) return;
+    PALETTE.forEach(c => {
+      const sw = document.createElement('div');
+      sw.className = 'sw';
+      sw.style.background = c;
+      sw.title = c;
+      grid.appendChild(sw);
     });
   })();
 
