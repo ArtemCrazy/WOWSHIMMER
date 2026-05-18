@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WOWSHIMMER — главная (вариант A · баннер + текст по центру)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ─────────────────────────────────────────────────────────────────
+     WOWSHIMMER · Главная · Вариант A
+     Концепция: баннер после меню, текст по центру в светлой зоне фото
+  ───────────────────────────────────────────────────────────────── */
+
+  :root {
+    --ink:       #0a0a0a;
+    --ink-2:     #1a1a1a;
+    --ink-soft:  #3a3a3a;
+    --gold:      #c9a96e;
+    --gold-deep: #8a7651;
+    --white:     #ffffff;
+    --cream:     #f3ead9;
+    --w-92:      rgba(255,255,255,0.92);
+    --w-72:      rgba(255,255,255,0.72);
+    --w-55:      rgba(255,255,255,0.55);
+    --w-40:      rgba(255,255,255,0.40);
+    --w-22:      rgba(255,255,255,0.22);
+    --w-12:      rgba(255,255,255,0.12);
+    --i-92:      rgba(26,26,26,0.92);
+    --i-72:      rgba(26,26,26,0.72);
+    --i-55:      rgba(26,26,26,0.55);
+    --i-22:      rgba(26,26,26,0.22);
+
+    --font-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+    --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    background: var(--ink);
+    color: var(--ink-2);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+  img { max-width: 100%; display: block; }
+
+  .wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ── HEADER ───────────────────────────────────────────────────── */
+  .site-header {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    padding: 24px 0;
+    transition: background 0.3s, padding 0.3s, border-color 0.3s;
+    background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0) 100%);
+    border-bottom: 1px solid transparent;
+  }
+  .site-header.scrolled {
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 16px 0;
+    border-bottom-color: var(--w-12);
+  }
+  .header-row { display: flex; align-items: center; gap: 40px; }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 500;
+    color: var(--white);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .logo:hover { color: var(--gold); }
+
+  .nav-menu { display: flex; gap: 32px; margin-left: auto; }
+  .nav-menu a {
+    color: var(--w-72);
+    font-size: 13px; font-weight: 400;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    transition: color 0.2s; padding: 4px 0; position: relative;
+  }
+  .nav-menu a::after {
+    content: ''; position: absolute;
+    left: 50%; right: 50%; bottom: -2px;
+    height: 1px; background: var(--gold);
+    transition: left 0.25s, right 0.25s;
+  }
+  .nav-menu a:hover { color: var(--white); }
+  .nav-menu a:hover::after { left: 0; right: 0; }
+
+  .btn-partners {
+    padding: 11px 22px;
+    border: 1px solid var(--gold);
+    background: transparent; color: var(--gold);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s, color 0.2s;
+  }
+  .btn-partners:hover { background: var(--gold); color: var(--ink); }
+
+  /* ── HERO (баннер на весь блок, текст по центру) ──────────────── */
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 100px); /* peek ~100px следующего блока */
+    background-image: url('../img/bg1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 24px 80px;
+    overflow: hidden;
+  }
+  /* Лёгкий «vignette» по краям, чтобы текст в центре дышал и края банера темнее */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.0) 35%, rgba(0,0,0,0.08) 100%);
+    pointer-events: none;
+  }
+  /* Дополнительная мягкая подложка под текстом по центру */
+  .hero::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; max-width: 920px; height: 60%; min-height: 360px;
+    background: radial-gradient(ellipse at center, rgba(255,250,243,0.85) 0%, rgba(255,250,243,0.5) 40%, rgba(255,250,243,0) 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 720px;
+  }
+
+  .hero-h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(60px, 7.5vw, 120px);
+    line-height: 0.95;
+    color: var(--ink-2);
+    margin-bottom: 18px;
+    letter-spacing: -1px;
+    opacity: 0;
+    animation: fadeInUp 0.9s 0.15s ease-out forwards;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(20px, 2vw, 28px);
+    line-height: 1.4;
+    color: var(--ink-soft);
+    margin-bottom: 36px;
+    max-width: 520px; margin-left: auto; margin-right: auto;
+    opacity: 0;
+    animation: fadeInUp 0.9s 0.3s ease-out forwards;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--i-72);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 44px;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeInUp 0.9s 0.45s ease-out forwards;
+  }
+  .hero-sub::before, .hero-sub::after {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: var(--ink-2);
+    vertical-align: middle;
+    margin: 0 16px;
+    opacity: 0.4;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeInUp 0.9s 0.6s ease-out forwards;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 10px;
+    padding: 15px 30px;
+    font-family: var(--font-body);
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 1.8px; text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .btn-primary {
+    background: var(--ink-2); color: var(--white);
+    border-color: var(--ink-2);
+  }
+  .btn-primary:hover {
+    background: var(--gold-deep); border-color: var(--gold-deep);
+  }
+  .btn-secondary {
+    background: rgba(255,255,255,0.4); color: var(--ink-2);
+    border-color: var(--ink-2); backdrop-filter: blur(4px);
+  }
+  .btn-secondary:hover {
+    background: var(--ink-2); color: var(--white);
+  }
+  .btn .arrow { transition: transform 0.2s; font-size: 16px; line-height: 1; }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  /* ── CATALOG INTRO (peek-блок) ────────────────────────────────── */
+  .catalog-intro {
+    background: var(--ink);
+    padding: 80px 0 60px;
+    color: var(--w-92);
+  }
+  .catalog-tagline {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(28px, 3.2vw, 44px);
+    line-height: 1.35;
+    color: var(--w-92);
+    text-align: center;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .catalog-tagline::before, .catalog-tagline::after {
+    content: '';
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--gold);
+    margin: 0 auto 32px;
+  }
+  .catalog-tagline::after { margin: 32px auto 0; }
+  .catalog-tagline em { color: var(--gold); font-style: italic; }
+
+  /* Variant label (служебная плашка вверху справа — снимем перед финалом) */
+  .variant-label {
+    position: fixed; top: 18px; right: 18px;
+    z-index: 100;
+    padding: 4px 10px;
+    font-family: var(--font-body);
+    font-size: 10px;
+    color: var(--w-72);
+    background: rgba(10,10,10,0.7);
+    border: 1px solid var(--w-22);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+
+  /* ── Animations ───────────────────────────────────────────────── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Responsive ───────────────────────────────────────────────── */
+  @media (max-width: 980px) {
+    .nav-menu { display: none; }
+    .hero { padding: 100px 16px 60px; min-height: calc(100vh - 80px); }
+    .hero::after { width: 90%; height: 50%; min-height: 280px; }
+  }
+  @media (max-width: 540px) {
+    .wrap { padding: 0 20px; }
+    .logo { font-size: 18px; letter-spacing: 3px; }
+    .btn-partners { padding: 9px 14px; font-size: 10px; letter-spacing: 1px; }
+    .hero-cta { flex-direction: column; align-items: stretch; gap: 10px; width: 100%; max-width: 300px; }
+    .btn { padding: 13px 22px; }
+    .hero-sub::before, .hero-sub::after { width: 16px; margin: 0 10px; }
+  }
+</style>
+</head>
+<body>
+
+<span class="variant-label">Вариант A · текст по центру</span>
+
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-row">
+    <a href="../" class="logo">WOWSHIMMER</a>
+    <nav class="nav-menu">
+      <a href="#">Каталог</a>
+      <a href="#">О бренде</a>
+      <a href="#">Где купить</a>
+      <a href="#">Контакты</a>
+    </nav>
+    <button class="btn-partners">Вход для партнёров</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-h1">WOWSHIMMER</h1>
+    <p class="hero-tagline">Сияние в&nbsp;деталях</p>
+    <p class="hero-sub">Бижутерия с&nbsp;кристаллами Swarovski</p>
+    <div class="hero-cta">
+      <a href="#catalog" class="btn btn-primary">
+        Смотреть каталог <span class="arrow">→</span>
+      </a>
+      <a href="#where-to-buy" class="btn btn-secondary">
+        Где купить
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="catalog-intro">
+  <p class="catalog-tagline">
+    Минималистичные украшения созданы для&nbsp;того, чтобы приносить
+    <em>радость</em> каждый день.
+  </p>
+</section>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+</body>
+</html>
