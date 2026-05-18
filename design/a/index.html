@@ -780,23 +780,25 @@
     backdrop-filter: blur(4px);
   }
 
-  /* Текстовая тёмная плашка с тонкой обводкой — ВЫШЕ фото по z-index */
+  /* Текстовая тёмная плашка — ВЫШЕ фото по z-index, полупрозрачная */
   .about-text {
     position: relative;
     z-index: 3;
     display: flex;
-    margin-left: -80px;              /* плашка наезжает на фото слева */
+    margin-left: -140px;             /* плашка заметно наезжает на фото */
   }
   .about-card {
     position: relative;
     width: 100%;
-    background: var(--ink-2);
+    background: rgba(20, 20, 20, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(255,255,255,0.10);
     padding: 60px 56px 56px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+    box-shadow: -30px 0 80px rgba(0,0,0,0.45);
   }
 
   /* Eyebrow «О БРЕНДЕ ─── ✦» — длинная линия + звёздочка справа */
@@ -858,11 +860,10 @@
   /* Кнопка «Подробнее о бренде» в стиле референса */
   .about-btn {
     margin-top: 40px;
+    align-self: flex-start;          /* не растягиваем на всю ширину плашки */
     display: inline-flex;
     align-items: center;
-    justify-content: space-between;
     gap: 44px;
-    min-width: 280px;
     padding: 18px 28px;
     border: 1px solid rgba(201,169,110,0.65);
     color: var(--white);
@@ -1334,7 +1335,7 @@
     .about-section { padding: 80px 0; }
     .about-section::after { top: 60px; right: 24px; }
     .about-monogram { width: 48px; height: 48px; bottom: 20px; left: 20px; font-size: 18px; }
-    .about-btn { min-width: 0; width: 100%; gap: 20px; }
+    .about-btn { width: 100%; align-self: stretch; justify-content: space-between; gap: 20px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     .about-section, .channels-section, .partners-section, .contacts-section { padding: 70px 0 80px; }
     .site-footer { padding: 60px 0 24px; }
