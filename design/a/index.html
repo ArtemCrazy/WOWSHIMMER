@@ -546,39 +546,40 @@
     opacity: 0.7;
   }
 
-  /* Нижняя полоса */
+  /* Нижний блок — крупная кнопка «Полный каталог» по центру */
   .catalog-foot {
     margin-top: 16px;
-    padding: 24px 28px;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
   }
-  .catalog-foot p {
-    font-size: 13px;
-    color: rgba(0,0,0,0.6);
-    margin: 0;
-    line-height: 1.5;
-  }
-  .catalog-foot p b { color: var(--ink); font-weight: 500; }
-  .btn-link {
-    color: var(--gold-deep);
-    font-size: 12px;
+  .catalog-full-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 56px;
+    background: var(--ink-2);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 1.5px;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
-    border-bottom: 1px solid var(--gold-deep);
-    padding-bottom: 2px;
-    transition: color 0.2s, border-color 0.2s;
+    text-decoration: none;
+    border: 1px solid var(--ink-2);
+    transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s;
   }
-  .btn-link:hover {
-    color: var(--ink);
-    border-color: var(--ink);
+  .catalog-full-btn:hover {
+    background: var(--gold-deep);
+    border-color: var(--gold-deep);
+    transform: translate(-1px, -1px);
   }
+  .catalog-full-btn .arrow {
+    font-size: 18px;
+    line-height: 1;
+    transition: transform 0.2s;
+  }
+  .catalog-full-btn:hover .arrow { transform: translateX(4px); }
 
   /* Адаптив каталога */
   @media (max-width: 1180px) {
@@ -1127,11 +1128,9 @@
     </div>
 
     <div class="catalog-foot">
-      <p>
-        <b>Розница</b> видна всем посетителям. <b>Опт-цена</b> открывается после входа партнёра
-        в&nbsp;ЛК. Браслеты — отдельная коллекция «с&nbsp;аффирмациями».
-      </p>
-      <a href="#" class="btn-link">Полный каталог →</a>
+      <a href="#" class="catalog-full-btn">
+        Полный каталог <span class="arrow">→</span>
+      </a>
     </div>
   </div>
 </section>
