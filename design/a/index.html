@@ -752,48 +752,165 @@
     font-weight: 500;
   }
 
-  /* ── ABOUT (о бренде, тёмная) ────────────────────────────────── */
+  /* ── ABOUT (о бренде, тёмная, по референсу) ──────────────────── */
   .about-section {
     background: var(--ink);
-    padding: 100px 0;
+    padding: 120px 0;
     color: var(--w-92);
     border-top: 1px solid var(--w-6);
+    position: relative;
+    overflow: hidden;
+  }
+  /* Декоративная ✦ в правом верхнем углу секции */
+  .about-section::after {
+    content: '✦';
+    position: absolute;
+    top: 100px;
+    right: 60px;
+    color: var(--gold);
+    font-size: 18px;
+    opacity: 0.55;
+    z-index: 1;
   }
   .about-grid {
     display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    gap: 80px;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
     align-items: center;
+    position: relative;
+  }
+
+  /* Visual: фото с мягкой круглой маской + W-монограмма внизу */
+  .about-visual {
+    position: relative;
   }
   .about-photo {
     aspect-ratio: 4/5;
     background-image: url('../img/company.png');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     background-color: #131313;
-    border: 1px solid var(--w-12);
+    /* Овальная мягкая маска по краям — фото «вписано» в фон */
+    -webkit-mask-image: radial-gradient(ellipse 75% 90% at 50% 50%, #000 55%, rgba(0,0,0,0.65) 75%, transparent 100%);
+            mask-image: radial-gradient(ellipse 75% 90% at 50% 50%, #000 55%, rgba(0,0,0,0.65) 75%, transparent 100%);
+  }
+  .about-monogram {
+    position: absolute;
+    bottom: 28px;
+    left: 28px;
+    width: 56px;
+    height: 56px;
+    border: 1px solid rgba(201,169,110,0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--gold);
+    z-index: 2;
+    background: rgba(10,10,10,0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  /* Текстовая тёмная плашка с тонкой обводкой */
+  .about-text {
     position: relative;
-    overflow: hidden;
   }
-  .about-text .section-eyebrow {
-    margin: 0 0 14px;
+  .about-card {
+    position: relative;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.10);
+    padding: 56px 56px 52px;
   }
-  .about-text .section-eyebrow::before,
-  .about-text .section-eyebrow::after { display: none; }
-  .about-text .section-title {
-    text-align: left;
-    margin-bottom: 24px;
+
+  /* Eyebrow «О БРЕНДЕ ─── ✦» — длинная линия + звёздочка справа */
+  .about-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 36px;
   }
-  .about-text p {
-    font-size: 16px;
+  .about-eyebrow .label {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 500;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .about-eyebrow .line {
+    flex: 1;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.55;
+  }
+  .about-eyebrow .star {
+    font-size: 13px;
+    color: var(--gold);
+    opacity: 0.8;
+    flex-shrink: 0;
+  }
+
+  .about-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(38px, 4vw, 56px);
+    color: var(--white);
+    margin-bottom: 36px;
+    letter-spacing: -0.5px;
+    line-height: 1.05;
+  }
+
+  .about-card p {
+    font-size: 15px;
     color: var(--w-72);
-    line-height: 1.7;
-    margin-bottom: 16px;
+    line-height: 1.75;
+    margin: 0;
     font-weight: 300;
   }
-  .about-text p strong { color: var(--white); font-weight: 500; }
-  .about-text .btn-outline { margin-top: 16px; }
+  .about-card p strong { color: var(--white); font-weight: 500; }
+
+  /* Тонкая золотая чёрточка между параграфами */
+  .para-divider {
+    width: 88px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+    margin: 28px 0;
+  }
+
+  /* Кнопка «Подробнее о бренде» в стиле референса */
+  .about-btn {
+    margin-top: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 44px;
+    min-width: 280px;
+    padding: 18px 28px;
+    border: 1px solid rgba(201,169,110,0.65);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .about-btn .arrow {
+    color: var(--gold);
+    font-size: 16px;
+    line-height: 1;
+    transition: transform 0.2s;
+  }
+  .about-btn:hover {
+    background: rgba(201,169,110,0.10);
+    border-color: var(--gold);
+  }
+  .about-btn:hover .arrow { transform: translateX(4px); }
 
   /* ── CHANNELS / WHERE TO BUY (светлая) ───────────────────────── */
   .channels-section {
@@ -1063,6 +1180,11 @@
   }
   @media (max-width: 880px) {
     .about-grid, .partners-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-card { padding: 36px 28px 32px; }
+    .about-section { padding: 80px 0; }
+    .about-section::after { top: 60px; right: 24px; }
+    .about-monogram { width: 48px; height: 48px; bottom: 20px; left: 20px; font-size: 18px; }
+    .about-btn { min-width: 0; width: 100%; gap: 20px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     .palette-grid { grid-template-columns: repeat(10, 1fr); }
     .palette-section, .about-section, .channels-section, .partners-section, .contacts-section { padding: 70px 0 80px; }
@@ -1183,24 +1305,47 @@
 <section class="about-section" id="about">
   <div class="wrap">
     <div class="about-grid">
-      <div class="about-photo" aria-label="WOWSHIMMER · бренд украшений"></div>
+      <div class="about-visual">
+        <div class="about-photo" aria-label="WOWSHIMMER · бренд украшений"></div>
+        <div class="about-monogram">W</div>
+      </div>
+
       <div class="about-text">
-        <span class="section-eyebrow">О бренде</span>
-        <h2 class="section-title">Минимализм + цвет</h2>
-        <p>
-          WOWSHIMMER&nbsp;— российский бренд бижутерии с&nbsp;кристаллами Swarovski и&nbsp;фианитами.
-          Пусеты, штанги, серьги-протяжки, подвески и&nbsp;кольца&nbsp;— в&nbsp;десятках цветовых решений.
-        </p>
-        <p>
-          Ранее ассортимент бренда продавался под&nbsp;маркой <strong>SWAROKA</strong>;
-          с&nbsp;2025&nbsp;года мы&nbsp;зарегистрировали новую торговую марку
-          <strong>WOWSHIMMER</strong> и&nbsp;постепенно переводим линейку на&nbsp;неё.
-        </p>
-        <p>
-          Узнаваемый минималистичный стиль, аккуратность работы, широкий ассортимент оттенков&nbsp;—
-          для&nbsp;тех, кто собирает образ с&nbsp;деталью, а&nbsp;не&nbsp;кричит.
-        </p>
-        <a href="#" class="btn-outline">Подробнее о&nbsp;бренде →</a>
+        <div class="about-card">
+          <div class="about-eyebrow">
+            <span class="label">О бренде</span>
+            <span class="line"></span>
+            <span class="star">✦</span>
+          </div>
+
+          <h2 class="about-title">Минимализм + цвет</h2>
+
+          <p>
+            <strong>WOWSHIMMER</strong>&nbsp;— российский бренд бижутерии с&nbsp;кристаллами
+            Swarovski и&nbsp;фианитами. Пусеты, штанги, серьги-протяжки, подвески и&nbsp;кольца&nbsp;—
+            в&nbsp;десятках цветовых решений.
+          </p>
+
+          <div class="para-divider"></div>
+
+          <p>
+            Ранее ассортимент бренда продавался под&nbsp;маркой <strong>SWAROKA</strong>;
+            с&nbsp;2025&nbsp;года мы&nbsp;зарегистрировали новую торговую марку
+            <strong>WOWSHIMMER</strong> и&nbsp;постепенно переводим линейку на&nbsp;неё.
+          </p>
+
+          <div class="para-divider"></div>
+
+          <p>
+            Узнаваемый минималистичный стиль, аккуратность работы, широкий ассортимент оттенков&nbsp;—
+            для&nbsp;тех, кто собирает образ с&nbsp;деталью, а&nbsp;не&nbsp;кричит.
+          </p>
+
+          <a href="#" class="about-btn">
+            <span>Подробнее о&nbsp;бренде</span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
