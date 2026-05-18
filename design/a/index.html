@@ -114,7 +114,8 @@
   .hero {
     position: relative;
     min-height: calc(100vh - 100px); /* peek ~100px следующего блока */
-    background-image: url('../img/bg1.png');
+    /* Десктоп: bg2 — соотношение 2:1, корректно ложится на 1366+ без обрезки краёв */
+    background-image: url('../img/bg2.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -285,6 +286,11 @@
     .nav-menu { display: none; }
     .hero { padding: 100px 16px 60px; min-height: calc(100vh - 80px); }
     .hero::after { width: 90%; height: 50%; min-height: 280px; }
+  }
+  /* Узкие экраны / мобильный: подмена на портретный баннер bg4 (4:5) */
+  @media (max-width: 768px) {
+    .hero { background-image: url('../img/bg4.png'); }
+    .hero::after { width: 88%; height: 38%; min-height: 220px; max-height: 320px; }
   }
   @media (max-width: 540px) {
     .wrap { padding: 0 20px; }
