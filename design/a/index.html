@@ -1032,16 +1032,19 @@
     position: relative;
     padding-left: 30px;
   }
-  /* Непрерывная вертикальная золотая линия — продолжается чуть выше первой и ниже последней цифры */
+  /* Непрерывная вертикальная золотая линия — плавно растворяется сверху и снизу */
   .partners-flow::before {
     content: '';
     position: absolute;
-    left: 110px;
-    top: -16px;
-    bottom: -16px;
+    left: 140px;       /* выравнивание с центром точек (.flow-step имеет offset 30px) */
+    top: -40px;
+    bottom: -40px;
     width: 1px;
-    background: var(--gold);
-    opacity: 0.55;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(201,169,110,0.65) 14%,
+      rgba(201,169,110,0.65) 86%,
+      transparent 100%);
   }
   .flow-step {
     display: grid;
@@ -1051,11 +1054,11 @@
     position: relative;
     align-items: center;
   }
-  /* Точка-маркер прямо на линии (без обводки, чтобы линия не разрывалась) */
+  /* Точка-маркер прямо на линии */
   .flow-step::after {
     content: '';
     position: absolute;
-    left: 110px;
+    left: 110px;       /* .flow-step смещён на 30px (padding-left родителя), 30+110 = 140 → совпадает с линией */
     top: 50%;
     transform: translate(-50%, -50%);
     width: 7px; height: 7px;
