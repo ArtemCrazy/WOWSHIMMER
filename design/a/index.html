@@ -751,12 +751,11 @@
     font-weight: 500;
   }
 
-  /* ── ABOUT (о бренде, тёмная) ────────────────────────────────── */
+  /* ── ABOUT (о бренде, светлая) ───────────────────────────────── */
   .about-section {
-    background: var(--ink);
+    background: #fafaf7;
     padding: 100px 0;
-    color: var(--w-92);
-    border-top: 1px solid var(--w-6);
+    color: var(--ink-2);
   }
   .about-grid {
     display: grid;
@@ -770,29 +769,41 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #131313;
-    border: 1px solid var(--w-12);
+    background-color: #ece8df;
+    border: 1px solid rgba(0,0,0,0.08);
     position: relative;
     overflow: hidden;
   }
   .about-text .section-eyebrow {
     margin: 0 0 14px;
+    color: var(--gold-deep);
   }
   .about-text .section-eyebrow::before,
   .about-text .section-eyebrow::after { display: none; }
   .about-text .section-title {
     text-align: left;
     margin-bottom: 24px;
+    color: var(--ink);
   }
   .about-text p {
     font-size: 16px;
-    color: var(--w-72);
+    color: rgba(0,0,0,0.65);
     line-height: 1.7;
     margin-bottom: 16px;
     font-weight: 300;
   }
-  .about-text p strong { color: var(--white); font-weight: 500; }
-  .about-text .btn-outline { margin-top: 16px; }
+  .about-text p strong { color: var(--ink); font-weight: 600; }
+  /* Кнопка-контур на светлом фоне */
+  .about-section .btn-outline {
+    margin-top: 16px;
+    color: var(--ink);
+    border-color: rgba(0,0,0,0.18);
+  }
+  .about-section .btn-outline:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+    background: rgba(0,0,0,0.04);
+  }
 
   /* ── CHANNELS / WHERE TO BUY (светлая) ───────────────────────── */
   .channels-section {
