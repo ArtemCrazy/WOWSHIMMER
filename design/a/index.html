@@ -754,9 +754,9 @@
     width: 100%;
     height: 100%;
     min-height: 580px;
-    background-image: url('../img/company.png');
+    background-image: url('../img/obrende.png');
     background-size: cover;
-    background-position: 32% center;
+    background-position: center;
     background-color: #131313;
     border-radius: 0 0 0 180px; /* скругление только слева внизу */
   }
@@ -780,25 +780,23 @@
     backdrop-filter: blur(4px);
   }
 
-  /* Текстовая тёмная плашка — ВЫШЕ фото по z-index, полупрозрачная */
+  /* Текстовая тёмная плашка — лёгкий наезд на фото, без блюра */
   .about-text {
     position: relative;
     z-index: 3;
     display: flex;
-    margin-left: -140px;             /* плашка заметно наезжает на фото */
+    margin-left: -50px;              /* лёгкий наезд на фото */
   }
   .about-card {
     position: relative;
     width: 100%;
-    background: rgba(20, 20, 20, 0.78);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background: rgba(20, 20, 20, 0.86);
     border: 1px solid rgba(255,255,255,0.10);
     padding: 60px 56px 56px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: -30px 0 80px rgba(0,0,0,0.45);
+    box-shadow: -24px 0 60px rgba(0,0,0,0.45);
   }
 
   /* Eyebrow «О БРЕНДЕ ─── ✦» — длинная линия + звёздочка справа */
