@@ -717,41 +717,6 @@
   }
   .btn-gold:hover { background: var(--white); border-color: var(--white); transform: translate(-1px, -1px); }
 
-  /* ── PALETTE (палитра кристаллов, тёмная) ────────────────────── */
-  .palette-section {
-    background: var(--ink);
-    padding: 100px 0 120px;
-    color: var(--w-92);
-  }
-  .palette-grid {
-    display: grid;
-    grid-template-columns: repeat(20, 1fr);
-    gap: 4px;
-    max-width: 1100px;
-    margin: 0 auto 28px;
-    padding: 0 24px;
-  }
-  .palette-grid .sw {
-    aspect-ratio: 1;
-    cursor: pointer;
-    transition: transform 0.18s;
-    border: 1px solid rgba(255,255,255,0.04);
-    position: relative;
-  }
-  .palette-grid .sw:hover {
-    transform: scale(1.45);
-    z-index: 2;
-    box-shadow: 0 0 0 1px var(--gold), 0 6px 16px rgba(0,0,0,0.5);
-  }
-  .palette-note {
-    font-size: 11px;
-    color: var(--w-40);
-    text-align: center;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-
   /* ── ABOUT (о бренде, тёмная, по референсу) ──────────────────── */
   .about-section {
     background: var(--ink);
@@ -780,11 +745,10 @@
     position: relative;
   }
 
-  /* Visual: фото в виде «капсулы» с большим эллиптическим скруглением */
+  /* Visual: фото со скруглением только в левом нижнем углу */
   .about-visual {
     position: relative;
-    z-index: 2;
-    margin-right: -70px;        /* перекрытие правого края плашки */
+    z-index: 1;                 /* фото снизу, текст-плашка сверху */
   }
   .about-photo {
     width: 100%;
@@ -794,7 +758,7 @@
     background-size: cover;
     background-position: 32% center;
     background-color: #131313;
-    border-radius: 50% / 38%;   /* эллиптическое скругление сверху и снизу */
+    border-radius: 0 0 0 180px; /* скругление только слева внизу */
   }
   .about-monogram {
     position: absolute;
@@ -816,21 +780,23 @@
     backdrop-filter: blur(4px);
   }
 
-  /* Текстовая тёмная плашка с тонкой обводкой */
+  /* Текстовая тёмная плашка с тонкой обводкой — ВЫШЕ фото по z-index */
   .about-text {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     display: flex;
+    margin-left: -80px;              /* плашка наезжает на фото слева */
   }
   .about-card {
     position: relative;
     width: 100%;
-    background: rgba(255,255,255,0.015);
+    background: var(--ink-2);
     border: 1px solid rgba(255,255,255,0.10);
-    padding: 60px 56px 56px 130px;   /* левый отступ под перекрывающее фото */
+    padding: 60px 56px 56px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-shadow: -20px 0 60px rgba(0,0,0,0.5);
   }
 
   /* Eyebrow «О БРЕНДЕ ─── ✦» — длинная линия + звёздочка справа */
@@ -1290,7 +1256,6 @@
 
   /* ── Адаптив для всех новых блоков ───────────────────────────── */
   @media (max-width: 1080px) {
-    .palette-grid { grid-template-columns: repeat(15, 1fr); }
     .channels-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 880px) {
@@ -1302,16 +1267,15 @@
     .flow-step { grid-template-columns: 60px 1fr; column-gap: 32px; padding: 18px 0; }
     .flow-step::after { left: 50px; }
     .title-divider { margin: 24px auto 24px; }
-    .about-visual { margin-right: 0; }
-    .about-photo { min-height: 460px; border-radius: 50% / 22%; }
-    .about-card { padding: 36px 28px 32px; }
+    .about-photo { min-height: 460px; border-radius: 0 0 0 120px; }
+    .about-text { margin-left: 0; }
+    .about-card { padding: 36px 28px 32px; box-shadow: 0 -20px 40px rgba(0,0,0,0.5); }
     .about-section { padding: 80px 0; }
     .about-section::after { top: 60px; right: 24px; }
     .about-monogram { width: 48px; height: 48px; bottom: 20px; left: 20px; font-size: 18px; }
     .about-btn { min-width: 0; width: 100%; gap: 20px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
-    .palette-grid { grid-template-columns: repeat(10, 1fr); }
-    .palette-section, .about-section, .channels-section, .partners-section, .contacts-section { padding: 70px 0 80px; }
+    .about-section, .channels-section, .partners-section, .contacts-section { padding: 70px 0 80px; }
     .site-footer { padding: 60px 0 24px; }
   }
 
@@ -1327,7 +1291,6 @@
     .contact-item { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.07); padding: 28px 16px; }
     .contact-item:last-child { border-bottom: none; }
     .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-    .palette-grid { grid-template-columns: repeat(8, 1fr); }
     .footer-bottom { flex-direction: column; align-items: flex-start; }
     .partners-cta { flex-direction: column; align-items: stretch; }
     .partners-cta a { width: 100%; justify-content: center; }
@@ -1403,26 +1366,6 @@
         Полный каталог <span class="arrow">→</span>
       </a>
     </div>
-  </div>
-</section>
-
-<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<!-- ПАЛИТРА КРИСТАЛЛОВ                                          -->
-<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="palette-section" id="palette">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-eyebrow">Палитра кристаллов</span>
-      <h2 class="section-title">Десятки оттенков под&nbsp;каждую модель</h2>
-      <p class="section-lead">
-        У&nbsp;каждой модели — 30–45 цветов кристаллов Swarovski. Подбирайте под&nbsp;образ,
-        сезон или конкретную коллекцию.
-      </p>
-    </div>
-
-    <div class="palette-grid" id="paletteGrid"></div>
-
-    <p class="palette-note">Финальный набор оттенков формируется из&nbsp;актуального ассортимента бренда</p>
   </div>
 </section>
 
@@ -1787,19 +1730,6 @@
         });
         dot.style.cursor = 'pointer';
       });
-    });
-  })();
-
-  // ── Рендер палитры кристаллов ────────────────────────────────────
-  (function buildPalette() {
-    const grid = document.getElementById('paletteGrid');
-    if (!grid) return;
-    PALETTE.forEach(c => {
-      const sw = document.createElement('div');
-      sw.className = 'sw';
-      sw.style.background = c;
-      sw.title = c;
-      grid.appendChild(sw);
     });
   })();
 
