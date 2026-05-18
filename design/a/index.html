@@ -418,6 +418,18 @@
     transform: scale(1.04);
   }
 
+  /* Невидимые зоны для hover-навигации по слайдам (по позиции курсора) */
+  .photo-zones {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* пропускаем клики дальше (на ссылку), но ловим mouseenter */
+    pointer-events: auto;
+  }
+  .photo-zones .zone { cursor: pointer; }
+
   .product-type {
     position: absolute;
     top: 14px; left: 14px;
@@ -1406,6 +1418,11 @@
           <img class="slide" src="../img/wowshimmer2.webp" alt="" loading="lazy">
           <img class="slide" src="../img/wowshimmer3.webp" alt="" loading="lazy">
           <span class="product-type">${pr.type}</span>
+          <div class="photo-zones">
+            <div class="zone" data-idx="0"></div>
+            <div class="zone" data-idx="1"></div>
+            <div class="zone" data-idx="2"></div>
+          </div>
           <div class="photo-dots">
             <span class="dot active"></span>
             <span class="dot"></span>
@@ -1427,19 +1444,20 @@
     });
   })();
 
-  // ── Слайдер фото в карточках товара ──────────────────────────────
+  // ── Слайдер фото в карточках: hover-зоны (как в e-commerce) ──────
+  // Мышь над левой третью карточки → слайд 1, средняя → слайд 2, правая → слайд 3.
+  // Уход мыши с карточки → возврат на первый кадр.
   (function setupCardSliders() {
-    const cards = document.querySelectorAll('#products .product');
-    console.log('[Slider] карточек найдено:', cards.length);
-    cards.forEach((card, ci) => {
+    document.querySelectorAll('#products .product').forEach(card => {
       const slides = card.querySelectorAll('.product-photo .slide');
       const dots = card.querySelectorAll('.photo-dots .dot');
-      if (slides.length < 2) { console.warn('[Slider] карта', ci, 'без слайдов'); return; }
+      const zones = card.querySelectorAll('.photo-zones .zone');
+      if (slides.length < 2 || zones.length < 2) return;
 
       let idx = 0;
-      let timer = null;
 
       const show = (n) => {
+        if (n === idx) return;
         slides[idx].classList.remove('active');
         dots[idx].classList.remove('active');
         idx = ((n % slides.length) + slides.length) % slides.length;
@@ -1447,32 +1465,24 @@
         dots[idx].classList.add('active');
       };
 
-      const startSlider = () => {
-        if (timer) return;
-        show(idx + 1); // моментальный первый переход при наведении
-        timer = setInterval(() => show(idx + 1), 1000);
-      };
-      const stopSlider = () => {
-        if (timer) { clearInterval(timer); timer = null; }
-        show(0); // вернуться на первый кадр
-      };
+      // hover на зоне → показать соответствующий слайд
+      zones.forEach((zone, i) => {
+        zone.addEventListener('mouseenter', () => show(i));
+      });
 
-      // Привязываемся И к самой карточке, И к photo — чтобы точно ловить hover
-      card.addEventListener('mouseenter', startSlider);
-      card.addEventListener('mouseleave', stopSlider);
+      // уход с карточки целиком → вернуться на первый кадр
+      card.addEventListener('mouseleave', () => show(0));
 
-      // Клик по точке — переключить вручную
+      // клик по точке — тоже навигация (на мобильном, например)
       dots.forEach((dot, i) => {
         dot.addEventListener('click', e => {
           e.preventDefault();
           e.stopPropagation();
-          if (timer) { clearInterval(timer); timer = null; }
           show(i);
         });
         dot.style.cursor = 'pointer';
       });
     });
-    console.log('[Slider] инициализация завершена');
   })();
 
   // ── Рендер палитры кристаллов ────────────────────────────────────
