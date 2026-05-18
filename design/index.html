@@ -157,12 +157,12 @@
   ────────────────────────────────────────────────────────────────── */
   .hero {
     position: relative;
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1.05fr 1fr;
-    align-items: center;
-    padding: 140px 0 80px;
+    /* Высота с peek-эффектом: ~100px следующего блока виден внизу */
+    min-height: calc(100vh - 100px);
+    padding: 140px 0 var(--space-12);
     overflow: hidden;
+    display: flex;
+    align-items: center;
   }
   /* Тёплая «лужа света» под украшением справа */
   .hero::before {
@@ -174,21 +174,22 @@
       radial-gradient(ellipse 60% 80% at 30% 50%, rgba(201,169,110,0.04) 0%, transparent 50%);
     pointer-events: none;
   }
-  /* Тонкая вертикальная линия-разделитель */
-  .hero::after {
-    content: '';
-    position: absolute;
-    top: 30%; bottom: 30%; left: 50%;
-    width: 1px;
-    background: linear-gradient(180deg, transparent, var(--w-12), transparent);
-    pointer-events: none;
+
+  /* Hero-grid внутри контейнера (.wrap) — выравнивание по центральной области контента */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
   }
 
   .hero-content {
     position: relative;
     z-index: 2;
-    padding: 0 var(--space-12) 0 var(--space-10);
-    max-width: 660px;
+    max-width: 620px;
   }
 
   .hero-eyebrow {
@@ -229,14 +230,15 @@
   }
   .hero-h1 .small {
     display: block;
-    font-size: 0.42em;
-    color: var(--w-72);
+    font-size: 0.18em;
+    color: var(--w-55);
     font-style: normal;
-    font-weight: 300;
-    letter-spacing: 8px;
+    font-weight: 400;
+    letter-spacing: 4.5px;
     text-transform: uppercase;
-    margin-top: var(--space-3);
+    margin-top: var(--space-5);
     font-family: var(--font-body);
+    line-height: 1.4;
   }
 
   .hero-sub {
@@ -299,18 +301,21 @@
   }
   .btn:hover .arrow { transform: translateX(4px); }
 
-  /* Метки бренда внизу-слева */
+  /* Метки бренда внизу-слева — теперь в потоке внутри .wrap */
   .hero-meta {
     position: absolute;
     bottom: var(--space-8);
-    left: var(--space-10);
+    left: 0; right: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .hero-meta .hero-meta-inner {
     display: flex;
-    gap: var(--space-8);
+    gap: var(--space-10);
     font-size: 11px;
     color: var(--w-40);
     letter-spacing: 2px;
     text-transform: uppercase;
-    z-index: 2;
   }
   .hero-meta b {
     display: block;
@@ -329,10 +334,9 @@
   ────────────────────────────────────────────────────────────────── */
   .hero-visual {
     position: relative;
-    height: 82vh;
-    min-height: 600px;
-    max-height: 880px;
-    margin: 0 var(--space-10) 0 0;
+    height: 72vh;
+    min-height: 540px;
+    max-height: 780px;
     z-index: 1;
     opacity: 0;
     animation: fadeInRight 1s 0.3s ease-out forwards;
@@ -362,6 +366,43 @@
     content: '✎';
     margin-right: 6px;
     color: var(--gold);
+  }
+
+  /* ──────────────────────────────────────────────────────────────────
+     CATALOG INTRO — пик-блок под hero (намёк что есть продолжение)
+  ────────────────────────────────────────────────────────────────── */
+  .catalog-intro {
+    position: relative;
+    padding: var(--space-20) 0 var(--space-20);
+    background: linear-gradient(180deg, var(--ink) 0%, #0d0d0d 100%);
+    border-top: 1px solid var(--w-6);
+  }
+  .catalog-tagline {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(28px, 3.2vw, 44px);
+    line-height: 1.35;
+    color: var(--w-92);
+    text-align: center;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+  }
+  .catalog-tagline::before, .catalog-tagline::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto var(--space-10);
+  }
+  .catalog-tagline::after {
+    margin: var(--space-10) auto 0;
+  }
+  .catalog-tagline em {
+    color: var(--gold);
+    font-style: italic;
   }
 
   /* ──────────────────────────────────────────────────────────────────
@@ -435,18 +476,20 @@
   @media (max-width: 1080px) {
     .nav-menu { gap: var(--space-6); }
     .nav-menu a { font-size: 12px; }
-    .hero-content { padding: 0 var(--space-8) 0 var(--space-6); }
+    .hero-grid { gap: var(--space-12); }
   }
 
   @media (max-width: 880px) {
     .wrap { padding: 0 var(--space-6); }
     .hero {
-      grid-template-columns: 1fr;
+      min-height: auto;
       padding: 120px 0 60px;
     }
-    .hero::after { display: none; }
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
     .hero-content {
-      padding: 0 var(--space-6);
       order: 1;
       max-width: 100%;
     }
@@ -454,12 +497,10 @@
       order: 2;
       height: 52vh;
       min-height: 420px;
-      margin: var(--space-8) var(--space-6) 0;
     }
     .hero-meta {
       position: static;
       margin-top: var(--space-10);
-      padding: 0 var(--space-6);
     }
     .nav-menu { display: none; }
     .scroll-hint { display: none; }
@@ -469,6 +510,7 @@
       font-size: 9px;
       padding: 5px 10px;
     }
+    .catalog-intro { padding: var(--space-16) 0; }
   }
 
   @media (max-width: 540px) {
@@ -507,30 +549,31 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="wrap hero-grid">
 
-  <!-- Content (left column) -->
-  <div class="hero-content">
-    <div class="hero-eyebrow">Бижутерия · с кристаллами Swarovski</div>
+    <!-- Content (left column) -->
+    <div class="hero-content">
+      <div class="hero-eyebrow">Бижутерия · с кристаллами Swarovski</div>
 
-    <h1 class="hero-h1">
-      Сияние в&nbsp;<span class="accent">деталях</span>
-      <span class="small">Wowshimmer · бренд украшений</span>
-    </h1>
+      <h1 class="hero-h1">
+        Сияние в&nbsp;<span class="accent">деталях</span>
+        <span class="small">Wowshimmer · бренд украшений</span>
+      </h1>
 
-    <p class="hero-sub">
-      Серьги, подвески и&nbsp;кольца в&nbsp;выразительной палитре оттенков
-      для&nbsp;повседневных и&nbsp;акцентных образов.
-    </p>
+      <p class="hero-sub">
+        Серьги, подвески и&nbsp;кольца в&nbsp;выразительной палитре оттенков
+        для&nbsp;повседневных и&nbsp;акцентных образов.
+      </p>
 
-    <div class="hero-cta">
-      <a href="#catalog" class="btn btn-primary">
-        Смотреть каталог <span class="arrow">→</span>
-      </a>
-      <a href="#where-to-buy" class="btn btn-secondary">
-        Где купить
-      </a>
+      <div class="hero-cta">
+        <a href="#catalog" class="btn btn-primary">
+          Смотреть каталог <span class="arrow">→</span>
+        </a>
+        <a href="#where-to-buy" class="btn btn-secondary">
+          Где купить
+        </a>
+      </div>
     </div>
-  </div>
 
   <!-- Visual (right column) -->
   <div class="hero-visual">
@@ -653,15 +696,19 @@
     </svg>
   </div>
 
-  <!-- Мета внизу слева (название бренда + год / страна) -->
+  </div><!-- /.hero-grid -->
+
+  <!-- Мета внизу — внутри wrap для центрирования -->
   <div class="hero-meta">
-    <div>
-      <b>est. 2023</b>
-      Russia
-    </div>
-    <div>
-      <b>Свыше 30 оттенков</b>
-      Кристаллы Swarovski · фианиты
+    <div class="wrap hero-meta-inner">
+      <div>
+        <b>est. 2023</b>
+        Russia
+      </div>
+      <div>
+        <b>Свыше 30 оттенков</b>
+        Кристаллы Swarovski · фианиты
+      </div>
     </div>
   </div>
 
@@ -671,6 +718,16 @@
     <div class="line"></div>
   </div>
 
+</section>
+
+<!-- CATALOG INTRO — peek-блок прямо под hero, видна часть при первой загрузке -->
+<section class="catalog-intro">
+  <div class="wrap">
+    <p class="catalog-tagline">
+      Минималистичные украшения созданы для&nbsp;того, чтобы приносить
+      <em>радость</em> каждый день.
+    </p>
+  </div>
 </section>
 
 <script>
