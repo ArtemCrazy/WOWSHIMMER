@@ -131,9 +131,9 @@
   .anchor-section .section-title { margin-bottom: 14px; }
   .anchor-section .section-desc { margin-bottom: 28px; }
 
-  /* Витрина категорий — 1×4 (Серьги · Подвески · Браслеты · Пусеты) */
+  /* Витрина категорий — 1×3 (Серьги · Подвески · Браслеты) с подкатегориями внутри */
   .categories-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
     position: relative;
   }
   .category-card {
@@ -157,9 +157,9 @@
   }
   .category-photo .cat-banner {
     position: relative; z-index: 2;
-    font-family: 'Caveat', cursive; font-size: 34px; font-weight: 700;
-    color: var(--ink); letter-spacing: 0.5px;
-    background: rgba(255,251,230,0.92); padding: 4px 16px;
+    font-family: 'Caveat', cursive; font-size: 44px; font-weight: 700;
+    color: var(--ink); letter-spacing: 1px;
+    background: rgba(255,251,230,0.92); padding: 6px 22px;
     border: 1.5px dashed var(--hl-border);
   }
   .category-photo .cat-count {
@@ -170,6 +170,18 @@
   .category-info { padding: 18px 20px 22px; flex: 1; display: flex; flex-direction: column; }
   .category-info h3 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
   .category-info .cat-sub { font-size: 13px; color: var(--ink-light); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+  /* Подкатегории как chips */
+  .category-info .cat-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .category-info .cat-chips .chip {
+    display: inline-flex; align-items: baseline; gap: 5px;
+    padding: 4px 10px; background: var(--paper-dark);
+    border: 1px solid var(--ink-faint); font-size: 14px; color: var(--ink);
+  }
+  .category-info .cat-chips .chip b { font-weight: 700; }
+  .category-info .cat-chips .chip span { font-size: 12px; color: var(--ink-light); }
+  .category-info .cat-chips .chip.ph {
+    background: var(--hl); border-style: dashed; border-color: var(--hl-border); color: #8a6800;
+  }
   .category-info .cat-desc { font-size: 15px; color: var(--ink-mid); line-height: 1.5; margin-bottom: 14px; flex: 1; }
   .category-info .cat-swatches { display: flex; gap: 3px; flex-wrap: wrap; margin-bottom: 14px; }
   .category-info .cat-swatches span { width: 14px; height: 14px; border: 1px solid rgba(0,0,0,0.15); }
@@ -394,14 +406,10 @@
     .vitrina { grid-template-columns: repeat(3, 1fr); }
     .palette-band .pb-wall { grid-template-columns: repeat(10, 1fr); }
   }
-  @media (max-width: 1080px) {
-    .categories-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
-    .category-photo .cat-banner { font-size: 38px; }
-  }
-  @media (max-width: 540px) {
+  @media (max-width: 880px) {
     .categories-grid { grid-template-columns: 1fr; }
     .category-photo { aspect-ratio: 5/2; }
-    .category-photo .cat-banner { font-size: 32px; }
+    .category-photo .cat-banner { font-size: 36px; }
   }
   @media (max-width: 980px) {
     .hero-image .hero-logo { font-size: 64px; }
@@ -543,9 +551,9 @@
       <span class="annotation">клик по&nbsp;категории → раскрывается список товаров в&nbsp;ней</span>
     </div>
     <p class="section-desc">
-      4 типа украшений: серьги, подвески, браслеты и&nbsp;флагманские пусеты Swarovski.
-      Когда у&nbsp;бренда есть структура&nbsp;— каталог раскрывается через категории,
-      и&nbsp;партнёр сразу видит, какие типы доступны.
+      Три типа украшений с&nbsp;внутренней структурой: серьги (пусеты + протяжки),
+      подвески (на&nbsp;леске + на&nbsp;цепи), браслеты. Партнёр видит структуру каталога
+      с&nbsp;первого экрана.
     </p>
 
     <div class="categories-grid" id="categories-grid">
@@ -811,31 +819,33 @@
   const CATEGORIES = [
     {
       name: 'Серьги',
-      count: 4,
-      sub: 'Штанги · Гвоздики',
-      desc: 'Серьги-штанги Swarovski 4/6&nbsp;мм и&nbsp;гвоздики с&nbsp;фианитом — сердечки и&nbsp;кресты для повседневных образов.',
-      swatches: [2,3,4,5,11,16]
+      count: 5,
+      sub: 'Пусеты · Серьги-протяжки',
+      subs: [
+        {label: 'Пусеты', detail: 'Swarovski 4 · 6 · 8 мм'},
+        {label: 'Серьги-протяжки', detail: ''}
+      ],
+      desc: 'Гвоздики-пусеты с&nbsp;кристаллами Swarovski трёх размеров&nbsp;— флагман бренда. Плюс серьги-протяжки.',
+      swatches: [2,3,4,5,11,16,24,8]
     },
     {
       name: 'Подвески',
       count: 2,
-      sub: 'На леске · На цепочке',
-      desc: 'Подвеска на&nbsp;леске с&nbsp;кристаллом Swarovski 8&nbsp;мм. Универсальный аксессуар.',
+      sub: 'На леске · На цепи',
+      subs: [
+        {label: 'На леске', detail: 'Swarovski 8 мм'},
+        {label: 'На цепи', detail: ''}
+      ],
+      desc: 'Подвески с&nbsp;кристаллами Swarovski — на&nbsp;тонкой леске или на&nbsp;цепочке. Универсальный аксессуар.',
       swatches: [2,34,35,4,25,11]
     },
     {
       name: 'Браслеты',
       count: 3,
-      sub: 'Тонкие · С камнями',
-      desc: 'Браслеты с&nbsp;кристаллами Swarovski и&nbsp;фианитом — комплектуют образ или&nbsp;дополняют украшения.',
+      sub: 'Подкатегории уточнить *',
+      subs: [],
+      desc: 'Браслеты с&nbsp;кристаллами и&nbsp;фианитом. Внутренние подкатегории уточняем с&nbsp;клиентом.',
       swatches: [6,7,8,9,10,15]
-    },
-    {
-      name: 'Пусеты',
-      count: 3,
-      sub: 'Swarovski 4 · 6 · 8 мм',
-      desc: 'Гвоздики-пусеты с&nbsp;кристаллами Swarovski трёх размеров — флагманская линейка бренда.',
-      swatches: [1,2,3,5,23,38]
     }
   ];
 
@@ -849,6 +859,14 @@
       card.onclick = (e) => { e.preventDefault(); showStub('Каталог · ' + cat.name); };
       const swatches = cat.swatches.map(idx => `<span style="background:${PALETTE[idx].c}" title="${PALETTE[idx].n}"></span>`).join('');
       const modelsWord = cat.count === 1 ? 'модель' : (cat.count < 5 ? 'модели' : 'моделей');
+      let chipsHtml = '';
+      if (cat.subs && cat.subs.length) {
+        chipsHtml = '<div class="cat-chips">' + cat.subs.map(s =>
+          `<span class="chip"><b>${s.label}</b>${s.detail ? `<span>${s.detail}</span>` : ''}</span>`
+        ).join('') + '</div>';
+      } else {
+        chipsHtml = '<div class="cat-chips"><span class="chip ph">✎ подкатегории — уточнить</span></div>';
+      }
       card.innerHTML = `
         <div class="category-photo">
           <div class="cat-count">${cat.count} ${modelsWord}</div>
@@ -856,7 +874,7 @@
         </div>
         <div class="category-info">
           <h3>${cat.name}</h3>
-          <div class="cat-sub">${cat.sub}</div>
+          ${chipsHtml}
           <p class="cat-desc">${cat.desc}</p>
           <div class="cat-swatches">${swatches}</div>
           <span class="cat-cta">Смотреть категорию →</span>

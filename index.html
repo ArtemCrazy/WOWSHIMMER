@@ -133,7 +133,7 @@
   <div class="intro">
     <span class="stamp">📁 WOWSHIMMER · 2026-05-17</span>
     <h1>Два варианта структуры главной страницы</h1>
-    <p>Это lo-fi прототипы-скетчи <b>главной страницы многостраничного сайта</b>. Модель проекта: <b>публичная витрина бренда + закрытый партнёрский слой</b>. Каталог открыт для всех с&nbsp;розничными ценами; партнёр после авторизации видит оптовые цены и&nbsp;собирает заявку. Розничные покупки уходят на&nbsp;маркетплейсы (Ozon, WB). Hero у&nbsp;обоих вариантов общий — имиджевое фото/видео + логотип. Разница в&nbsp;том, <b>как раскрывается каталог</b>: <b>«Категории-якорь»</b> ведёт через 4&nbsp;типа украшений (Серьги · Подвески · Браслеты · Пусеты)&nbsp;— подходит, если у&nbsp;бренда есть структура. <b>«Бренд-витрина»</b> показывает товары напрямую плюс развёрнутую брендовую главную (палитра, «где купить», партнёрский блок, контакты)&nbsp;— подходит для небольшого ясного ассортимента.</p>
+    <p>Это lo-fi прототипы-скетчи <b>главной страницы многостраничного сайта</b>. Модель проекта: <b>публичная витрина бренда + закрытый партнёрский слой</b>. Каталог открыт для всех с&nbsp;розничными ценами; партнёр после авторизации видит оптовые цены и&nbsp;собирает заявку. Розничные покупки уходят на&nbsp;маркетплейсы (Ozon, WB). Hero у&nbsp;обоих вариантов общий — имиджевое фото/видео + логотип. Разница в&nbsp;том, <b>как раскрывается каталог</b>: <b>«Категории-якорь»</b> ведёт через 3&nbsp;типа украшений с&nbsp;подкатегориями (Серьги: Пусеты + Протяжки · Подвески: На&nbsp;леске + На&nbsp;цепи · Браслеты)&nbsp;— подходит, если у&nbsp;бренда есть структура. <b>«Бренд-витрина»</b> показывает товары напрямую плюс развёрнутую брендовую главную (палитра, «где купить», партнёрский блок, контакты)&nbsp;— подходит для небольшого ясного ассортимента.</p>
   </div>
 
   <div class="meta-strip">
@@ -155,7 +155,7 @@
 
     <a href="v1/" class="variant">
       <div class="v-thumb">
-        <!-- Превью V1: общий имиджевый hero + 4 категории -->
+        <!-- Превью V1: общий имиджевый hero + 3 категории с подкатегориями -->
         <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
           <rect width="320" height="200" fill="#ede9e0"/>
           <rect x="0" y="0" width="320" height="14" fill="white" stroke="#1a1a1a" stroke-width="1"/>
@@ -179,101 +179,89 @@
           <text x="160" y="66" font-family="Caveat,cursive" font-size="5" fill="rgba(255,255,255,0.5)" text-anchor="middle" letter-spacing="1">ОПТОВАЯ БИЖУТЕРИЯ</text>
           <rect x="120" y="74" width="36" height="9" fill="#c9a96e"/>
           <rect x="160" y="74" width="36" height="9" fill="none" stroke="white" stroke-width="0.8"/>
-          <!-- ЯКОРЬ V1 = 4 категории -->
+          <!-- ЯКОРЬ V1 = 3 категории с подкатегориями (chips) -->
           <rect x="0" y="90" width="320" height="110" fill="#ede9e0"/>
           <rect x="6" y="94" width="56" height="6" fill="#c9a96e"/>
           <rect x="6" y="104" width="180" height="5" fill="#1a1a1a"/>
-          <!-- 4 категории в ряд, каждая ~74px -->
-          <g transform="translate(6,114)">
-            <!-- Серьги -->
-            <rect x="0"   y="0"  width="74" height="82" fill="white" stroke="#1a1a1a" stroke-width="1"/>
-            <rect x="2"   y="2"  width="70" height="36" fill="#ede9e0"/>
-            <line x1="2" y1="2" x2="72" y2="38" stroke="#ccc" stroke-width="0.4"/>
-            <line x1="72" y1="2" x2="2" y2="38" stroke="#ccc" stroke-width="0.4"/>
-            <rect x="10"  y="14" width="54" height="12" fill="#fffbe6" stroke="#d4a017" stroke-width="0.7" stroke-dasharray="2 2"/>
-            <text x="37"  y="23" font-family="Caveat,cursive" font-size="8" font-weight="700" fill="#1a1a1a" text-anchor="middle">Серьги</text>
-            <rect x="50"  y="6"  width="20" height="5" fill="#1a1a1a"/>
-            <text x="52"  y="10" font-family="Caveat,cursive" font-size="3.5" fill="white">4 модели</text>
-            <text x="5"   y="48" font-family="Caveat,cursive" font-size="6.5" font-weight="700" fill="#1a1a1a">Серьги</text>
-            <text x="5"   y="55" font-family="Caveat,cursive" font-size="3.5" fill="#999">ШТАНГИ · ГВОЗДИКИ</text>
-            <g transform="translate(5,60)">
+          <!-- 3 категории в ряд, каждая ~100×82 -->
+          <g transform="translate(8,114)">
+            <!-- Серьги: Пусеты · Серьги-протяжки -->
+            <rect x="0"   y="0"  width="100" height="82" fill="white" stroke="#1a1a1a" stroke-width="1.2"/>
+            <rect x="2"   y="2"  width="96"  height="36" fill="#ede9e0"/>
+            <line x1="2" y1="2" x2="98" y2="38" stroke="#ccc" stroke-width="0.5"/>
+            <line x1="98" y1="2" x2="2" y2="38" stroke="#ccc" stroke-width="0.5"/>
+            <rect x="20"  y="14" width="60" height="12" fill="#fffbe6" stroke="#d4a017" stroke-width="0.8" stroke-dasharray="2 2"/>
+            <text x="50"  y="23" font-family="Caveat,cursive" font-size="9" font-weight="700" fill="#1a1a1a" text-anchor="middle">Серьги</text>
+            <rect x="68"  y="6"  width="24" height="6" fill="#1a1a1a"/>
+            <text x="71"  y="11" font-family="Caveat,cursive" font-size="4" fill="white">5 моделей</text>
+            <text x="6"   y="48" font-family="Caveat,cursive" font-size="7" font-weight="700" fill="#1a1a1a">Серьги</text>
+            <!-- chips подкатегорий -->
+            <rect x="6"   y="52" width="34" height="9" fill="#ede9e0" stroke="#ccc" stroke-width="0.4"/>
+            <text x="8"   y="58" font-family="Caveat,cursive" font-size="5" font-weight="700" fill="#1a1a1a">Пусеты</text>
+            <rect x="42"  y="52" width="48" height="9" fill="#ede9e0" stroke="#ccc" stroke-width="0.4"/>
+            <text x="44"  y="58" font-family="Caveat,cursive" font-size="5" font-weight="700" fill="#1a1a1a">Серьги-протяжки</text>
+            <g transform="translate(6,64)">
               <rect x="0"  y="0" width="5" height="5" fill="#c9a96e"/>
               <rect x="6"  y="0" width="5" height="5" fill="#b76e79"/>
               <rect x="12" y="0" width="5" height="5" fill="#eadbc8"/>
               <rect x="18" y="0" width="5" height="5" fill="#a8654b"/>
-              <rect x="24" y="0" width="5" height="5" fill="#9c8b7a"/>
+              <rect x="24" y="0" width="5" height="5" fill="#1a1a1a"/>
             </g>
-            <text x="38"  y="74" font-family="Caveat,cursive" font-size="5.5" fill="#c9a96e">Смотреть →</text>
+            <text x="58"  y="76" font-family="Caveat,cursive" font-size="6" fill="#c9a96e">Смотреть →</text>
 
-            <!-- Подвески -->
-            <rect x="78"  y="0"  width="74" height="82" fill="white" stroke="#1a1a1a" stroke-width="1"/>
-            <rect x="80"  y="2"  width="70" height="36" fill="#ede9e0"/>
-            <line x1="80" y1="2" x2="150" y2="38" stroke="#ccc" stroke-width="0.4"/>
-            <line x1="150" y1="2" x2="80" y2="38" stroke="#ccc" stroke-width="0.4"/>
-            <rect x="86"  y="14" width="62" height="12" fill="#fffbe6" stroke="#d4a017" stroke-width="0.7" stroke-dasharray="2 2"/>
-            <text x="117" y="23" font-family="Caveat,cursive" font-size="8" font-weight="700" fill="#1a1a1a" text-anchor="middle">Подвески</text>
-            <rect x="128" y="6"  width="20" height="5" fill="#1a1a1a"/>
-            <text x="130" y="10" font-family="Caveat,cursive" font-size="3.5" fill="white">2 модели</text>
-            <text x="83"  y="48" font-family="Caveat,cursive" font-size="6.5" font-weight="700" fill="#1a1a1a">Подвески</text>
-            <text x="83"  y="55" font-family="Caveat,cursive" font-size="3.5" fill="#999">НА ЛЕСКЕ · НА ЦЕП.</text>
-            <g transform="translate(83,60)">
+            <!-- Подвески: На леске · На цепи -->
+            <rect x="104" y="0"  width="100" height="82" fill="white" stroke="#1a1a1a" stroke-width="1.2"/>
+            <rect x="106" y="2"  width="96"  height="36" fill="#ede9e0"/>
+            <line x1="106" y1="2" x2="202" y2="38" stroke="#ccc" stroke-width="0.5"/>
+            <line x1="202" y1="2" x2="106" y2="38" stroke="#ccc" stroke-width="0.5"/>
+            <rect x="120" y="14" width="68" height="12" fill="#fffbe6" stroke="#d4a017" stroke-width="0.8" stroke-dasharray="2 2"/>
+            <text x="154" y="23" font-family="Caveat,cursive" font-size="9" font-weight="700" fill="#1a1a1a" text-anchor="middle">Подвески</text>
+            <rect x="172" y="6"  width="26" height="6" fill="#1a1a1a"/>
+            <text x="175" y="11" font-family="Caveat,cursive" font-size="4" fill="white">2 модели</text>
+            <text x="110" y="48" font-family="Caveat,cursive" font-size="7" font-weight="700" fill="#1a1a1a">Подвески</text>
+            <rect x="110" y="52" width="38" height="9" fill="#ede9e0" stroke="#ccc" stroke-width="0.4"/>
+            <text x="112" y="58" font-family="Caveat,cursive" font-size="5" font-weight="700" fill="#1a1a1a">На леске</text>
+            <rect x="150" y="52" width="34" height="9" fill="#ede9e0" stroke="#ccc" stroke-width="0.4"/>
+            <text x="152" y="58" font-family="Caveat,cursive" font-size="5" font-weight="700" fill="#1a1a1a">На цепи</text>
+            <g transform="translate(110,64)">
               <rect x="0"  y="0" width="5" height="5" fill="#c9a96e"/>
               <rect x="6"  y="0" width="5" height="5" fill="#1a1a1a"/>
               <rect x="12" y="0" width="5" height="5" fill="#eadbc8"/>
               <rect x="18" y="0" width="5" height="5" fill="#a48ba0"/>
               <rect x="24" y="0" width="5" height="5" fill="#d4af37"/>
             </g>
-            <text x="116" y="74" font-family="Caveat,cursive" font-size="5.5" fill="#c9a96e">Смотреть →</text>
+            <text x="162" y="76" font-family="Caveat,cursive" font-size="6" fill="#c9a96e">Смотреть →</text>
 
-            <!-- Браслеты -->
-            <rect x="156" y="0"  width="74" height="82" fill="white" stroke="#1a1a1a" stroke-width="1"/>
-            <rect x="158" y="2"  width="70" height="36" fill="#ede9e0"/>
-            <line x1="158" y1="2" x2="228" y2="38" stroke="#ccc" stroke-width="0.4"/>
-            <line x1="228" y1="2" x2="158" y2="38" stroke="#ccc" stroke-width="0.4"/>
-            <rect x="164" y="14" width="62" height="12" fill="#fffbe6" stroke="#d4a017" stroke-width="0.7" stroke-dasharray="2 2"/>
-            <text x="195" y="23" font-family="Caveat,cursive" font-size="8" font-weight="700" fill="#1a1a1a" text-anchor="middle">Браслеты</text>
-            <rect x="206" y="6"  width="20" height="5" fill="#1a1a1a"/>
-            <text x="208" y="10" font-family="Caveat,cursive" font-size="3.5" fill="white">3 модели</text>
-            <text x="161" y="48" font-family="Caveat,cursive" font-size="6.5" font-weight="700" fill="#1a1a1a">Браслеты</text>
-            <text x="161" y="55" font-family="Caveat,cursive" font-size="3.5" fill="#999">С КАМНЯМИ · ТОНКИЕ</text>
-            <g transform="translate(161,60)">
+            <!-- Браслеты: уточнить -->
+            <rect x="208" y="0"  width="96" height="82" fill="white" stroke="#1a1a1a" stroke-width="1.2"/>
+            <rect x="210" y="2"  width="92"  height="36" fill="#ede9e0"/>
+            <line x1="210" y1="2" x2="302" y2="38" stroke="#ccc" stroke-width="0.5"/>
+            <line x1="302" y1="2" x2="210" y2="38" stroke="#ccc" stroke-width="0.5"/>
+            <rect x="226" y="14" width="60" height="12" fill="#fffbe6" stroke="#d4a017" stroke-width="0.8" stroke-dasharray="2 2"/>
+            <text x="256" y="23" font-family="Caveat,cursive" font-size="9" font-weight="700" fill="#1a1a1a" text-anchor="middle">Браслеты</text>
+            <rect x="274" y="6"  width="26" height="6" fill="#1a1a1a"/>
+            <text x="277" y="11" font-family="Caveat,cursive" font-size="4" fill="white">3 модели</text>
+            <text x="214" y="48" font-family="Caveat,cursive" font-size="7" font-weight="700" fill="#1a1a1a">Браслеты</text>
+            <rect x="214" y="52" width="80" height="9" fill="#fffbe6" stroke="#d4a017" stroke-width="0.5" stroke-dasharray="2 2"/>
+            <text x="216" y="58" font-family="Caveat,cursive" font-size="5" font-weight="700" fill="#8a6800">✎ подкатегории — уточнить</text>
+            <g transform="translate(214,64)">
               <rect x="0"  y="0" width="5" height="5" fill="#a5897a"/>
               <rect x="6"  y="0" width="5" height="5" fill="#7a5c4a"/>
               <rect x="12" y="0" width="5" height="5" fill="#e0b6a3"/>
               <rect x="18" y="0" width="5" height="5" fill="#4a2c2a"/>
               <rect x="24" y="0" width="5" height="5" fill="#d9c2a6"/>
             </g>
-            <text x="194" y="74" font-family="Caveat,cursive" font-size="5.5" fill="#c9a96e">Смотреть →</text>
-
-            <!-- Пусеты -->
-            <rect x="234" y="0"  width="74" height="82" fill="white" stroke="#1a1a1a" stroke-width="1"/>
-            <rect x="236" y="2"  width="70" height="36" fill="#ede9e0"/>
-            <line x1="236" y1="2" x2="306" y2="38" stroke="#ccc" stroke-width="0.4"/>
-            <line x1="306" y1="2" x2="236" y2="38" stroke="#ccc" stroke-width="0.4"/>
-            <rect x="244" y="14" width="54" height="12" fill="#fffbe6" stroke="#d4a017" stroke-width="0.7" stroke-dasharray="2 2"/>
-            <text x="271" y="23" font-family="Caveat,cursive" font-size="8" font-weight="700" fill="#1a1a1a" text-anchor="middle">Пусеты</text>
-            <rect x="284" y="6"  width="20" height="5" fill="#1a1a1a"/>
-            <text x="286" y="10" font-family="Caveat,cursive" font-size="3.5" fill="white">3 модели</text>
-            <text x="239" y="48" font-family="Caveat,cursive" font-size="6.5" font-weight="700" fill="#1a1a1a">Пусеты</text>
-            <text x="239" y="55" font-family="Caveat,cursive" font-size="3.5" fill="#999">SWAROVSKI 4/6/8</text>
-            <g transform="translate(239,60)">
-              <rect x="0"  y="0" width="5" height="5" fill="#c9a96e"/>
-              <rect x="6"  y="0" width="5" height="5" fill="#d4af37"/>
-              <rect x="12" y="0" width="5" height="5" fill="#3a3a3a"/>
-              <rect x="18" y="0" width="5" height="5" fill="#eadbc8"/>
-              <rect x="24" y="0" width="5" height="5" fill="#b76e79"/>
-            </g>
-            <text x="272" y="74" font-family="Caveat,cursive" font-size="5.5" fill="#c9a96e">Смотреть →</text>
+            <text x="266" y="76" font-family="Caveat,cursive" font-size="6" fill="#c9a96e">Смотреть →</text>
           </g>
         </svg>
       </div>
       <div class="v-body">
         <div class="v-num">Вариант A</div>
         <h2>Категории-якорь</h2>
-        <p class="v-pitch">Под имиджевым hero — каталог раскрывается через категории. <b>Если у&nbsp;бренда есть структура</b> (Серьги · Подвески · Браслеты · Пусеты) — каталог идёт через неё, и&nbsp;партнёр сразу видит типы украшений.</p>
+        <p class="v-pitch">Под имиджевым hero — каталог раскрывается через категории с&nbsp;подкатегориями внутри. Серьги (пусеты + протяжки), подвески (на&nbsp;леске + на&nbsp;цепи), браслеты. Партнёр сразу видит структуру каталога.</p>
         <div class="schema">
           <b>Главная: порядок блоков</b>
-          Имиджевый hero → <b style="color:var(--shimmer)">4 категории каталога</b> → о&nbsp;бренде (тизер) → условия партнёрства → форма заявки
+          Имиджевый hero → <b style="color:var(--shimmer)">3 категории с&nbsp;подкатегориями</b> → о&nbsp;бренде (тизер) → условия партнёрства → форма заявки
         </div>
         <span class="v-open">Открыть вариант A →</span>
       </div>
