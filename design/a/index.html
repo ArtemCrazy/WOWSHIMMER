@@ -264,11 +264,11 @@
   .catalog-tagline::after { margin: 32px auto 0; }
   .catalog-tagline em { color: var(--gold); font-style: italic; }
 
-  /* ── CATALOG (товары) ─────────────────────────────────────────── */
+  /* ── CATALOG (товары, светлая тема) ──────────────────────────── */
   .catalog {
-    background: linear-gradient(180deg, var(--ink) 0%, #0c0c0c 100%);
-    padding: 40px 0 120px;
-    color: var(--w-92);
+    background: #fafaf7;       /* тёплый off-white */
+    padding: 80px 0 120px;
+    color: var(--ink-2);
   }
 
   .catalog-head {
@@ -278,7 +278,7 @@
   .catalog-eyebrow {
     display: inline-block;
     font-size: 11px;
-    color: var(--gold);
+    color: var(--gold-deep);
     font-weight: 500;
     letter-spacing: 3.5px;
     text-transform: uppercase;
@@ -288,23 +288,23 @@
     content: '';
     display: inline-block;
     width: 24px; height: 1px;
-    background: var(--gold);
+    background: var(--gold-deep);
     vertical-align: middle;
     margin: 0 12px;
-    opacity: 0.6;
+    opacity: 0.7;
   }
   .catalog-title {
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(36px, 4vw, 56px);
     line-height: 1.05;
-    color: var(--white);
+    color: var(--ink);
     margin-bottom: 16px;
     letter-spacing: -0.5px;
   }
   .catalog-lead {
     font-size: 16px;
-    color: var(--w-55);
+    color: rgba(0,0,0,0.55);
     max-width: 640px;
     margin: 0 auto;
     line-height: 1.6;
@@ -325,9 +325,9 @@
     align-items: center;
     gap: 10px;
     padding: 11px 22px;
-    background: transparent;
-    border: 1px solid var(--w-22);
-    color: var(--w-72);
+    background: white;
+    border: 1px solid rgba(0,0,0,0.16);
+    color: rgba(0,0,0,0.65);
     font-family: var(--font-body);
     font-size: 12px;
     font-weight: 500;
@@ -337,36 +337,36 @@
     transition: background 0.2s, color 0.2s, border-color 0.2s;
   }
   .cat-tab:hover {
-    border-color: var(--gold);
-    color: var(--white);
+    border-color: var(--ink-2);
+    color: var(--ink);
   }
   .cat-tab span {
     font-size: 11px;
     padding: 1px 7px;
-    background: var(--w-12);
-    color: var(--w-72);
+    background: rgba(0,0,0,0.06);
+    color: rgba(0,0,0,0.55);
     letter-spacing: 0.5px;
     font-weight: 600;
     min-width: 20px;
     text-align: center;
   }
   .cat-tab.active {
-    background: var(--gold);
-    color: var(--ink);
-    border-color: var(--gold);
+    background: var(--ink-2);
+    color: white;
+    border-color: var(--ink-2);
   }
   .cat-tab.active span {
-    background: rgba(0,0,0,0.2);
-    color: var(--ink);
+    background: rgba(255,255,255,0.18);
+    color: white;
   }
   .cat-tab--ph {
     border-style: dashed;
-    border-color: rgba(201,169,110,0.4);
-    color: rgba(201,169,110,0.7);
+    border-color: rgba(201,169,110,0.55);
+    color: var(--gold-deep);
   }
   .cat-tab--ph span {
-    background: rgba(201,169,110,0.15);
-    color: var(--gold);
+    background: rgba(201,169,110,0.14);
+    color: var(--gold-deep);
   }
 
   /* Сетка карточек */
@@ -379,8 +379,8 @@
 
   .product {
     display: block;
-    background: var(--ink-2);
-    border: 1px solid var(--w-12);
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
     text-decoration: none;
     color: inherit;
     transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
@@ -388,29 +388,29 @@
   }
   .product:hover {
     transform: translateY(-3px);
-    border-color: var(--gold);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+    border-color: rgba(0,0,0,0.18);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.08);
   }
 
-  /* Фото товара (тестовый плейсхолдер — одна фотография для всех 8 карточек) */
+  /* Фото товара — слайдер-плейсхолдер */
   .product-photo {
     position: relative;
     aspect-ratio: 1;
-    background-color: #131313;
-    background-image: url('../img/wowshimmer.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-bottom: 1px solid var(--w-12);
     overflow: hidden;
+    background-color: #f0ebe2;
   }
-  /* Лёгкое затемнение поверх фото — чтобы pill-метки в углах читались */
-  .product-photo::after {
-    content: '';
+  .product-photo img {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.18) 0%, transparent 35%, transparent 70%, rgba(0,0,0,0.15) 100%);
-    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% center;
+    display: block;
+    transition: transform 0.7s ease;
+  }
+  .product:hover .product-photo img {
+    transform: scale(1.06);
   }
 
   .product-type {
@@ -418,24 +418,35 @@
     top: 14px; left: 14px;
     z-index: 2;
     padding: 4px 10px;
-    background: rgba(10,10,10,0.65);
-    border: 1px solid var(--w-22);
+    background: rgba(255,255,255,0.85);
+    border: 1px solid rgba(0,0,0,0.08);
     font-size: 10px;
-    color: var(--w-92);
+    color: var(--ink);
     letter-spacing: 1.5px;
     text-transform: uppercase;
     font-weight: 500;
     backdrop-filter: blur(4px);
   }
-  .product-num {
+
+  /* Индикаторы «есть ещё фото» — намёк на слайдер */
+  .photo-dots {
     position: absolute;
-    top: 14px; right: 14px;
-    z-index: 2;
-    font-size: 11px;
-    color: var(--w-40);
-    font-weight: 500;
-    letter-spacing: 1.5px;
+    bottom: 12px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    gap: 5px;
+    opacity: 0.65;
+    transition: opacity 0.3s;
   }
+  .product:hover .photo-dots { opacity: 1; }
+  .photo-dots .dot {
+    width: 22px; height: 2px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 0;
+    transition: background 0.3s;
+  }
+  .photo-dots .dot.active { background: white; }
 
   /* Info-зона карточки */
   .product-info {
@@ -445,14 +456,14 @@
     font-family: var(--font-body);
     font-size: 16px;
     font-weight: 500;
-    color: var(--white);
+    color: var(--ink);
     margin-bottom: 4px;
     letter-spacing: -0.2px;
     line-height: 1.3;
   }
   .product-art {
     font-size: 11px;
-    color: var(--w-40);
+    color: rgba(0,0,0,0.4);
     letter-spacing: 1.2px;
     font-family: var(--font-body);
     margin-bottom: 12px;
@@ -466,13 +477,13 @@
   }
   .product-swatches span {
     width: 13px; height: 13px;
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(0,0,0,0.12);
     flex-shrink: 0;
   }
   .product-swatches .more {
     background: transparent;
-    border: 1px solid var(--w-22);
-    color: var(--w-55);
+    border: 1px solid rgba(0,0,0,0.18);
+    color: rgba(0,0,0,0.5);
     font-size: 10px;
     font-weight: 500;
     display: inline-flex;
@@ -485,39 +496,28 @@
   }
   .product-meta {
     font-size: 12px;
-    color: var(--w-55);
+    color: rgba(0,0,0,0.55);
     margin-bottom: 14px;
     letter-spacing: 0.3px;
   }
-  .product-meta b { color: var(--white); font-weight: 500; }
+  .product-meta b { color: var(--ink); font-weight: 500; }
 
   /* Блок цены */
   .product-price {
     padding-top: 12px;
-    border-top: 1px solid var(--w-12);
+    border-top: 1px solid rgba(0,0,0,0.08);
   }
   .price-retail {
     font-family: var(--font-display);
     font-size: 24px;
     font-weight: 500;
-    color: var(--white);
+    color: var(--ink);
     line-height: 1;
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-  }
-  .price-retail .ph-tag {
-    font-family: var(--font-body);
-    font-size: 10px;
-    font-weight: 400;
-    color: var(--w-40);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
   }
   .price-opt {
     margin-top: 6px;
     font-size: 11px;
-    color: var(--gold);
+    color: var(--gold-deep);
     letter-spacing: 0.5px;
     display: flex;
     align-items: center;
@@ -533,8 +533,8 @@
   .catalog-foot {
     margin-top: 16px;
     padding: 24px 28px;
-    border: 1px solid var(--w-12);
-    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(0,0,0,0.08);
+    background: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -543,24 +543,24 @@
   }
   .catalog-foot p {
     font-size: 13px;
-    color: var(--w-55);
+    color: rgba(0,0,0,0.6);
     margin: 0;
     line-height: 1.5;
   }
-  .catalog-foot p b { color: var(--white); font-weight: 500; }
+  .catalog-foot p b { color: var(--ink); font-weight: 500; }
   .btn-link {
-    color: var(--gold);
+    color: var(--gold-deep);
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    border-bottom: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold-deep);
     padding-bottom: 2px;
     transition: color 0.2s, border-color 0.2s;
   }
   .btn-link:hover {
-    color: var(--white);
-    border-color: var(--white);
+    color: var(--ink);
+    border-color: var(--ink);
   }
 
   /* Адаптив каталога */
@@ -743,8 +743,14 @@
 
       card.innerHTML = `
         <div class="product-photo">
+          <img src="../img/wowshimmer.webp" alt="${pr.n}" loading="lazy">
           <span class="product-type">${pr.type}</span>
-          <span class="product-num">${String(i+1).padStart(2,'0')} / 08</span>
+          <div class="photo-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
         </div>
         <div class="product-info">
           <div class="product-name">${pr.n}</div>
@@ -752,7 +758,7 @@
           <div class="product-swatches">${swatches}${more}</div>
           <div class="product-meta">Цветов кристалла: <b>${total}</b></div>
           <div class="product-price">
-            <div class="price-retail">${pr.retail.toLocaleString('ru-RU')}&nbsp;₽ <span class="ph-tag">розница</span></div>
+            <div class="price-retail">${pr.retail.toLocaleString('ru-RU')}&nbsp;₽</div>
             <div class="price-opt">опт-цена — в ЛК партнёра</div>
           </div>
         </div>
