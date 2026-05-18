@@ -62,13 +62,14 @@
     z-index: 50;
     padding: 24px 0;
     transition: background 0.3s, padding 0.3s, border-color 0.3s;
-    background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0) 100%);
-    border-bottom: 1px solid transparent;
+    /* Тёмный полупрозрачный слой + blur — текст читается на любом фоне страницы */
+    background: rgba(10,10,10,0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--w-6);
   }
   .site-header.scrolled {
-    background: rgba(10,10,10,0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(10,10,10,0.94);
     padding: 16px 0;
     border-bottom-color: var(--w-12);
   }
