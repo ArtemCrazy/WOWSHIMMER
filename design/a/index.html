@@ -110,16 +110,23 @@
   }
   .btn-partners:hover { background: var(--gold); color: var(--ink); }
 
-  /* ── HERO (адаптивная высота — баннер ВСЕГДА виден полностью) ─── */
+  /* ── HERO (баннер растёт до 1366, дальше центрируется на cream-фоне) ── */
   .hero {
     position: relative;
     width: 100%;
     background-color: var(--cream);
     overflow: hidden;
+    display: flex;
+    justify-content: center;
   }
-  /* <picture> и img — занимают всю ширину, высота пропорциональна.
-     На любом экране изделия слева и справа видны целиком. */
-  .hero picture { display: block; }
+  /* Контейнер баннера: до 1366px растёт, дальше остаётся фиксированным.
+     На широких экранах (>1366) по бокам cream-полосы — композиция сохраняется. */
+  .hero-frame {
+    position: relative;
+    width: 100%;
+    max-width: 1366px;
+  }
+  .hero-frame picture { display: block; }
   .hero-banner-img {
     display: block;
     width: 100%;
@@ -321,22 +328,24 @@
 </header>
 
 <section class="hero">
-  <picture>
-    <source media="(max-width: 768px)" srcset="../img/bg4.png">
-    <img class="hero-banner-img" src="../img/bg2.png" alt="WOWSHIMMER — бижутерия с кристаллами Swarovski">
-  </picture>
-  <div class="hero-overlay">
-    <div class="hero-content">
-      <h1 class="hero-h1">WOWSHIMMER</h1>
-      <p class="hero-tagline">Сияние в&nbsp;деталях</p>
-      <p class="hero-sub">Бижутерия с&nbsp;кристаллами Swarovski</p>
-      <div class="hero-cta">
-        <a href="#catalog" class="btn btn-primary">
-          Смотреть каталог <span class="arrow">→</span>
-        </a>
-        <a href="#where-to-buy" class="btn btn-secondary">
-          Где купить
-        </a>
+  <div class="hero-frame">
+    <picture>
+      <source media="(max-width: 768px)" srcset="../img/bg4.png">
+      <img class="hero-banner-img" src="../img/bg2.png" alt="WOWSHIMMER — бижутерия с кристаллами Swarovski">
+    </picture>
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <h1 class="hero-h1">WOWSHIMMER</h1>
+        <p class="hero-tagline">Сияние в&nbsp;деталях</p>
+        <p class="hero-sub">Бижутерия с&nbsp;кристаллами Swarovski</p>
+        <div class="hero-cta">
+          <a href="#catalog" class="btn btn-primary">
+            Смотреть каталог <span class="arrow">→</span>
+          </a>
+          <a href="#where-to-buy" class="btn btn-secondary">
+            Где купить
+          </a>
+        </div>
       </div>
     </div>
   </div>
