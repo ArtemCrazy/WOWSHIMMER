@@ -754,31 +754,14 @@
   }
   .about-photo {
     aspect-ratio: 4/5;
-    background:
-      radial-gradient(ellipse at 50% 40%, rgba(201,169,110,0.18) 0%, transparent 60%),
-      linear-gradient(135deg, #131313 0%, #1c1c1c 100%);
+    background-image: url('../img/company.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #131313;
     border: 1px solid var(--w-12);
     position: relative;
     overflow: hidden;
-  }
-  .about-photo::before {
-    content: '';
-    position: absolute;
-    left: 50%; top: 45%;
-    transform: translate(-50%, -50%);
-    width: 90px; height: 90px;
-    background: radial-gradient(circle at 40% 35%, rgba(255,255,255,0.55) 0%, rgba(201,169,110,0.35) 35%, transparent 70%);
-    filter: blur(1px);
-  }
-  .about-photo .ph-label {
-    position: absolute;
-    bottom: 18px; left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    color: var(--w-40);
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    font-weight: 500;
   }
   .about-text .section-eyebrow {
     margin: 0 0 14px;
@@ -1176,9 +1159,7 @@
 <section class="about-section" id="about">
   <div class="wrap">
     <div class="about-grid">
-      <div class="about-photo">
-        <div class="ph-label">Фото · витрина шоурума</div>
-      </div>
+      <div class="about-photo" aria-label="WOWSHIMMER · бренд украшений"></div>
       <div class="about-text">
         <span class="section-eyebrow">О бренде</span>
         <h2 class="section-title">Минимализм + цвет</h2>
