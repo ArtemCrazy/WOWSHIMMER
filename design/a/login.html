@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вход для партнёров · WOWSHIMMER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a; --ink-2: #141414; --gold: #c9a96e; --gold-deep: #8a7651;
+    --white: #ffffff; --w-92: rgba(255,255,255,0.92); --w-72: rgba(255,255,255,0.72);
+    --w-55: rgba(255,255,255,0.55); --w-40: rgba(255,255,255,0.40);
+    --w-22: rgba(255,255,255,0.22); --w-12: rgba(255,255,255,0.12); --w-6: rgba(255,255,255,0.06);
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    background: var(--ink);
+    color: var(--w-92);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 40px; width: 100%; }
+
+  /* HEADER — тот же что на всех страницах */
+  .site-header { position: sticky; top: 0; z-index: 50; padding: 18px 0; background: var(--ink); border-bottom: 1px solid var(--w-12); }
+  .header-row { display: flex; align-items: center; gap: 40px; }
+  .logo { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--white); letter-spacing: 4px; text-transform: uppercase; line-height: 1; }
+  .logo:hover { color: var(--gold); }
+  .nav-menu { display: flex; gap: 32px; margin-left: auto; }
+  .nav-menu a { color: var(--w-72); font-size: 13px; font-weight: 400; letter-spacing: 1.2px; text-transform: uppercase; transition: color 0.2s; padding: 4px 0; position: relative; }
+  .nav-menu a::after { content: ''; position: absolute; left: 50%; right: 50%; bottom: -2px; height: 1px; background: var(--gold); transition: left 0.25s, right 0.25s; }
+  .nav-menu a:hover { color: var(--white); }
+  .nav-menu a:hover::after { left: 0; right: 0; }
+  .header-actions { display: flex; align-items: center; gap: 4px; }
+  .header-icon { position: relative; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; color: var(--white); transition: color 0.2s; flex-shrink: 0; background: transparent; border: none; cursor: pointer; }
+  .header-icon.active { color: var(--gold); }
+  .header-icon:hover { color: var(--gold); }
+  .header-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; display: block; }
+  .header-divider { width: 1px; height: 22px; background: var(--w-22); margin: 0 4px; flex-shrink: 0; }
+  .fav-badge { position: absolute; top: -2px; right: -4px; min-width: 18px; height: 18px; background: var(--gold); color: var(--ink); font-size: 10px; font-weight: 700; border-radius: 9px; padding: 0 5px; display: none; align-items: center; justify-content: center; line-height: 1; border: 2px solid var(--ink); }
+  .fav-badge.show { display: inline-flex; }
+
+  /* LOGIN PAGE */
+  .login-page {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Декоративные блики на фоне */
+  .login-page::before, .login-page::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,169,110,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .login-page::before { width: 600px; height: 600px; top: -200px; left: -200px; }
+  .login-page::after { width: 500px; height: 500px; bottom: -150px; right: -150px; background: radial-gradient(circle, rgba(201,169,110,0.10) 0%, transparent 65%); }
+
+  .login-card {
+    width: 100%;
+    max-width: 460px;
+    background: rgba(20, 20, 20, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--w-12);
+    padding: 60px 56px 48px;
+    position: relative;
+    z-index: 1;
+  }
+  .login-eyebrow {
+    text-align: center;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+  .login-eyebrow::before, .login-eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 22px; height: 1px;
+    background: var(--gold);
+    vertical-align: middle;
+    margin: 0 12px;
+    opacity: 0.5;
+  }
+  .login-card h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(34px, 3.5vw, 44px);
+    color: var(--white);
+    text-align: center;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+  }
+  .login-sub {
+    text-align: center;
+    font-size: 14px;
+    color: var(--w-55);
+    line-height: 1.6;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+
+  .login-form { display: flex; flex-direction: column; gap: 18px; }
+  .field { position: relative; }
+  .field label {
+    position: absolute;
+    top: 14px; left: 16px;
+    font-size: 11px;
+    color: var(--w-55);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    pointer-events: none;
+    transition: top 0.2s, font-size 0.2s, color 0.2s;
+  }
+  .field input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--w-22);
+    color: var(--white);
+    font: 400 15px/1 var(--font-body);
+    padding: 28px 16px 14px;
+    transition: border-color 0.2s;
+  }
+  .field input:focus { outline: none; border-color: var(--gold); }
+  .field input:not(:placeholder-shown) ~ label,
+  .field input:focus ~ label {
+    top: 8px; font-size: 9px; color: var(--gold);
+  }
+  .field .toggle-pwd {
+    position: absolute;
+    top: 50%; right: 12px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--w-55);
+    padding: 6px;
+    transition: color 0.2s;
+  }
+  .field .toggle-pwd:hover { color: var(--white); }
+  .field .toggle-pwd svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
+  .form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 13px;
+    margin: 4px 0 8px;
+  }
+  .remember {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--w-72);
+    cursor: pointer;
+    user-select: none;
+  }
+  .remember input { appearance: none; -webkit-appearance: none; }
+  .remember .box {
+    width: 16px; height: 16px;
+    border: 1px solid var(--w-22);
+    background: transparent;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .remember input:checked ~ .box {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .remember input:checked ~ .box::after {
+    content: '';
+    position: absolute;
+    left: 4px; top: 1px;
+    width: 5px; height: 9px;
+    border: solid var(--ink);
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+  }
+  .forgot {
+    color: var(--w-72);
+    border-bottom: 1px solid var(--w-22);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .forgot:hover { color: var(--gold); border-color: var(--gold); }
+
+  .btn-submit {
+    width: 100%;
+    padding: 17px 24px;
+    background: var(--gold);
+    color: var(--ink);
+    font: 600 12px/1 var(--font-body);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    border: none;
+    transition: background 0.2s;
+    margin-top: 8px;
+  }
+  .btn-submit:hover { background: var(--white); }
+
+  .login-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 36px 0 24px;
+    color: var(--w-40);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .login-divider::before, .login-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--w-12);
+  }
+
+  .request-access {
+    text-align: center;
+    font-size: 13px;
+    color: var(--w-55);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .request-access a {
+    color: var(--gold);
+    border-bottom: 1px solid currentColor;
+    transition: color 0.2s;
+  }
+  .request-access a:hover { color: var(--white); }
+
+  /* FOOTER (минимальный для login) */
+  .site-footer { background: var(--ink); color: var(--w-72); padding: 32px 0; border-top: 1px solid var(--w-12); }
+  .footer-bottom { display: flex; justify-content: space-between; gap: 24px; font-size: 12px; color: var(--w-40); }
+  .footer-bottom a { color: var(--w-55); }
+  .footer-bottom a:hover { color: var(--white); }
+
+  @media (max-width: 540px) {
+    .wrap { padding: 0 20px; }
+    .nav-menu { display: none; }
+    .login-card { padding: 40px 28px 36px; }
+    .login-page { padding: 40px 16px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="./" class="logo">WOWSHIMMER</a>
+    <nav class="nav-menu">
+      <a href="catalog/">Каталог</a>
+      <a href="#about">О бренде</a>
+      <a href="#partners">Партнёрам</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="header-actions">
+      <a href="catalog/favorites.html" class="header-icon" title="Избранное">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.5-8.5-9.5C2.3 7.8 4.5 5 7.5 5c1.8 0 3.5 1 4.5 2.5C13 6 14.7 5 16.5 5c3 0 5.2 2.8 4 6.5C18.5 16.5 12 21 12 21z"/></svg>
+        <span class="fav-badge" id="fav-badge">0</span>
+      </a>
+      <span class="header-divider" aria-hidden="true"></span>
+      <a href="login.html" class="header-icon active" title="Вход для партнёров">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- LOGIN -->
+<section class="login-page">
+  <div class="login-card">
+    <div class="login-eyebrow">Партнёрский кабинет</div>
+    <h1>Вход в&nbsp;кабинет</h1>
+    <p class="login-sub">
+      Доступ открыт авторизованным партнёрам. После входа в&nbsp;каталоге появятся
+      специальные цены и&nbsp;возможность собрать заказ.
+    </p>
+
+    <form class="login-form" id="login-form" autocomplete="on">
+      <div class="field">
+        <input type="email" id="email" name="email" placeholder=" " autocomplete="username" required>
+        <label for="email">E-mail</label>
+      </div>
+
+      <div class="field">
+        <input type="password" id="password" name="password" placeholder=" " autocomplete="current-password" required>
+        <label for="password">Пароль</label>
+        <button type="button" class="toggle-pwd" id="toggle-pwd" title="Показать пароль">
+          <svg viewBox="0 0 24 24" id="eye-icon"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+
+      <div class="form-row">
+        <label class="remember">
+          <input type="checkbox" name="remember">
+          <span class="box"></span>
+          <span>Запомнить меня</span>
+        </label>
+        <a href="#" class="forgot">Забыли пароль?</a>
+      </div>
+
+      <button type="submit" class="btn-submit">Войти в&nbsp;кабинет</button>
+    </form>
+
+    <div class="login-divider">или</div>
+
+    <div class="request-access">
+      Ещё нет доступа?<br>
+      <a href="./#partners">Оставьте заявку на&nbsp;партнёрский доступ</a> — менеджер&nbsp;свяжется в&nbsp;течение рабочего дня.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (минимальный) -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-bottom">
+      <div>© WOWSHIMMER, 2026</div>
+      <div><a href="#">Политика конфиденциальности</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Favorites badge sync
+  (function() {
+    const FAVS_KEY = 'wowshimmer-favs';
+    function getFavs() { try { return JSON.parse(localStorage.getItem(FAVS_KEY) || '[]'); } catch { return []; } }
+    const badge = document.getElementById('fav-badge');
+    if (badge) {
+      const n = getFavs().length;
+      badge.textContent = n;
+      badge.classList.toggle('show', n > 0);
+    }
+  })();
+
+  // Toggle password visibility
+  const pwd = document.getElementById('password');
+  const toggle = document.getElementById('toggle-pwd');
+  const eye = document.getElementById('eye-icon');
+  toggle.addEventListener('click', () => {
+    const visible = pwd.type === 'text';
+    pwd.type = visible ? 'password' : 'text';
+    eye.innerHTML = visible
+      ? '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>'
+      : '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/><line x1="3" y1="3" x2="21" y2="21" stroke-width="1.5"/>';
+  });
+
+  // Demo submit
+  document.getElementById('login-form').addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Демо-форма. В реальной версии здесь произойдёт авторизация и переход в личный кабинет.');
+  });
+</script>
+
+</body>
+</html>
