@@ -757,12 +757,12 @@
   .about-photo {
     width: 100%;
     height: 100%;
-    min-height: 580px;
+    min-height: 620px;
     background-image: url('../img/obrende.png');
-    background-size: cover;
-    background-position: center;
-    background-color: #131313;
-    border-radius: 0 0 0 320px; /* скругление слева внизу — дуга под лого */
+    background-size: contain;            /* фигура полностью видна, без обрезки */
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-color: transparent;       /* фон прозрачный — секция просвечивает */
   }
   .about-monogram {
     position: absolute;
@@ -784,23 +784,21 @@
     backdrop-filter: blur(4px);
   }
 
-  /* Текстовая тёмная плашка — лёгкий наезд на фото, без блюра */
+  /* Текстовая тёмная плашка — без наезда, фото-вырез сам себя кадрирует */
   .about-text {
     position: relative;
     z-index: 3;
     display: flex;
-    margin-left: -50px;              /* лёгкий наезд на фото */
   }
   .about-card {
     position: relative;
     width: 100%;
-    background: rgba(20, 20, 20, 0.86);
+    background: var(--ink-2);
     border: 1px solid rgba(255,255,255,0.10);
     padding: 60px 56px 56px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: -24px 0 60px rgba(0,0,0,0.45);
   }
 
   /* Eyebrow «О БРЕНДЕ ─── ✦» — длинная линия + звёздочка справа */
