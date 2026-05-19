@@ -91,44 +91,7 @@
   }
   .btn-partners:hover { background: var(--gold); color: var(--ink); }
 
-  /* ── PAGE HEAD (заголовок каталога) ─────────────────────────────── */
-  .page-head {
-    background: var(--ink);
-    color: var(--w-92);
-    padding: 56px 0 80px;
-    border-bottom: 1px solid var(--w-12);
-    position: relative;
-  }
-  .breadcrumbs {
-    font-size: 11px;
-    color: var(--w-55);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-  .breadcrumbs a:hover { color: var(--gold); }
-  .breadcrumbs .sep { color: var(--w-22); }
-  .page-head h1 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(40px, 5vw, 64px);
-    line-height: 1.05;
-    color: var(--white);
-    letter-spacing: -0.5px;
-    margin-bottom: 16px;
-  }
-  .page-head .lead {
-    font-size: 15px;
-    color: var(--w-72);
-    max-width: 640px;
-    line-height: 1.7;
-    font-weight: 300;
-  }
-
-  /* ── CATALOG LAYOUT ─────────────────────────────────────────────── */
+  /* ── CATALOG LAYOUT (сразу под шапкой, без баннера-заголовка) ───── */
   .catalog-page {
     padding: 60px 0 100px;
     background: var(--light);
@@ -586,22 +549,6 @@
     <button class="btn-partners">Вход для партнёров</button>
   </div>
 </header>
-
-<!-- ──────── PAGE HEAD ──────── -->
-<section class="page-head">
-  <div class="wrap">
-    <div class="breadcrumbs">
-      <a href="../">Главная</a>
-      <span class="sep">/</span>
-      <span>Каталог</span>
-    </div>
-    <h1>Каталог</h1>
-    <p class="lead">
-      Бижутерия с&nbsp;кристаллами Swarovski и&nbsp;фианитами&nbsp;— серьги, подвески, кольца.
-      Каждая модель — в&nbsp;десятках цветов, под&nbsp;любой образ.
-    </p>
-  </div>
-</section>
 
 <!-- ──────── CATALOG ──────── -->
 <section class="catalog-page">
