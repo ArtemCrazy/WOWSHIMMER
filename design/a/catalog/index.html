@@ -858,6 +858,16 @@
     return arr;
   }
 
+  // ── Per-product real palette (loaded from _palette.json) ──────────
+  let realPalette = {}; // slug → [hex,...]
+  function paletteFor(slug, n = 8) {
+    const real = realPalette[slug];
+    if (real && real.length) {
+      return real.slice(0, n);
+    }
+    return Array.from({length: n}).map((_, i) => PALETTE[(i * 3) % PALETTE.length]);
+  }
+
   // ── Render products ────────────────────────────────────────────────
   function render() {
     const list = filtered();
@@ -871,10 +881,12 @@
 
     grid.innerHTML = '';
     list.forEach(p => {
-      const swatchHTML = Array.from({length: Math.min(p.palette, 8)})
-        .map((_, i) => `<span style="background:${PALETTE[(i * 3) % PALETTE.length]}"></span>`)
+      const realCount = (realPalette[p.slug] && realPalette[p.slug].length) || p.palette;
+      const visiblePalette = paletteFor(p.slug, 8);
+      const swatchHTML = visiblePalette
+        .map(c => `<span style="background:${c}"></span>`)
         .join('');
-      const moreHTML = p.palette > 8 ? `<span class="more">+${p.palette - 8}</span>` : '';
+      const moreHTML = realCount > 8 ? `<span class="more">+${realCount - 8}</span>` : '';
       const matHTML = p.materials.map(m =>
         m === 'gold'
           ? '<span class="mat-chip gold">Позолота</span>'
@@ -912,6 +924,40 @@
   }
 
   render();
+
+  // ── Load real palette from JSON manifest, then re-render ──────────
+  fetch('../../img/products/_palette.json')
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (!data) return;
+      Object.keys(data).forEach(slug => {
+        realPalette[slug] = data[slug].map(x => x.color);
+      });
+      // Rebuild color filter using a union of real colors (sampled for variety)
+      const all = [];
+      Object.values(realPalette).forEach(arr => arr.forEach(c => all.push(c)));
+      if (all.length) {
+        const unique = [...new Set(all)];
+        const wrap = document.getElementById('filter-color');
+        wrap.innerHTML = '';
+        unique.slice(0, 28).forEach((c, i) => {
+          const sw = document.createElement('div');
+          sw.className = 'sw';
+          sw.style.background = c;
+          sw.title = c;
+          sw.addEventListener('click', () => {
+            sw.classList.toggle('active');
+            if (sw.classList.contains('active')) state.colors.add(c);
+            else state.colors.delete(c);
+            document.getElementById('color-count').textContent =
+              state.colors.size ? `выбрано: ${state.colors.size}` : 'не выбран';
+          });
+          wrap.appendChild(sw);
+        });
+      }
+      render();
+    })
+    .catch(() => {});
 </script>
 
 </body>

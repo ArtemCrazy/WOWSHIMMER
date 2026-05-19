@@ -1,0 +1,415 @@
+{
+  "studs-4mm": [
+    {
+      "file": "v01.jpg",
+      "color": "#ac9b9f"
+    },
+    {
+      "file": "v02.jpg",
+      "color": "#b0a899"
+    },
+    {
+      "file": "v03.jpg",
+      "color": "#717372"
+    },
+    {
+      "file": "v04.jpg",
+      "color": "#aeb670"
+    },
+    {
+      "file": "v05.jpg",
+      "color": "#8ea4ac"
+    },
+    {
+      "file": "v06.jpg",
+      "color": "#a56d6f"
+    },
+    {
+      "file": "v07.jpg",
+      "color": "#b0c3c4"
+    },
+    {
+      "file": "v08.jpg",
+      "color": "#bec3c3"
+    },
+    {
+      "file": "v09.jpg",
+      "color": "#868997"
+    },
+    {
+      "file": "v10.jpg",
+      "color": "#8ea4a7"
+    },
+    {
+      "file": "v11.jpg",
+      "color": "#b4ac7a"
+    },
+    {
+      "file": "v12.jpg",
+      "color": "#b4b6b4"
+    },
+    {
+      "file": "v13.jpg",
+      "color": "#91938e"
+    },
+    {
+      "file": "v14.jpg",
+      "color": "#759782"
+    },
+    {
+      "file": "v15.jpg",
+      "color": "#6c7a74"
+    },
+    {
+      "file": "v16.jpg",
+      "color": "#a9a09a"
+    },
+    {
+      "file": "v17.jpg",
+      "color": "#937986"
+    },
+    {
+      "file": "v18.jpg",
+      "color": "#7e6566"
+    },
+    {
+      "file": "v19.jpg",
+      "color": "#7187a4"
+    },
+    {
+      "file": "v20.jpg",
+      "color": "#9c99a6"
+    }
+  ],
+  "studs-6mm": [
+    {
+      "file": "v01.jpg",
+      "color": "#8a6d7c"
+    },
+    {
+      "file": "v02.jpg",
+      "color": "#b1b2b0"
+    },
+    {
+      "file": "v03.jpg",
+      "color": "#a8979a"
+    },
+    {
+      "file": "v04.jpg",
+      "color": "#a69c96"
+    },
+    {
+      "file": "v05.jpg",
+      "color": "#a59786"
+    },
+    {
+      "file": "v06.jpg",
+      "color": "#afa56c"
+    },
+    {
+      "file": "v07.jpg",
+      "color": "#bcc2c2"
+    },
+    {
+      "file": "v08.jpg",
+      "color": "#abb566"
+    },
+    {
+      "file": "v09.jpg",
+      "color": "#9693a1"
+    },
+    {
+      "file": "v10.jpg",
+      "color": "#aba291"
+    },
+    {
+      "file": "v11.jpg",
+      "color": "#a7b0a3"
+    },
+    {
+      "file": "v12.jpg",
+      "color": "#888b85"
+    },
+    {
+      "file": "v13.jpg",
+      "color": "#b3c4c6"
+    },
+    {
+      "file": "v14.jpg",
+      "color": "#869ea1"
+    },
+    {
+      "file": "v15.jpg",
+      "color": "#a2a9a6"
+    },
+    {
+      "file": "v16.jpg",
+      "color": "#77595b"
+    },
+    {
+      "file": "v17.jpg",
+      "color": "#6a6c6b"
+    },
+    {
+      "file": "v18.jpg",
+      "color": "#a19993"
+    },
+    {
+      "file": "v19.jpg",
+      "color": "#6b917a"
+    },
+    {
+      "file": "v20.jpg",
+      "color": "#7e7064"
+    }
+  ],
+  "studs-8mm": [
+    {
+      "file": "v01.jpg",
+      "color": "#606f69"
+    },
+    {
+      "file": "v02.jpg",
+      "color": "#9996a3"
+    },
+    {
+      "file": "v03.jpg",
+      "color": "#607797"
+    },
+    {
+      "file": "v04.jpg",
+      "color": "#aea46a"
+    },
+    {
+      "file": "v05.jpg",
+      "color": "#aa9f8e"
+    },
+    {
+      "file": "v06.jpg",
+      "color": "#9fa4b5"
+    },
+    {
+      "file": "v07.jpg",
+      "color": "#a19891"
+    },
+    {
+      "file": "v08.jpg",
+      "color": "#748873"
+    },
+    {
+      "file": "v09.jpg",
+      "color": "#acada8"
+    },
+    {
+      "file": "v10.jpg",
+      "color": "#9aaaab"
+    },
+    {
+      "file": "v11.jpg",
+      "color": "#929fb1"
+    },
+    {
+      "file": "v12.jpg",
+      "color": "#88a0a8"
+    },
+    {
+      "file": "v13.jpg",
+      "color": "#8b6e7b"
+    },
+    {
+      "file": "v14.jpg",
+      "color": "#bac1c1"
+    },
+    {
+      "file": "v15.jpg",
+      "color": "#898c85"
+    },
+    {
+      "file": "v16.jpg",
+      "color": "#7c7f90"
+    },
+    {
+      "file": "v17.jpg",
+      "color": "#618e73"
+    },
+    {
+      "file": "v18.jpg",
+      "color": "#829a9d"
+    },
+    {
+      "file": "v19.jpg",
+      "color": "#a59992"
+    },
+    {
+      "file": "v20.jpg",
+      "color": "#626463"
+    }
+  ],
+  "pendant-thread": [
+    {
+      "file": "v01.jpg",
+      "color": "#7d7990"
+    },
+    {
+      "file": "v02.jpg",
+      "color": "#a1b129"
+    },
+    {
+      "file": "v03.jpg",
+      "color": "#3a7b55"
+    },
+    {
+      "file": "v04.jpg",
+      "color": "#89a4ab"
+    },
+    {
+      "file": "v05.jpg",
+      "color": "#778eac"
+    },
+    {
+      "file": "v06.jpg",
+      "color": "#9e7e85"
+    },
+    {
+      "file": "v07.jpg",
+      "color": "#503825"
+    },
+    {
+      "file": "v08.jpg",
+      "color": "#6a3953"
+    },
+    {
+      "file": "v09.jpg",
+      "color": "#878eac"
+    },
+    {
+      "file": "v10.jpg",
+      "color": "#9d8463"
+    },
+    {
+      "file": "v11.jpg",
+      "color": "#919c9a"
+    },
+    {
+      "file": "v12.jpg",
+      "color": "#314556"
+    },
+    {
+      "file": "v13.jpg",
+      "color": "#a3cacd"
+    },
+    {
+      "file": "v14.jpg",
+      "color": "#8e7f76"
+    },
+    {
+      "file": "v15.jpg",
+      "color": "#20392f"
+    },
+    {
+      "file": "v16.jpg",
+      "color": "#a3a49e"
+    },
+    {
+      "file": "v17.jpg",
+      "color": "#8e282c"
+    },
+    {
+      "file": "v18.jpg",
+      "color": "#ac9c3b"
+    },
+    {
+      "file": "v19.jpg",
+      "color": "#648d9f"
+    },
+    {
+      "file": "v20.jpg",
+      "color": "#446643"
+    }
+  ],
+  "bar": [
+    {
+      "file": "v01.jpg",
+      "color": "#abacab"
+    },
+    {
+      "file": "v02.jpg",
+      "color": "#b0afaf"
+    },
+    {
+      "file": "v03.jpg",
+      "color": "#b4b3b3"
+    },
+    {
+      "file": "v04.jpg",
+      "color": "#b2b3a7"
+    },
+    {
+      "file": "v05.jpg",
+      "color": "#b2acae"
+    },
+    {
+      "file": "v06.jpg",
+      "color": "#a8aab2"
+    },
+    {
+      "file": "v07.jpg",
+      "color": "#a7afab"
+    },
+    {
+      "file": "v08.jpg",
+      "color": "#b0b5b5"
+    },
+    {
+      "file": "v09.jpg",
+      "color": "#b2b4b2"
+    },
+    {
+      "file": "v10.jpg",
+      "color": "#b4b4b4"
+    },
+    {
+      "file": "v11.jpg",
+      "color": "#afb1b5"
+    },
+    {
+      "file": "v12.jpg",
+      "color": "#b6b7b7"
+    },
+    {
+      "file": "v13.jpg",
+      "color": "#b3b2b2"
+    },
+    {
+      "file": "v14.jpg",
+      "color": "#b9b6b6"
+    },
+    {
+      "file": "v15.jpg",
+      "color": "#b3b1a7"
+    },
+    {
+      "file": "v16.jpg",
+      "color": "#a8acab"
+    },
+    {
+      "file": "v17.jpg",
+      "color": "#b7b5b3"
+    },
+    {
+      "file": "v18.jpg",
+      "color": "#aeb0b2"
+    },
+    {
+      "file": "v19.jpg",
+      "color": "#aeaeb3"
+    },
+    {
+      "file": "v20.jpg",
+      "color": "#b0b0af"
+    }
+  ],
+  "ear-threader": [],
+  "pendant-chain": [],
+  "ring": []
+}
