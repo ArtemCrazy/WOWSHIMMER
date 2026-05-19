@@ -955,8 +955,10 @@
   }
   .channels-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 28px;
+    max-width: 1080px;
+    margin: 0 auto;
   }
   .channel-card {
     position: relative;
@@ -1379,7 +1381,7 @@
 
   /* ── Адаптив для всех новых блоков ───────────────────────────── */
   @media (max-width: 1080px) {
-    .channels-grid { grid-template-columns: repeat(2, 1fr); }
+    .channels-grid { grid-template-columns: 1fr; gap: 20px; }
   }
   @media (max-width: 880px) {
     .about-grid, .partners-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -1565,16 +1567,10 @@
         <span class="channel-link">Открыть на&nbsp;WB <span class="arrow">→</span></span>
       </a>
       <a href="#" class="channel-card">
-        <div class="channel-icon"><img src="../img/ozon.svg" alt="Ozon"></div>
-        <h3>Ozon</h3>
-        <p>Официальный магазин<br>на&nbsp;Ozon</p>
-        <span class="channel-link">Открыть на&nbsp;Ozon <span class="arrow">→</span></span>
-      </a>
-      <a href="#" class="channel-card">
-        <div class="channel-icon"><img src="../img/instagram.svg" alt="Instagram"></div>
-        <h3>Instagram</h3>
-        <p>Витрина новинок ·<br>@wowshimmer</p>
-        <span class="channel-link">Перейти в&nbsp;Instagram <span class="arrow">→</span></span>
+        <div class="channel-icon"><img src="../img/vk.svg" alt="ВКонтакте"></div>
+        <h3>ВКонтакте</h3>
+        <p>Витрина новинок ·<br>vk.com/wowshimmer</p>
+        <span class="channel-link">Перейти в&nbsp;ВК <span class="arrow">→</span></span>
       </a>
       <a href="#" class="channel-card">
         <div class="channel-icon"><img src="../img/telegram.svg" alt="Telegram"></div>
