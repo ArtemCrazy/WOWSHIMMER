@@ -273,6 +273,36 @@
     transition: background 0.2s;
   }
   .btn-primary:hover { background: var(--gold-deep); }
+  .btn-primary svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .btn-primary.active { background: var(--gold-deep); }
+  .btn-primary.active svg { fill: white; }
+
+  /* Header favorites icon */
+  .header-fav {
+    position: relative;
+    width: 40px; height: 40px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--white);
+    transition: color 0.2s;
+    margin-right: 4px;
+  }
+  .header-fav:hover { color: var(--gold); }
+  .header-fav svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .fav-badge {
+    position: absolute;
+    top: 4px; right: 2px;
+    min-width: 18px; height: 18px;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 9px;
+    padding: 0 5px;
+    display: none;
+    align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .fav-badge.show { display: inline-flex; }
   .btn-buy-mp {
     flex: 1;
     min-width: 220px;
@@ -399,6 +429,10 @@
       <a href="../#where-to-buy">Где нас найти</a>
       <a href="../#contacts">Контакты</a>
     </nav>
+    <a href="favorites.html" class="header-fav" title="Избранное">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.5-8.5-9.5C2.3 7.8 4.5 5 7.5 5c1.8 0 3.5 1 4.5 2.5C13 6 14.7 5 16.5 5c3 0 5.2 2.8 4 6.5C18.5 16.5 12 21 12 21z"/></svg>
+      <span class="fav-badge" id="fav-badge">0</span>
+    </a>
     <button class="btn-partners">Вход для партнёров</button>
   </div>
 </header>
@@ -466,7 +500,10 @@
         </div>
 
         <div class="cta-row">
-          <button class="btn-primary">В&nbsp;подборку <span>+</span></button>
+          <button class="btn-primary" id="btn-fav">
+            <svg viewBox="0 0 24 24" id="heart-icon"><path d="M12 21s-6.5-4.5-8.5-9.5C2.3 7.8 4.5 5 7.5 5c1.8 0 3.5 1 4.5 2.5C13 6 14.7 5 16.5 5c3 0 5.2 2.8 4 6.5C18.5 16.5 12 21 12 21z"/></svg>
+            <span id="btn-fav-label">В&nbsp;избранное</span>
+          </button>
           <button class="btn-buy-mp">Купить на&nbsp;маркетплейсе ↗</button>
         </div>
 
@@ -536,6 +573,27 @@
 </footer>
 
 <script>
+  // ── FAVORITES (общая для каталога и карточки) ─────────────────────
+  const FAVS_KEY = 'wowshimmer-favs';
+  function getFavs() { try { return JSON.parse(localStorage.getItem(FAVS_KEY) || '[]'); } catch { return []; } }
+  function setFavs(arr) { localStorage.setItem(FAVS_KEY, JSON.stringify(arr)); updateFavBadge(); }
+  function isFav(slug) { return getFavs().includes(slug); }
+  function toggleFav(slug) {
+    const favs = getFavs();
+    const i = favs.indexOf(slug);
+    if (i >= 0) favs.splice(i, 1); else favs.push(slug);
+    setFavs(favs);
+    return favs.includes(slug);
+  }
+  function updateFavBadge() {
+    const badge = document.getElementById('fav-badge');
+    if (!badge) return;
+    const n = getFavs().length;
+    badge.textContent = n;
+    badge.classList.toggle('show', n > 0);
+  }
+  updateFavBadge();
+
   // Generic placeholder palette — replaced when _palette.json loaded
   const PALETTE_FALLBACK = [
     '#1a1a1a','#3a3a3a','#c9a96e','#e6c98a','#b56b6b','#d8a3a3','#f1e5d6','#ccbfa5','#7d8b6a','#5e6b52',
@@ -580,6 +638,17 @@
 
   // Price
   document.getElementById('price-value').innerHTML = `${p.price.toLocaleString('ru-RU')}<span class="cur">&nbsp;₽</span>`;
+
+  // Favorite button
+  const btnFav = document.getElementById('btn-fav');
+  const btnFavLabel = document.getElementById('btn-fav-label');
+  function syncFavBtn() {
+    const on = isFav(slug);
+    btnFav.classList.toggle('active', on);
+    btnFavLabel.innerHTML = on ? 'В&nbsp;избранном' : 'В&nbsp;избранное';
+  }
+  btnFav.addEventListener('click', () => { toggleFav(slug); syncFavBtn(); });
+  syncFavBtn();
 
   // Material toggle
   if (p.materials.length > 1) {

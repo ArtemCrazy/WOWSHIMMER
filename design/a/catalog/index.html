@@ -91,6 +91,57 @@
   }
   .btn-partners:hover { background: var(--gold); color: var(--ink); }
 
+  /* Header favorites icon */
+  .header-fav {
+    position: relative;
+    width: 40px; height: 40px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--white);
+    transition: color 0.2s;
+    margin-right: 4px;
+  }
+  .header-fav:hover { color: var(--gold); }
+  .header-fav svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .fav-badge {
+    position: absolute;
+    top: 4px; right: 2px;
+    min-width: 18px; height: 18px;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 9px;
+    padding: 0 5px;
+    display: none;
+    align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .fav-badge.show { display: inline-flex; }
+
+  /* Heart toggle on product card */
+  .card-fav {
+    position: absolute;
+    top: 12px; right: 12px;
+    z-index: 6;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0,0,0,0.06);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.18s;
+  }
+  .card-fav:hover { background: white; transform: scale(1.08); }
+  .card-fav svg {
+    width: 18px; height: 18px;
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.5;
+    transition: fill 0.2s, stroke 0.2s;
+  }
+  .card-fav.active svg { fill: var(--gold-deep); stroke: var(--gold-deep); }
+
   /* ── CATALOG LAYOUT (сразу под шапкой, без баннера-заголовка) ───── */
   .catalog-page {
     padding: 60px 0 100px;
@@ -546,6 +597,10 @@
       <a href="../#where-to-buy">Где нас найти</a>
       <a href="../#contacts">Контакты</a>
     </nav>
+    <a href="favorites.html" class="header-fav" title="Избранное">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.5-8.5-9.5C2.3 7.8 4.5 5 7.5 5c1.8 0 3.5 1 4.5 2.5C13 6 14.7 5 16.5 5c3 0 5.2 2.8 4 6.5C18.5 16.5 12 21 12 21z"/></svg>
+      <span class="fav-badge" id="fav-badge">0</span>
+    </a>
     <button class="btn-partners">Вход для партнёров</button>
   </div>
 </header>
@@ -662,6 +717,27 @@
 </footer>
 
 <script>
+  // ── FAVORITES (общая для каталога и карточки) ─────────────────────
+  const FAVS_KEY = 'wowshimmer-favs';
+  function getFavs() { try { return JSON.parse(localStorage.getItem(FAVS_KEY) || '[]'); } catch { return []; } }
+  function setFavs(arr) { localStorage.setItem(FAVS_KEY, JSON.stringify(arr)); updateFavBadge(); }
+  function isFav(slug) { return getFavs().includes(slug); }
+  function toggleFav(slug) {
+    const favs = getFavs();
+    const i = favs.indexOf(slug);
+    if (i >= 0) favs.splice(i, 1); else favs.push(slug);
+    setFavs(favs);
+    return favs.includes(slug);
+  }
+  function updateFavBadge() {
+    const badge = document.getElementById('fav-badge');
+    if (!badge) return;
+    const n = getFavs().length;
+    badge.textContent = n;
+    badge.classList.toggle('show', n > 0);
+  }
+  updateFavBadge();
+
   // ── Палитра кристаллов (плейсхолдер; заменится из _palette.json) ───
   const PALETTE = [
     '#1a1a1a','#3a3a3a','#c9a96e','#e6c98a','#b56b6b','#d8a3a3','#f1e5d6','#ccbfa5','#7d8b6a','#5e6b52',
@@ -847,6 +923,7 @@
       const card = document.createElement('a');
       card.className = 'product';
       card.href = `product.html?slug=${p.slug}`;
+      const favActive = isFav(p.slug) ? ' active' : '';
       card.innerHTML = `
         <div class="product-photo">
           <img class="slide active" src="${p.photo}" alt="${p.name}" loading="lazy">
@@ -854,6 +931,9 @@
             <div class="zone" data-idx="0"></div>
           </div>
           <div class="product-badges">${badgesHTML}</div>
+          <div class="card-fav${favActive}" data-slug="${p.slug}" title="В избранное">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.5-8.5-9.5C2.3 7.8 4.5 5 7.5 5c1.8 0 3.5 1 4.5 2.5C13 6 14.7 5 16.5 5c3 0 5.2 2.8 4 6.5C18.5 16.5 12 21 12 21z"/></svg>
+          </div>
         </div>
         <div class="product-info">
           <div class="product-name">${p.name}</div>
@@ -867,6 +947,17 @@
         </div>
       `;
       grid.appendChild(card);
+    });
+
+    // Wire up heart buttons (stop event propagation so card link doesn't trigger)
+    grid.querySelectorAll('.card-fav').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const slug = btn.dataset.slug;
+        toggleFav(slug);
+        btn.classList.toggle('active', isFav(slug));
+      });
     });
   }
 
