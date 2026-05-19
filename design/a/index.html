@@ -56,22 +56,13 @@
     padding: 0 40px;
   }
 
-  /* ── HEADER ───────────────────────────────────────────────────── */
+  /* ── HEADER (общий стиль, идентичный на всех страницах) ─────────── */
   .site-header {
-    position: fixed; top: 0; left: 0; right: 0;
+    position: sticky; top: 0;
     z-index: 50;
-    padding: 24px 0;
-    transition: background 0.3s, padding 0.3s, border-color 0.3s;
-    /* Тёмный полупрозрачный слой + blur — текст читается на любом фоне страницы */
-    background: rgba(10,10,10,0.75);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--w-6);
-  }
-  .site-header.scrolled {
-    background: rgba(10,10,10,0.94);
-    padding: 16px 0;
-    border-bottom-color: var(--w-12);
+    padding: 18px 0;
+    background: var(--ink);
+    border-bottom: 1px solid var(--w-12);
   }
   .header-row { display: flex; align-items: center; gap: 40px; }
 
@@ -222,7 +213,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px 24px 40px;
+    padding: 40px 24px;
     pointer-events: none;
   }
   /* Мягкая подложка под текстом по центру */
@@ -723,7 +714,7 @@
   /* ── Responsive ───────────────────────────────────────────────── */
   @media (max-width: 980px) {
     .nav-menu { display: none; }
-    .hero-overlay { padding: 80px 16px 40px; }
+    .hero-overlay { padding: 30px 16px; }
     .hero-overlay::before { width: 88%; height: 55%; min-height: 280px; }
   }
   @media (max-width: 768px) {
@@ -1785,12 +1776,6 @@
   })();
 </script>
 <script>
-  // ── Header scroll effect ─────────────────────────────────────────
-  const header = document.getElementById('siteHeader');
-  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
   // ── PALETTE: цвета кристаллов Swarovski (демо) ───────────────────
   const PALETTE = [
     '#1a1a1a','#3a3a3a','#c9a96e','#d4af37','#b76e79','#eadbc8','#a5897a','#7a5c4a',
