@@ -152,7 +152,7 @@
   /* Кристалл на подвеске на шее (справа — точно на камне кулона) */
   .hero-sparkle.s-neck {
     right: 8%;
-    top: 64%;
+    top: 59%;
     width: 52px;
     height: 52px;
     animation: heroTwinkleB 5.4s ease-in-out infinite;
@@ -172,6 +172,12 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-sparkle { animation: none !important; opacity: 0.5; }
+  }
+  /* Мобильный баннер bg4.png — другое фото (только ухо со стадом, без подвески).
+     Искра серёжки переезжает под стад, искра подвески скрывается. */
+  @media (max-width: 768px) {
+    .hero-sparkle.s-ear { left: 35%; top: 52%; width: 32px; height: 32px; }
+    .hero-sparkle.s-neck { display: none; }
   }
   /* <picture> и img — занимают всю ширину, высота пропорциональна.
      На любом экране изделия слева и справа видны целиком. */
