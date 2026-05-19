@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Каталог · WOWSHIMMER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ── Переменные ─────────────────────────────────────────────────── */
+  :root {
+    --ink:       #0a0a0a;
+    --ink-2:     #141414;
+    --cream:     #f5f0e6;
+    --gold:      #c9a96e;
+    --gold-deep: #8a7651;
+    --white:     #ffffff;
+    --w-92:      rgba(255,255,255,0.92);
+    --w-72:      rgba(255,255,255,0.72);
+    --w-55:      rgba(255,255,255,0.55);
+    --w-40:      rgba(255,255,255,0.40);
+    --w-22:      rgba(255,255,255,0.22);
+    --w-12:      rgba(255,255,255,0.12);
+    --w-6:       rgba(255,255,255,0.06);
+    --light:     #fafaf7;
+
+    --font-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+    --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    background: var(--light);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+  img { max-width: 100%; display: block; }
+
+  .wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────────────────── */
+  .site-header {
+    position: sticky; top: 0;
+    z-index: 50;
+    padding: 18px 0;
+    background: var(--ink);
+    border-bottom: 1px solid var(--w-12);
+  }
+  .header-row { display: flex; align-items: center; gap: 40px; }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 500;
+    color: var(--white);
+    letter-spacing: 4px; text-transform: uppercase;
+    line-height: 1;
+  }
+  .logo:hover { color: var(--gold); }
+  .nav-menu { display: flex; gap: 32px; margin-left: auto; }
+  .nav-menu a {
+    color: var(--w-72); font-size: 13px; font-weight: 400;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    transition: color 0.2s; padding: 4px 0; position: relative;
+  }
+  .nav-menu a.active { color: var(--white); }
+  .nav-menu a::after {
+    content: ''; position: absolute;
+    left: 50%; right: 50%; bottom: -2px;
+    height: 1px; background: var(--gold);
+    transition: left 0.25s, right 0.25s;
+  }
+  .nav-menu a:hover { color: var(--white); }
+  .nav-menu a:hover::after, .nav-menu a.active::after { left: 0; right: 0; }
+  .btn-partners {
+    padding: 11px 22px;
+    border: 1px solid var(--gold);
+    background: transparent; color: var(--gold);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s, color 0.2s;
+  }
+  .btn-partners:hover { background: var(--gold); color: var(--ink); }
+
+  /* ── PAGE HEAD (заголовок каталога) ─────────────────────────────── */
+  .page-head {
+    background: var(--ink);
+    color: var(--w-92);
+    padding: 56px 0 80px;
+    border-bottom: 1px solid var(--w-12);
+    position: relative;
+  }
+  .breadcrumbs {
+    font-size: 11px;
+    color: var(--w-55);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .breadcrumbs a:hover { color: var(--gold); }
+  .breadcrumbs .sep { color: var(--w-22); }
+  .page-head h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.05;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+  }
+  .page-head .lead {
+    font-size: 15px;
+    color: var(--w-72);
+    max-width: 640px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── CATALOG LAYOUT ─────────────────────────────────────────────── */
+  .catalog-page {
+    padding: 60px 0 100px;
+    background: var(--light);
+  }
+  .catalog-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  /* ── SIDEBAR FILTERS ────────────────────────────────────────────── */
+  .filters {
+    position: sticky;
+    top: 80px;
+    align-self: start;
+  }
+  .filter-group { margin-bottom: 36px; }
+  .filter-group:last-of-type { margin-bottom: 28px; }
+
+  .filter-title {
+    font-size: 11px;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.10);
+  }
+
+  .filter-list { list-style: none; }
+  .filter-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: rgba(0,0,0,0.75);
+    transition: color 0.2s;
+    user-select: none;
+  }
+  .filter-list li:hover { color: var(--ink); }
+  .filter-list li.active { color: var(--ink); font-weight: 500; }
+  .filter-list li .count {
+    font-size: 12px;
+    color: rgba(0,0,0,0.40);
+    font-weight: 400;
+  }
+  .filter-list .marker {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 1px solid rgba(0,0,0,0.30);
+    margin-right: 12px;
+    position: relative;
+    flex-shrink: 0;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .filter-list.radio .marker { border-radius: 50%; }
+  .filter-list li.active .marker { border-color: var(--gold-deep); background: var(--gold-deep); }
+  .filter-list li.active .marker::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 5px; height: 5px;
+    background: white;
+    border-radius: 50%;
+  }
+  .filter-list.checkbox li.active .marker::after { border-radius: 0; }
+
+  /* Color swatches in filter */
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+  .color-grid .sw {
+    aspect-ratio: 1;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 50%;
+    position: relative;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .color-grid .sw:hover {
+    transform: scale(1.18);
+    z-index: 2;
+    box-shadow: 0 0 0 1px var(--gold-deep), 0 4px 10px rgba(0,0,0,0.12);
+  }
+  .color-grid .sw.active {
+    box-shadow: 0 0 0 2px var(--gold-deep), 0 0 0 4px white;
+  }
+  .filter-selected-count {
+    font-size: 12px;
+    color: rgba(0,0,0,0.50);
+    margin-top: 10px;
+  }
+
+  .btn-reset {
+    width: 100%;
+    padding: 13px 18px;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.20);
+    color: rgba(0,0,0,0.65);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .btn-reset:hover {
+    background: var(--ink);
+    color: white;
+    border-color: var(--ink);
+  }
+
+  /* ── CATALOG TOOLBAR (count + sort) ──────────────────────────────── */
+  .catalog-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    gap: 24px;
+  }
+  .toolbar-count {
+    font-size: 13px;
+    color: rgba(0,0,0,0.60);
+    letter-spacing: 0.3px;
+  }
+  .toolbar-count b { color: var(--ink); font-weight: 600; }
+  .toolbar-sort {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px;
+    color: rgba(0,0,0,0.65);
+  }
+  .toolbar-sort select {
+    appearance: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.18);
+    padding: 6px 22px 6px 4px;
+    font: inherit;
+    color: var(--ink);
+    cursor: pointer;
+    font-weight: 500;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%23000' stroke-width='1.2'><path d='M1 1.5 L6 6 L11 1.5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    background-size: 10px;
+  }
+  .toolbar-sort select:focus { outline: none; border-bottom-color: var(--gold-deep); }
+
+  /* ── PRODUCT GRID ────────────────────────────────────────────────── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .product {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.06);
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    overflow: hidden;
+    position: relative;
+  }
+  .product:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+  }
+
+  /* Photo with hover zone slider */
+  .product-photo {
+    position: relative;
+    aspect-ratio: 1;
+    background: #f9f7f1;
+    overflow: hidden;
+  }
+  .product-photo .slide {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .product-photo .slide.active { opacity: 1; }
+  .photo-zones {
+    position: absolute; inset: 0;
+    display: flex;
+    z-index: 3;
+  }
+  .photo-zones .zone { flex: 1; }
+  .photo-dots {
+    position: absolute;
+    bottom: 12px; left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    z-index: 4;
+    pointer-events: none;
+  }
+  .photo-dots .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.20);
+    transition: background 0.2s, width 0.2s;
+  }
+  .photo-dots .dot.active { background: var(--gold-deep); width: 14px; border-radius: 3px; }
+
+  /* Badges */
+  .product-badges {
+    position: absolute;
+    top: 12px; left: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    color: white;
+    line-height: 1;
+  }
+  .badge.new { background: var(--gold-deep); }
+  .badge.hit { background: var(--ink); }
+
+  /* Card body */
+  .product-info {
+    padding: 22px 24px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-name {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+  .product-art {
+    font-size: 11px;
+    color: rgba(0,0,0,0.40);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .product-mat {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .mat-chip {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    background: rgba(0,0,0,0.05);
+    color: rgba(0,0,0,0.65);
+    border-radius: 2px;
+  }
+  .mat-chip.gold { background: rgba(201,169,110,0.18); color: var(--gold-deep); }
+
+  .product-swatches {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .product-swatches span {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.06);
+    flex-shrink: 0;
+  }
+  .product-swatches .more {
+    font-size: 11px;
+    color: rgba(0,0,0,0.55);
+    width: auto; height: auto;
+    border: none;
+    padding-left: 4px;
+    font-weight: 500;
+  }
+  .product-price {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .price-prefix { font-size: 11px; color: rgba(0,0,0,0.45); letter-spacing: 1px; text-transform: uppercase; font-weight: 500; }
+  .price-value { font-size: 17px; font-weight: 600; color: var(--ink); }
+  .price-value .cur { font-weight: 400; color: rgba(0,0,0,0.65); margin-left: 2px; }
+
+  /* Empty state */
+  .empty {
+    text-align: center;
+    padding: 80px 24px;
+    background: white;
+    border: 1px dashed rgba(0,0,0,0.12);
+    font-family: var(--font-display);
+    color: rgba(0,0,0,0.55);
+    font-size: 22px;
+  }
+
+  /* ── HELP STRIPE (под сеткой) ───────────────────────────────────── */
+  .catalog-help {
+    margin-top: 80px;
+    background: var(--ink);
+    color: var(--w-92);
+    padding: 56px 48px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 32px;
+  }
+  .catalog-help h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 32px;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+  .catalog-help p {
+    font-size: 14px;
+    color: var(--w-72);
+    line-height: 1.6;
+    font-weight: 300;
+    max-width: 560px;
+  }
+  .catalog-help .btn-help {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 17px 28px;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .catalog-help .btn-help:hover { background: var(--white); }
+  .catalog-help .btn-help .arrow { transition: transform 0.2s; }
+  .catalog-help .btn-help:hover .arrow { transform: translateX(3px); }
+
+  /* ── FOOTER ─────────────────────────────────────────────────────── */
+  .site-footer {
+    background: var(--ink);
+    color: var(--w-72);
+    padding: 70px 0 30px;
+    margin-top: 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 48px;
+  }
+  .footer-brand h4 {
+    font-family: var(--font-display);
+    color: var(--white);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    margin-bottom: 14px;
+  }
+  .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 320px; font-weight: 300; color: var(--w-55); }
+  .footer-col h5 {
+    font-size: 11px;
+    color: var(--white);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .footer-col a {
+    display: block;
+    font-size: 13px;
+    color: var(--w-55);
+    padding: 5px 0;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom {
+    padding-top: 24px;
+    border-top: 1px solid var(--w-12);
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    font-size: 12px;
+    color: var(--w-40);
+    letter-spacing: 0.3px;
+  }
+  .footer-bottom a { color: var(--w-55); }
+  .footer-bottom a:hover { color: var(--white); }
+
+  /* ── RESPONSIVE ─────────────────────────────────────────────────── */
+  @media (max-width: 1180px) {
+    .catalog-layout { grid-template-columns: 240px 1fr; gap: 40px; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 880px) {
+    .nav-menu { display: none; }
+    .catalog-layout { grid-template-columns: 1fr; gap: 32px; }
+    .filters { position: static; }
+    .filter-group { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .page-head { padding: 40px 0 56px; }
+    .catalog-help { grid-template-columns: 1fr; padding: 36px 28px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 540px) {
+    .wrap { padding: 0 20px; }
+    .products-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ──────── HEADER ──────── -->
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="../" class="logo">WOWSHIMMER</a>
+    <nav class="nav-menu">
+      <a href="../catalog/" class="active">Каталог</a>
+      <a href="../#about">О бренде</a>
+      <a href="../#where-to-buy">Где нас найти</a>
+      <a href="../#contacts">Контакты</a>
+    </nav>
+    <button class="btn-partners">Вход для партнёров</button>
+  </div>
+</header>
+
+<!-- ──────── PAGE HEAD ──────── -->
+<section class="page-head">
+  <div class="wrap">
+    <div class="breadcrumbs">
+      <a href="../">Главная</a>
+      <span class="sep">/</span>
+      <span>Каталог</span>
+    </div>
+    <h1>Каталог</h1>
+    <p class="lead">
+      Бижутерия с&nbsp;кристаллами Swarovski и&nbsp;фианитами&nbsp;— серьги, подвески, кольца.
+      Каждая модель — в&nbsp;десятках цветов, под&nbsp;любой образ.
+    </p>
+  </div>
+</section>
+
+<!-- ──────── CATALOG ──────── -->
+<section class="catalog-page">
+  <div class="wrap">
+    <div class="catalog-layout">
+
+      <!-- SIDEBAR FILTERS -->
+      <aside class="filters">
+        <div class="filter-group">
+          <div class="filter-title">Категория</div>
+          <ul class="filter-list radio" id="filter-category">
+            <li class="active" data-cat="all"><span><span class="marker"></span>Все товары</span><span class="count">8</span></li>
+            <li data-cat="earrings"><span><span class="marker"></span>Серьги</span><span class="count">5</span></li>
+            <li data-cat="pendants"><span><span class="marker"></span>Подвески</span><span class="count">2</span></li>
+            <li data-cat="rings"><span><span class="marker"></span>Кольца</span><span class="count">1</span></li>
+          </ul>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-title">Материал</div>
+          <ul class="filter-list checkbox" id="filter-material">
+            <li data-mat="steel"><span><span class="marker"></span>Ювелирная сталь</span></li>
+            <li data-mat="gold"><span><span class="marker"></span>С&nbsp;покрытием позолота</span></li>
+          </ul>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-title">Цвет кристалла</div>
+          <div class="color-grid" id="filter-color"></div>
+          <div class="filter-selected-count" id="color-count">не&nbsp;выбран</div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-title">Метки</div>
+          <ul class="filter-list checkbox" id="filter-tags">
+            <li data-tag="new"><span><span class="marker"></span>Новинки</span></li>
+            <li data-tag="hit"><span><span class="marker"></span>Популярное</span></li>
+          </ul>
+        </div>
+
+        <button class="btn-reset" id="btn-reset">Сбросить фильтры</button>
+      </aside>
+
+      <!-- PRODUCTS COLUMN -->
+      <div class="catalog-main">
+        <div class="catalog-toolbar">
+          <div class="toolbar-count"><b id="visible-count">8</b> товаров</div>
+          <div class="toolbar-sort">
+            <span>Сортировка:</span>
+            <select id="sort">
+              <option value="popular">по&nbsp;популярности</option>
+              <option value="new">по&nbsp;новизне</option>
+              <option value="price-asc">цена ↑</option>
+              <option value="price-desc">цена ↓</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="products-grid" id="grid"></div>
+
+        <!-- Help block under grid -->
+        <div class="catalog-help">
+          <div>
+            <h3>Подбираете ассортимент для&nbsp;магазина?</h3>
+            <p>
+              Получите партнёрский доступ — в&nbsp;каталоге откроются оптовые цены,
+              актуальная палитра и&nbsp;возможность собрать заказ в&nbsp;несколько кликов.
+            </p>
+          </div>
+          <a href="../#partners" class="btn-help">Получить доступ <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ──────── FOOTER ──────── -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>WOWSHIMMER</h4>
+        <p>Бижутерия с&nbsp;кристаллами Swarovski. Серьги, подвески и&nbsp;кольца в&nbsp;десятках оттенков — для&nbsp;тех, кто собирает образ с&nbsp;деталью.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Страницы</h5>
+        <a href="../catalog/">Каталог</a>
+        <a href="../#about">О&nbsp;бренде</a>
+        <a href="../#where-to-buy">Где нас найти</a>
+        <a href="../#contacts">Контакты</a>
+      </div>
+      <div class="footer-col">
+        <h5>Партнёрам</h5>
+        <a href="../#partners">Получить доступ</a>
+        <a href="#">Войти в&nbsp;кабинет</a>
+        <a href="#">Условия сотрудничества</a>
+      </div>
+      <div class="footer-col">
+        <h5>Контакты</h5>
+        <a href="#">Telegram</a>
+        <a href="mailto:info@wowshimmer.ru">info@wowshimmer.ru</a>
+        <a href="tel:+79991234567">+7&nbsp;(999)&nbsp;123-45-67</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© WOWSHIMMER, 2026 · Все права защищены</div>
+      <div><a href="#">Политика конфиденциальности</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Палитра кристаллов (плейсхолдер; заменится из _palette.json) ───
+  const PALETTE = [
+    '#1a1a1a','#3a3a3a','#c9a96e','#e6c98a','#b56b6b','#d8a3a3','#f1e5d6','#ccbfa5','#7d8b6a','#5e6b52',
+    '#6b8a96','#a4b8c2','#e8b7c8','#c97898','#a87f5e','#7a5a3e','#d3c8b8','#8c8478','#bba086','#695340',
+    '#404a55','#788595','#dad3c4','#a2b89c','#c7a3a3','#3e2e22','#cdc1ad','#776a55','#9a8a76','#bca185',
+    '#5d3a3a','#b89c7d','#ddccb0','#544839','#736054','#9a6f5a','#bca99a','#d0bea2','#7c6a55','#9b8772'
+  ];
+
+  // ── Каталог: 8 товаров ─────────────────────────────────────────────
+  const PRODUCTS = [
+    {
+      slug: 'studs-8mm', cat: 'earrings', name: 'Серьги-пусеты с кристаллами 8 мм',
+      art: 'WSH-PS8', materials: ['steel','gold'], tags: ['hit'],
+      price: 1490, palette: 32, photo: '../../img/products/studs-8mm.jpg'
+    },
+    {
+      slug: 'studs-6mm', cat: 'earrings', name: 'Серьги-пусеты с кристаллами 6 мм',
+      art: 'WSH-PS6', materials: ['steel','gold'], tags: ['hit','new'],
+      price: 1190, palette: 38, photo: '../../img/products/studs-6mm.jpg'
+    },
+    {
+      slug: 'studs-4mm', cat: 'earrings', name: 'Серьги-пусеты с кристаллами 4 мм',
+      art: 'WSH-PS4', materials: ['steel','gold'], tags: [],
+      price: 890, palette: 36, photo: '../../img/products/studs-4mm.jpg'
+    },
+    {
+      slug: 'ear-threader', cat: 'earrings', name: 'Серьги-протяжки с кристаллами 4 мм',
+      art: 'WSH-ET4', materials: ['steel'], tags: ['new'],
+      price: 1290, palette: 24, photo: '../../img/products/ear-threader.jpg'
+    },
+    {
+      slug: 'bar', cat: 'earrings', name: 'Штанга с кристаллом 4 мм',
+      art: 'WSH-BR4', materials: ['steel','gold'], tags: [],
+      price: 990, palette: 28, photo: '../../img/products/bar.jpg'
+    },
+    {
+      slug: 'pendant-thread', cat: 'pendants', name: 'Подвеска на леске с кристаллом 8 мм',
+      art: 'WSH-PT8', materials: ['steel','gold'], tags: ['hit'],
+      price: 1890, palette: 30, photo: '../../img/products/pendant-thread.jpg'
+    },
+    {
+      slug: 'pendant-chain', cat: 'pendants', name: 'Подвеска на цепочке с кристаллом 6 мм',
+      art: 'WSH-PC6', materials: ['steel','gold'], tags: ['new'],
+      price: 2190, palette: 26, photo: '../../img/products/pendant-chain.jpg'
+    },
+    {
+      slug: 'ring', cat: 'rings', name: 'Кольцо с кристаллом 4 мм',
+      art: 'WSH-RG4', materials: ['steel','gold'], tags: [],
+      price: 1390, palette: 30, photo: '../../img/products/ring.jpg'
+    }
+  ];
+
+  // ── State ─────────────────────────────────────────────────────────
+  const state = {
+    category: 'all',
+    materials: new Set(),
+    colors: new Set(),
+    tags: new Set(),
+    sort: 'popular'
+  };
+
+  // ── Render palette swatches in filter ─────────────────────────────
+  (function buildColorFilter() {
+    const wrap = document.getElementById('filter-color');
+    PALETTE.slice(0, 28).forEach((c, i) => {
+      const sw = document.createElement('div');
+      sw.className = 'sw';
+      sw.style.background = c;
+      sw.title = c;
+      sw.dataset.idx = i;
+      sw.addEventListener('click', () => {
+        sw.classList.toggle('active');
+        if (sw.classList.contains('active')) state.colors.add(i);
+        else state.colors.delete(i);
+        document.getElementById('color-count').textContent =
+          state.colors.size ? `выбрано: ${state.colors.size}` : 'не выбран';
+        render();
+      });
+      wrap.appendChild(sw);
+    });
+  })();
+
+  // ── Filter list listeners ─────────────────────────────────────────
+  document.querySelectorAll('#filter-category li').forEach(li => {
+    li.addEventListener('click', () => {
+      document.querySelectorAll('#filter-category li').forEach(x => x.classList.remove('active'));
+      li.classList.add('active');
+      state.category = li.dataset.cat;
+      render();
+    });
+  });
+  document.querySelectorAll('#filter-material li').forEach(li => {
+    li.addEventListener('click', () => {
+      li.classList.toggle('active');
+      const mat = li.dataset.mat;
+      if (li.classList.contains('active')) state.materials.add(mat);
+      else state.materials.delete(mat);
+      render();
+    });
+  });
+  document.querySelectorAll('#filter-tags li').forEach(li => {
+    li.addEventListener('click', () => {
+      li.classList.toggle('active');
+      const tag = li.dataset.tag;
+      if (li.classList.contains('active')) state.tags.add(tag);
+      else state.tags.delete(tag);
+      render();
+    });
+  });
+  document.getElementById('sort').addEventListener('change', e => {
+    state.sort = e.target.value;
+    render();
+  });
+  document.getElementById('btn-reset').addEventListener('click', () => {
+    state.category = 'all';
+    state.materials.clear();
+    state.colors.clear();
+    state.tags.clear();
+    state.sort = 'popular';
+    document.querySelectorAll('.filter-list li').forEach(li => li.classList.remove('active'));
+    document.querySelector('#filter-category li[data-cat="all"]').classList.add('active');
+    document.querySelectorAll('.color-grid .sw').forEach(sw => sw.classList.remove('active'));
+    document.getElementById('color-count').textContent = 'не выбран';
+    document.getElementById('sort').value = 'popular';
+    render();
+  });
+
+  // ── Filter & sort logic ────────────────────────────────────────────
+  function filtered() {
+    let arr = PRODUCTS.filter(p => {
+      if (state.category !== 'all' && p.cat !== state.category) return false;
+      if (state.materials.size && !p.materials.some(m => state.materials.has(m))) return false;
+      if (state.tags.size && !p.tags.some(t => state.tags.has(t))) return false;
+      // color filter — for placeholder, we don't filter by color match (each product has wide palette)
+      return true;
+    });
+    if (state.sort === 'new')        arr.sort((a,b) => (b.tags.includes('new')?1:0) - (a.tags.includes('new')?1:0));
+    if (state.sort === 'popular')    arr.sort((a,b) => (b.tags.includes('hit')?1:0) - (a.tags.includes('hit')?1:0));
+    if (state.sort === 'price-asc')  arr.sort((a,b) => a.price - b.price);
+    if (state.sort === 'price-desc') arr.sort((a,b) => b.price - a.price);
+    return arr;
+  }
+
+  // ── Render products ────────────────────────────────────────────────
+  function render() {
+    const list = filtered();
+    document.getElementById('visible-count').textContent = list.length;
+
+    const grid = document.getElementById('grid');
+    if (!list.length) {
+      grid.innerHTML = '<div class="empty">Под&nbsp;ваш запрос ничего не&nbsp;нашлось.<br>Попробуйте сбросить фильтры.</div>';
+      return;
+    }
+
+    grid.innerHTML = '';
+    list.forEach(p => {
+      const swatchHTML = Array.from({length: Math.min(p.palette, 8)})
+        .map((_, i) => `<span style="background:${PALETTE[(i * 3) % PALETTE.length]}"></span>`)
+        .join('');
+      const moreHTML = p.palette > 8 ? `<span class="more">+${p.palette - 8}</span>` : '';
+      const matHTML = p.materials.map(m =>
+        m === 'gold'
+          ? '<span class="mat-chip gold">Позолота</span>'
+          : '<span class="mat-chip">Сталь</span>'
+      ).join('');
+      const badgesHTML = [
+        p.tags.includes('new') ? '<span class="badge new">Новинка</span>' : '',
+        p.tags.includes('hit') ? '<span class="badge hit">Хит</span>' : ''
+      ].join('');
+
+      const card = document.createElement('a');
+      card.className = 'product';
+      card.href = `product.html?slug=${p.slug}`;
+      card.innerHTML = `
+        <div class="product-photo">
+          <img class="slide active" src="${p.photo}" alt="${p.name}" loading="lazy">
+          <div class="photo-zones">
+            <div class="zone" data-idx="0"></div>
+          </div>
+          <div class="product-badges">${badgesHTML}</div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">${p.name}</div>
+          <div class="product-art">${p.art}</div>
+          <div class="product-mat">${matHTML}</div>
+          <div class="product-swatches">${swatchHTML}${moreHTML}</div>
+          <div class="product-price">
+            <span class="price-prefix">от</span>
+            <span class="price-value">${p.price.toLocaleString('ru-RU')}<span class="cur">&nbsp;₽</span></span>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  render();
+</script>
+
+</body>
+</html>
