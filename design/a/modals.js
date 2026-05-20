@@ -317,13 +317,15 @@
               <label for="ws-r-city">Город</label>
             </div>
           </div>
-          <div class="ws-field">
-            <input type="url" id="ws-r-link" placeholder=" ">
-            <label for="ws-r-link">Сайт / Instagram / VK / TG</label>
-          </div>
-          <div class="ws-field">
-            <textarea id="ws-r-comment" placeholder=" "></textarea>
-            <label for="ws-r-comment">Цель сотрудничества или&nbsp;комментарий</label>
+          <div class="ws-field-row">
+            <div class="ws-field">
+              <input type="url" id="ws-r-link" placeholder=" ">
+              <label for="ws-r-link">Сайт / Instagram / VK / TG</label>
+            </div>
+            <div class="ws-field">
+              <input type="text" id="ws-r-inn" placeholder=" " inputmode="numeric" pattern="[0-9]{10,12}">
+              <label for="ws-r-inn">ИНН</label>
+            </div>
           </div>
           <label class="ws-check" style="margin: 8px 0 2px;">
             <input type="checkbox" required>
