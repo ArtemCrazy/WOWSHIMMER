@@ -304,10 +304,9 @@
             <div class="ws-field">
               <select id="ws-r-format" required>
                 <option value="" disabled selected hidden></option>
-                <option value="store">Розничный магазин</option>
-                <option value="showroom">Шоурум</option>
-                <option value="online">Онлайн / соцсети</option>
-                <option value="marketplace">Маркетплейс</option>
+                <option value="showroom-clothes">Шоурум одежды</option>
+                <option value="showroom-acc">Шоурум аксессуаров</option>
+                <option value="beauty">Салон красоты</option>
                 <option value="other">Другое</option>
               </select>
               <label for="ws-r-format">Формат площадки</label>
