@@ -364,6 +364,8 @@
   .btn-add-cart:hover { background: var(--ink); }
   .btn-add-cart span { transition: transform 0.2s; }
   .btn-add-cart:hover span { transform: translateX(3px); }
+  /* hidden-атрибут должен побеждать наш display: inline-flex */
+  [hidden] { display: none !important; }
 
   /* Retail strikethrough next to wholesale */
   .price-retail {
@@ -575,7 +577,7 @@
             <span id="btn-fav-label">В&nbsp;избранное</span>
           </button>
           <button class="btn-buy-mp" id="btn-marketplace">Купить на&nbsp;маркетплейсе ↗</button>
-          <button class="btn-add-cart" id="btn-cart" hidden>Добавить в&nbsp;подборку <span>→</span></button>
+          <button class="btn-add-cart" id="btn-cart" hidden>Добавить в&nbsp;корзину <span>→</span></button>
         </div>
 
         <div class="specs" id="specs"></div>
@@ -762,7 +764,7 @@
     // Brief feedback
     const btn = document.getElementById('btn-cart');
     const txt = btn.innerHTML;
-    btn.innerHTML = '✓ Добавлено в&nbsp;подборку';
+    btn.innerHTML = '✓ Добавлено в&nbsp;корзину';
     btn.disabled = true;
     setTimeout(() => { btn.innerHTML = txt; btn.disabled = false; }, 1400);
   });
