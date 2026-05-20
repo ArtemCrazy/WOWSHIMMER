@@ -682,66 +682,84 @@
     });
   }
 
-  // Color picker
-  const cp = document.getElementById('color-picker');
-  const cv = document.getElementById('color-val');
-  palette.forEach((c, i) => {
-    const sw = document.createElement('div');
-    sw.className = 'sw';
-    sw.style.background = c;
-    sw.title = c;
-    sw.addEventListener('click', () => {
-      cp.querySelectorAll('.sw').forEach(x => x.classList.remove('active'));
-      sw.classList.add('active');
-      activeColorIdx = i;
-      cv.textContent = `#${(i+1).toString().padStart(2,'0')} · ${c}`;
-    });
-    cp.appendChild(sw);
-  });
-
-  // Gallery (main + thumbs)
-  // For products with variation folder, attempt to load v01..v06 thumbnails
-  const gallery = [];
-  gallery.push(p.photo); // main
-  if (p.folder) {
-    for (let i = 1; i <= 5; i++) {
-      const nn = String(i).padStart(2, '0');
-      gallery.push(`../../img/products/${p.folder}/v${nn}.jpg`);
-    }
-  } else {
-    // no variation folder — just show the main photo three more times as placeholder
-    for (let i = 0; i < 3; i++) gallery.push(p.photo);
-  }
-
+  // ── Gallery + palette wired together ─────────────────────────────
+  // palette index = variation photo index = article suffix.
+  // Click swatch → swap main image + update article + sync dots/thumbs.
   const main = document.getElementById('main');
   const navEl = document.getElementById('gallery-nav');
   const thumbsEl = document.getElementById('thumbs');
-  gallery.forEach((src, i) => {
-    const img = document.createElement('img');
-    img.src = src;
-    img.alt = p.name;
-    if (i === 0) img.classList.add('active');
-    img.onerror = () => { img.style.display = 'none'; };
-    main.insertBefore(img, navEl);
+  const cp = document.getElementById('color-picker');
+  const cv = document.getElementById('color-val');
+  const artEl = document.getElementById('info-art');
 
-    const dot = document.createElement('div');
-    dot.className = 'dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => showSlide(i));
-    navEl.appendChild(dot);
-
-    const th = document.createElement('div');
-    th.className = 'thumb' + (i === 0 ? ' active' : '');
-    th.innerHTML = `<img src="${src}" alt="">`;
-    th.addEventListener('click', () => showSlide(i));
-    th.querySelector('img').onerror = () => { th.style.display = 'none'; };
-    thumbsEl.appendChild(th);
-  });
-
-  function showSlide(i) {
-    main.querySelectorAll('img').forEach((img, idx) => img.classList.toggle('active', idx === i));
-    navEl.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
-    thumbsEl.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === i));
+  // Initial gallery: just main photo (will be rebuilt when palette JSON loads)
+  let gallerySrcs = [p.photo];
+  if (p.folder) {
+    for (let i = 1; i <= 5; i++) {
+      gallerySrcs.push(`../../img/products/${p.folder}/v${String(i).padStart(2, '0')}.jpg`);
+    }
   }
+
+  function buildGallery(srcs, thumbLimit = 6) {
+    main.querySelectorAll('img').forEach(img => img.remove());
+    navEl.innerHTML = '';
+    thumbsEl.innerHTML = '';
+    srcs.forEach((src, i) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = p.name;
+      img.loading = 'lazy';
+      if (i === 0) img.classList.add('active');
+      img.onerror = () => { img.style.display = 'none'; };
+      main.insertBefore(img, navEl);
+
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => selectColor(i));
+      navEl.appendChild(dot);
+
+      if (i < thumbLimit) {
+        const th = document.createElement('div');
+        th.className = 'thumb' + (i === 0 ? ' active' : '');
+        th.innerHTML = `<img src="${src}" alt="" loading="lazy">`;
+        th.addEventListener('click', () => selectColor(i));
+        th.querySelector('img').onerror = () => { th.style.display = 'none'; };
+        thumbsEl.appendChild(th);
+      }
+    });
+  }
+
+  function buildPalette() {
+    cp.innerHTML = '';
+    palette.forEach((c, i) => {
+      const sw = document.createElement('div');
+      sw.className = 'sw';
+      sw.style.background = c;
+      sw.title = `#${(i+1).toString().padStart(2,'0')} · ${c}`;
+      sw.addEventListener('click', () => selectColor(i));
+      cp.appendChild(sw);
+    });
+  }
+
+  function selectColor(i) {
+    activeColorIdx = i;
+    const total = main.querySelectorAll('img').length;
+    // Switch gallery slide
+    if (i < total) {
+      main.querySelectorAll('img').forEach((img, idx) => img.classList.toggle('active', idx === i));
+      navEl.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
+      thumbsEl.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === i));
+    }
+    // Palette swatch active
+    cp.querySelectorAll('.sw').forEach((sw, idx) => sw.classList.toggle('active', idx === i));
+    // Label & article
+    const code = (i+1).toString().padStart(2,'0');
+    if (palette[i]) cv.textContent = `#${code} · ${palette[i]}`;
+    artEl.textContent = `${p.art}-${code}`;
+  }
+
+  buildGallery(gallerySrcs);
+  buildPalette();
 
   // Specs
   const specs = document.getElementById('specs');
@@ -800,27 +818,20 @@
     </a>
   `).join('');
 
-  // Attempt to load real palette from disk
+  // Attempt to load real palette from disk + rebuild gallery from variations
   fetch('../../img/products/_palette.json')
     .then(r => r.ok ? r.json() : null)
     .then(data => {
       if (!data || !data[slug] || !data[slug].length) return;
-      // Replace palette with real values
-      palette = data[slug].map(x => x.color);
-      cp.innerHTML = '';
-      palette.forEach((c, i) => {
-        const sw = document.createElement('div');
-        sw.className = 'sw';
-        sw.style.background = c;
-        sw.title = c;
-        sw.addEventListener('click', () => {
-          cp.querySelectorAll('.sw').forEach(x => x.classList.remove('active'));
-          sw.classList.add('active');
-          activeColorIdx = i;
-          cv.textContent = `#${(i+1).toString().padStart(2,'0')} · ${c}`;
-        });
-        cp.appendChild(sw);
-      });
+      const variations = data[slug]; // [{file, color}, ...]
+      palette = variations.map(x => x.color);
+
+      // Rebuild gallery: one slide per color variation (so palette index = gallery index)
+      if (p.folder) {
+        const srcs = variations.map(v => `../../img/products/${p.folder}/${v.file}`);
+        buildGallery(srcs);
+      }
+      buildPalette();
     })
     .catch(() => {});
 </script>
