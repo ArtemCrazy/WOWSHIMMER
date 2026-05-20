@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Профиль · WOWSHIMMER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .profile-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+  .profile-head h1 { font-family: var(--font-display); font-weight: 400; font-size: 36px; color: var(--ink); line-height: 1.1; letter-spacing: -0.3px; }
+  .btn-edit { background: transparent; border: 1px solid rgba(0,0,0,0.18); padding: 11px 22px; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(0,0,0,0.65); transition: background 0.2s, color 0.2s; }
+  .btn-edit:hover { background: var(--ink); color: white; border-color: var(--ink); }
+  .btn-edit.editing { background: var(--gold-deep); color: white; border-color: var(--gold-deep); }
+
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+  .info-row { padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .info-row.full { grid-column: 1 / -1; }
+  .info-label { font-size: 11px; color: rgba(0,0,0,0.50); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; font-weight: 500; }
+  .info-value { font-size: 15px; color: var(--ink); }
+  .info-value.muted { color: rgba(0,0,0,0.55); font-weight: 400; }
+  .info-row input, .info-row textarea {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.18);
+    color: var(--ink);
+    font: 400 14px/1.4 var(--font-body);
+    padding: 10px 12px;
+    margin-top: 2px;
+  }
+  .info-row textarea { min-height: 70px; resize: vertical; }
+  .info-row input:focus, .info-row textarea:focus { outline: none; border-color: var(--gold-deep); }
+  .info-row .info-input { display: none; }
+  body.editing .info-row .info-value { display: none; }
+  body.editing .info-row .info-input { display: block; }
+
+  .danger-zone { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(0,0,0,0.08); }
+  .danger-zone h3 { font-size: 12px; color: rgba(0,0,0,0.50); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 14px; font-family: var(--font-body); }
+  .danger-zone .row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; font-size: 14px; color: rgba(0,0,0,0.70); border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .danger-zone .row:last-child { border-bottom: none; }
+  .danger-zone a { color: var(--gold-deep); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .danger-zone a:hover { color: #c34; }
+
+  @media (max-width: 640px) {
+    .info-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="../" class="logo">WOWSHIMMER</a>
+    <nav class="nav-menu">
+      <a href="../catalog/">Каталог</a>
+      <a href="../#about">О бренде</a>
+      <a href="../#where-to-buy">Где нас найти</a>
+      <a href="../#contacts">Контакты</a>
+    </nav>
+    <div class="header-actions">
+      <a href="../catalog/favorites.html" class="header-icon" title="Избранное">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.5-8.5-9.5C2.3 7.8 4.5 5 7.5 5c1.8 0 3.5 1 4.5 2.5C13 6 14.7 5 16.5 5c3 0 5.2 2.8 4 6.5C18.5 16.5 12 21 12 21z"/></svg>
+        <span class="fav-badge" id="fav-badge">0</span>
+      </a>
+      <span class="header-divider" aria-hidden="true"></span>
+      <a href="../login.html" class="header-icon" title="Вход для партнёров">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="cabinet">
+  <div class="wrap" id="content"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap"><div class="footer-bottom"><div>© WOWSHIMMER, 2026</div><div><a href="#">Политика конфиденциальности</a></div></div></div>
+</footer>
+
+<script>
+  (function() {
+    try {
+      const n = JSON.parse(localStorage.getItem('wowshimmer-favs') || '[]').length;
+      const b = document.getElementById('fav-badge');
+      b.textContent = n; b.classList.toggle('show', n > 0);
+    } catch {}
+  })();
+
+  function render() {
+    const root = document.getElementById('content');
+    const auth = window.wsPartner && window.wsPartner.getAuth();
+
+    if (!auth) {
+      root.innerHTML = `
+        <div class="auth-required">
+          <h2>Профиль доступен только&nbsp;партнёрам</h2>
+          <p>Войдите в&nbsp;партнёрский кабинет, чтобы посмотреть и&nbsp;изменить данные.</p>
+          <a href="../login.html" class="btn-cta">Войти</a>
+        </div>
+      `;
+      return;
+    }
+
+    const cartCount = window.wsPartner.getCart().reduce((s, x) => s + x.qty, 0);
+
+    // Demo profile data — would come from server in real version
+    const profile = {
+      name: auth.name || 'Мария Иванова',
+      phone: '+7 (916) 441-00-52',
+      email: auth.email || 'maria@bloom.ru',
+      company: auth.company || 'Шоурум «Bloom»',
+      format: 'Шоурум',
+      city: 'Москва',
+      link: 'instagram.com/bloom_showroom',
+      inn: '770401234567',
+      addr: 'Москва, ул. Большая Дмитровка, 12, шоурум «Bloom»'
+    };
+
+    root.innerHTML = `
+      <div class="cabinet-layout">
+        <aside class="cab-nav">
+          <div class="cab-nav-head">Кабинет</div>
+          <div class="cab-nav-sub">${profile.company}</div>
+          <ul class="cab-nav-list">
+            <li onclick="location.href='./'"><span>Дашборд</span></li>
+            <li onclick="location.href='../catalog/cart.html'"><span>Подборка</span>${cartCount > 0 ? `<span class="count">${cartCount}</span>` : ''}</li>
+            <li onclick="location.href='./orders.html'"><span>История заявок</span></li>
+            <li class="active"><span>Профиль</span></li>
+          </ul>
+          <button class="cab-nav-logout" type="button" id="logout">Выйти</button>
+        </aside>
+
+        <div class="cab-main">
+          <div class="profile-head">
+            <h1>Профиль партнёра</h1>
+            <button class="btn-edit" id="edit-btn">Редактировать</button>
+          </div>
+
+          <div class="cab-section">
+            <h2>Контактное лицо и&nbsp;компания</h2>
+            <div class="info-grid">
+              <div class="info-row">
+                <div class="info-label">Имя контактного лица</div>
+                <div class="info-value">${profile.name}</div>
+                <input class="info-input" value="${profile.name}">
+              </div>
+              <div class="info-row">
+                <div class="info-label">Телефон</div>
+                <div class="info-value">${profile.phone}</div>
+                <input class="info-input" value="${profile.phone}">
+              </div>
+              <div class="info-row">
+                <div class="info-label">E-mail</div>
+                <div class="info-value">${profile.email}</div>
+                <input class="info-input" value="${profile.email}">
+              </div>
+              <div class="info-row">
+                <div class="info-label">Название магазина / бренда</div>
+                <div class="info-value">${profile.company}</div>
+                <input class="info-input" value="${profile.company}">
+              </div>
+              <div class="info-row">
+                <div class="info-label">Формат площадки</div>
+                <div class="info-value">${profile.format}</div>
+                <input class="info-input" value="${profile.format}">
+              </div>
+              <div class="info-row">
+                <div class="info-label">Город</div>
+                <div class="info-value">${profile.city}</div>
+                <input class="info-input" value="${profile.city}">
+              </div>
+              <div class="info-row">
+                <div class="info-label">Сайт / Соцсети</div>
+                <div class="info-value muted">${profile.link}</div>
+                <input class="info-input" value="${profile.link}">
+              </div>
+              <div class="info-row">
+                <div class="info-label">ИНН</div>
+                <div class="info-value">${profile.inn}</div>
+                <input class="info-input" value="${profile.inn}">
+              </div>
+              <div class="info-row full">
+                <div class="info-label">Адрес доставки</div>
+                <div class="info-value">${profile.addr}</div>
+                <textarea class="info-input">${profile.addr}</textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="cab-section">
+            <h2>Безопасность</h2>
+            <div class="danger-zone">
+              <div class="row">
+                <span>Сменить пароль</span>
+                <a href="#" onclick="alert('Демо: тут откроется форма смены пароля'); return false;">Изменить</a>
+              </div>
+              <div class="row">
+                <span>Запросить выгрузку данных</span>
+                <a href="#" onclick="alert('Демо: тут отправится запрос на e-mail'); return false;">Запросить</a>
+              </div>
+              <div class="row">
+                <span style="color:rgba(0,0,0,0.55)">Деактивировать аккаунт партнёра</span>
+                <a href="#" style="color:#c34" onclick="alert('Демо: подтверждение деактивации'); return false;">Удалить</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Toggle edit mode
+    let editing = false;
+    document.getElementById('edit-btn').addEventListener('click', e => {
+      editing = !editing;
+      document.body.classList.toggle('editing', editing);
+      e.target.textContent = editing ? 'Сохранить' : 'Редактировать';
+      e.target.classList.toggle('editing', editing);
+      if (!editing) {
+        // In demo we don't really save, just show alert
+        // alert('Демо: изменения сохранены');
+      }
+    });
+    document.getElementById('logout')?.addEventListener('click', () => {
+      window.wsPartner.clearAuth();
+      window.wsPartner.setCart([]);
+      location.href = '../';
+    });
+  }
+
+  document.addEventListener('ws-auth-change', render);
+  render();
+</script>
+
+<script src="../partner.js"></script>
+<script src="../modals.js"></script>
+</body>
+</html>

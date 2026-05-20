@@ -59,7 +59,7 @@
   function pathPrefix() {
     // Detect relative path to design/a/ from current page
     const p = location.pathname;
-    if (/\/catalog\/[^/]+\.html?$|\/catalog\/$|\/catalog$/.test(p)) return '../';
+    if (/\/(catalog|partner)\/.*$/.test(p) || /\/(catalog|partner)\/?$/.test(p)) return '../';
     return '';
   }
 
@@ -81,10 +81,10 @@
           <div class="head-name">${auth.name || 'Партнёр'}</div>
           <div class="head-company">${auth.company || ''}</div>
         </div>
-        <a href="#" class="header-menu-item">Дашборд</a>
+        <a href="${root}partner/" class="header-menu-item">Дашборд</a>
         <a href="${root}catalog/cart.html" class="header-menu-item">Подборка${n > 0 ? ` <span class="m-badge">${n}</span>` : ''}</a>
-        <a href="#" class="header-menu-item">История заявок</a>
-        <a href="#" class="header-menu-item">Профиль</a>
+        <a href="${root}partner/orders.html" class="header-menu-item">История заявок</a>
+        <a href="${root}partner/profile.html" class="header-menu-item">Профиль</a>
         <button type="button" class="header-menu-item logout" data-logout>Выйти</button>
       </div>
     `;
@@ -96,6 +96,7 @@
     style.id = 'ws-partner-css';
     style.textContent = `
     .header-avatar {
+      position: relative;
       width: 38px; height: 38px;
       border-radius: 50%;
       background: var(--gold, #c9a96e);
@@ -107,9 +108,20 @@
       cursor: pointer;
       display: inline-flex; align-items: center; justify-content: center;
       flex-shrink: 0;
-      transition: background 0.2s;
+      box-shadow: 0 0 0 2px rgba(201,169,110,0.35);
+      transition: background 0.2s, box-shadow 0.2s;
     }
-    .header-avatar:hover { background: #fff; }
+    .header-avatar:hover { background: #fff; box-shadow: 0 0 0 2px rgba(255,255,255,0.5); }
+    .header-avatar::after {
+      content: '';
+      position: absolute;
+      right: 0; bottom: 0;
+      width: 10px; height: 10px;
+      background: #4ad07a;
+      border-radius: 50%;
+      border: 2px solid var(--ink, #0a0a0a);
+      box-shadow: 0 0 6px rgba(74,208,122,0.6);
+    }
     .header-menu {
       position: absolute;
       top: 100%; right: 40px;
