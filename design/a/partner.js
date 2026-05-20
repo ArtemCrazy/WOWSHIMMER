@@ -57,10 +57,20 @@
 
   // ── HEADER swap ──────────────────────────────────────────────────
   function pathPrefix() {
-    // Detect relative path to design/a/ from current page
+    // Legacy: relative prefix (kept for backwards compat)
     const p = location.pathname;
     if (/\/(catalog|partner)\/.*$/.test(p) || /\/(catalog|partner)\/?$/.test(p)) return '../';
     return '';
+  }
+
+  // Absolute URL builder — finds /design/a/ anchor and builds from there.
+  // Robust against trailing-slash quirks and any subfolder depth.
+  function buildPath(suffix) {
+    const p = location.pathname;
+    const marker = '/design/a/';
+    const idx = p.indexOf(marker);
+    if (idx >= 0) return p.substring(0, idx + marker.length) + suffix;
+    return pathPrefix() + suffix; // fallback
   }
 
   function buildPartnerHeaderActions() {
@@ -68,9 +78,8 @@
     if (!auth) return '';
     const initial = (auth.name || 'П').trim().charAt(0).toUpperCase();
     const n = cartCount();
-    const root = pathPrefix();
     return `
-      <a href="${root}catalog/cart.html" class="header-icon" title="Подборка" data-cart>
+      <a href="${buildPath('catalog/cart.html')}" class="header-icon" title="Подборка" data-cart>
         <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
         <span class="fav-badge ${n > 0 ? 'show' : ''}" data-cart-badge>${n}</span>
       </a>
@@ -81,10 +90,10 @@
           <div class="head-name">${auth.name || 'Партнёр'}</div>
           <div class="head-company">${auth.company || ''}</div>
         </div>
-        <a href="${root}partner/" class="header-menu-item">Дашборд</a>
-        <a href="${root}catalog/cart.html" class="header-menu-item">Подборка${n > 0 ? ` <span class="m-badge">${n}</span>` : ''}</a>
-        <a href="${root}partner/orders.html" class="header-menu-item">История заявок</a>
-        <a href="${root}partner/profile.html" class="header-menu-item">Профиль</a>
+        <a href="${buildPath('partner/')}" class="header-menu-item">Дашборд</a>
+        <a href="${buildPath('catalog/cart.html')}" class="header-menu-item">Подборка${n > 0 ? ` <span class="m-badge">${n}</span>` : ''}</a>
+        <a href="${buildPath('partner/orders.html')}" class="header-menu-item">История заявок</a>
+        <a href="${buildPath('partner/profile.html')}" class="header-menu-item">Профиль</a>
         <button type="button" class="header-menu-item logout" data-logout>Выйти</button>
       </div>
     `;
@@ -203,18 +212,37 @@
     const avatar = document.querySelector('[data-avatar]');
     const menu = document.querySelector('[data-menu]');
     if (!avatar || !menu) return;
+
     avatar.addEventListener('click', e => {
       e.stopPropagation();
+      e.preventDefault();
       menu.hidden = !menu.hidden;
     });
+
+    // Close on click outside (but allow clicks INSIDE menu to do their thing)
     document.addEventListener('click', e => {
-      if (!menu.hidden && !menu.contains(e.target)) menu.hidden = true;
+      if (menu.hidden) return;
+      if (avatar.contains(e.target) || menu.contains(e.target)) return;
+      menu.hidden = true;
     });
-    document.querySelectorAll('[data-logout]').forEach(b => {
-      b.addEventListener('click', () => {
+
+    // Explicit navigation for menu links — guarantees navigation works
+    menu.querySelectorAll('a.header-menu-item').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        menu.hidden = true;
+        if (href) location.href = href;
+      });
+    });
+
+    // Logout
+    menu.querySelectorAll('[data-logout]').forEach(b => {
+      b.addEventListener('click', e => {
+        e.preventDefault();
         clearAuth();
         setCart([]);
-        location.reload();
+        location.href = buildPath('');
       });
     });
   }
@@ -283,6 +311,9 @@
     });
     const grid = document.getElementById('grid');
     if (grid) observer.observe(grid, { childList: true });
+    // Signal readiness so pages that depend on wsPartner can render
+    window.wsPartnerReady = true;
+    document.dispatchEvent(new CustomEvent('ws-partner-ready'));
   }
 
   if (document.readyState === 'loading') {
