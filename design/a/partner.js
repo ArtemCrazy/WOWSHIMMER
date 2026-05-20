@@ -24,6 +24,18 @@
     localStorage.removeItem(AUTH_KEY);
     document.dispatchEvent(new CustomEvent('ws-auth-change', { detail: null }));
   }
+  function setAvatar(dataUrl) {
+    const auth = getAuth();
+    if (!auth) return;
+    auth.avatarUrl = dataUrl;
+    setAuth(auth);
+  }
+  function clearAvatar() {
+    const auth = getAuth();
+    if (!auth) return;
+    delete auth.avatarUrl;
+    setAuth(auth);
+  }
   function getCart() {
     try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch { return []; }
   }
@@ -84,7 +96,7 @@
         <span class="fav-badge ${n > 0 ? 'show' : ''}" data-cart-badge>${n}</span>
       </a>
       <span class="header-divider" aria-hidden="true"></span>
-      <button class="header-avatar" type="button" data-avatar title="${auth.name || 'Партнёр'}">${initial}</button>
+      <button class="header-avatar" type="button" data-avatar title="${auth.name || 'Партнёр'}">${auth.avatarUrl ? `<img src="${auth.avatarUrl}" alt="">` : initial}</button>
       <div class="header-menu" data-menu hidden>
         <div class="header-menu-head">
           <div class="head-name">${auth.name || 'Партнёр'}</div>
@@ -121,6 +133,7 @@
       transition: background 0.2s, box-shadow 0.2s;
     }
     .header-avatar:hover { background: #fff; box-shadow: 0 0 0 2px rgba(255,255,255,0.5); }
+    .header-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; pointer-events: none; }
     .header-avatar::after {
       content: '';
       position: absolute;
@@ -778,7 +791,7 @@
 
   // ── Public API ─────────────────────────────────────────────────────
   window.wsPartner = {
-    getAuth, setAuth, clearAuth,
+    getAuth, setAuth, clearAuth, setAvatar, clearAvatar,
     getCart, setCart, addToCart, removeFromCart, updateQty,
     cartCount, wholesalePrice, MIN_SUM,
     openCartDrawer, closeCartDrawer
