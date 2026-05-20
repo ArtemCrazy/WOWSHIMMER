@@ -417,7 +417,7 @@
           window.wsPartner.setAuth({
             email,
             name: name || 'Партнёр',
-            company: 'Демо-партнёр'
+            company: ''
           });
         }
         close();
