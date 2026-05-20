@@ -79,7 +79,7 @@
     const initial = (auth.name || 'П').trim().charAt(0).toUpperCase();
     const n = cartCount();
     return `
-      <a href="${buildPath('catalog/cart.html')}" class="header-icon" title="Подборка" data-cart>
+      <a href="${buildPath('catalog/cart.html')}" class="header-icon" title="Подборка" data-cart data-open-cart>
         <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
         <span class="fav-badge ${n > 0 ? 'show' : ''}" data-cart-badge>${n}</span>
       </a>
@@ -90,10 +90,10 @@
           <div class="head-name">${auth.name || 'Партнёр'}</div>
           <div class="head-company">${auth.company || ''}</div>
         </div>
-        <a href="${buildPath('partner/')}" class="header-menu-item">Дашборд</a>
-        <a href="${buildPath('catalog/cart.html')}" class="header-menu-item">Подборка${n > 0 ? ` <span class="m-badge">${n}</span>` : ''}</a>
-        <a href="${buildPath('partner/orders.html')}" class="header-menu-item">История заявок</a>
         <a href="${buildPath('partner/profile.html')}" class="header-menu-item">Профиль</a>
+        <a href="${buildPath('partner/')}" class="header-menu-item">Дашборд</a>
+        <a href="${buildPath('catalog/cart.html')}" class="header-menu-item" data-open-cart>Подборка${n > 0 ? ` <span class="m-badge">${n}</span>` : ''}</a>
+        <a href="${buildPath('partner/orders.html')}" class="header-menu-item">История заявок</a>
         <button type="button" class="header-menu-item logout" data-logout>Выйти</button>
       </div>
     `;
@@ -322,10 +322,465 @@
     init();
   }
 
+  // ── CART DRAWER ──────────────────────────────────────────────────
+  // Renders the cart as a right-side slide-out panel.
+  const DRAWER_PRODUCTS = {
+    'studs-8mm':      { name: 'Серьги-пусеты с кристаллами 8 мм',     price: 1490, photo: 'studs-8mm.jpg', folder: 'studs-8mm' },
+    'studs-6mm':      { name: 'Серьги-пусеты с кристаллами 6 мм',     price: 1190, photo: 'studs-6mm.jpg', folder: 'studs-6mm' },
+    'studs-4mm':      { name: 'Серьги-пусеты с кристаллами 4 мм',     price: 890,  photo: 'studs-4mm.jpg', folder: 'studs-4mm' },
+    'ear-threader':   { name: 'Серьги-протяжки с кристаллами 4 мм',  price: 1290, photo: 'ear-threader.jpg', folder: null },
+    'bar':            { name: 'Штанга с кристаллом 4 мм',             price: 990,  photo: 'bar.jpg', folder: 'bar' },
+    'pendant-thread': { name: 'Подвеска на леске с кристаллом 8 мм',  price: 1890, photo: 'pendant-thread.jpg', folder: 'pendant-thread' },
+    'pendant-chain':  { name: 'Подвеска на цепочке с кристаллом 6 мм', price: 2190, photo: 'pendant-chain.jpg', folder: null },
+    'ring':           { name: 'Кольцо с кристаллом 4 мм',             price: 1390, photo: 'ring.jpg', folder: null }
+  };
+  let drawerPalette = {};
+
+  function ensureDrawerCss() {
+    if (document.getElementById('ws-drawer-css')) return;
+    const style = document.createElement('style');
+    style.id = 'ws-drawer-css';
+    style.textContent = `
+      .ws-drawer-overlay {
+        position: fixed; inset: 0;
+        background: rgba(10,10,10,0.45);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 200;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        display: none;
+      }
+      .ws-drawer-overlay.show { display: block; opacity: 1; }
+      .ws-drawer {
+        position: fixed;
+        top: 0; right: 0;
+        height: 100vh;
+        width: 480px;
+        max-width: 100vw;
+        background: var(--light, #fafaf7);
+        z-index: 201;
+        transform: translateX(100%);
+        transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.3, 1);
+        display: flex; flex-direction: column;
+        box-shadow: -20px 0 60px rgba(0,0,0,0.20);
+      }
+      .ws-drawer.show { transform: translateX(0); }
+      .ws-drawer-head {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 22px 28px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        background: white;
+        flex-shrink: 0;
+      }
+      .ws-drawer-head h2 {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-weight: 400; font-size: 28px;
+        color: var(--ink, #0a0a0a);
+        line-height: 1.1;
+        letter-spacing: -0.3px;
+      }
+      .ws-drawer-head .count { font-size: 12px; color: rgba(0,0,0,0.55); margin-top: 2px; }
+      .ws-drawer-close {
+        width: 36px; height: 36px;
+        background: transparent; border: none;
+        color: rgba(0,0,0,0.55); font-size: 22px;
+        cursor: pointer;
+        transition: color 0.2s, transform 0.2s;
+      }
+      .ws-drawer-close:hover { color: var(--ink, #0a0a0a); transform: rotate(90deg); }
+
+      .ws-drawer-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 18px 28px 0;
+      }
+      .ws-drawer-foot {
+        flex-shrink: 0;
+        background: white;
+        border-top: 1px solid rgba(0,0,0,0.08);
+        padding: 18px 28px 22px;
+      }
+
+      .ws-d-item {
+        display: grid;
+        grid-template-columns: 72px 1fr auto;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+      }
+      .ws-d-item:last-child { border-bottom: none; }
+      .ws-d-item .ph {
+        width: 72px; height: 72px;
+        background: #f9f7f1;
+        overflow: hidden;
+      }
+      .ws-d-item .ph img { width: 100%; height: 100%; object-fit: cover; }
+      .ws-d-item .meta { min-width: 0; }
+      .ws-d-item .name {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-size: 16px; font-weight: 400;
+        color: var(--ink, #0a0a0a); line-height: 1.2;
+        margin-bottom: 4px;
+      }
+      .ws-d-item .params {
+        font-size: 11px;
+        color: rgba(0,0,0,0.55);
+        display: flex; flex-wrap: wrap; gap: 4px 10px;
+      }
+      .ws-d-item .params .sw {
+        display: inline-block;
+        width: 9px; height: 9px;
+        border-radius: 50%;
+        border: 1px solid rgba(0,0,0,0.10);
+        vertical-align: middle;
+        margin-right: 4px;
+      }
+      .ws-d-item .row2 {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-top: 8px;
+      }
+      .ws-d-item .qty {
+        display: inline-flex; align-items: center;
+        border: 1px solid rgba(0,0,0,0.18);
+      }
+      .ws-d-item .qty button {
+        width: 26px; height: 26px;
+        background: transparent; border: none;
+        font-size: 13px; cursor: pointer;
+        color: var(--ink, #0a0a0a);
+      }
+      .ws-d-item .qty button:hover { background: rgba(0,0,0,0.06); }
+      .ws-d-item .qty input {
+        width: 34px; height: 26px;
+        text-align: center; border: none;
+        border-left: 1px solid rgba(0,0,0,0.18);
+        border-right: 1px solid rgba(0,0,0,0.18);
+        font: 500 12px/1 'Inter', sans-serif;
+        background: transparent;
+        -moz-appearance: textfield;
+      }
+      .ws-d-item .qty input::-webkit-outer-spin-button,
+      .ws-d-item .qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+      .ws-d-item .price { font-size: 13px; font-weight: 600; color: var(--ink, #0a0a0a); }
+      .ws-d-item .rm {
+        background: transparent; border: none;
+        color: rgba(0,0,0,0.30); font-size: 16px; cursor: pointer;
+        padding: 0; line-height: 1;
+        margin-top: 2px;
+      }
+      .ws-d-item .rm:hover { color: #c34; }
+
+      .ws-d-min { margin: 8px 0 12px; }
+      .ws-d-min .lbl { font-size: 11px; color: rgba(0,0,0,0.55); display: flex; justify-content: space-between; margin-bottom: 6px; }
+      .ws-d-min .lbl b { color: var(--ink, #0a0a0a); font-weight: 600; }
+      .ws-d-min .bar { height: 4px; background: rgba(0,0,0,0.08); overflow: hidden; }
+      .ws-d-min .bar .fill { height: 100%; background: linear-gradient(90deg, #8a7651, #c9a96e); transition: width 0.4s ease; }
+      .ws-d-min .bar.full .fill { background: linear-gradient(90deg, #4a8e4a, #6ab06a); }
+      .ws-d-min .hint { font-size: 11px; color: rgba(0,0,0,0.55); margin-top: 6px; }
+      .ws-d-min .hint.ok { color: #4a8e4a; font-weight: 500; }
+
+      .ws-d-total { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0 4px; font-size: 13px; color: rgba(0,0,0,0.65); }
+      .ws-d-total.sum { font-size: 14px; color: var(--ink, #0a0a0a); font-weight: 600; padding-top: 6px; }
+      .ws-d-total.sum .v { font-size: 22px; font-weight: 700; }
+
+      .ws-d-form { display: flex; flex-direction: column; gap: 8px; margin: 10px 0 12px; }
+      .ws-d-form .f { position: relative; }
+      .ws-d-form .f label {
+        position: absolute; top: 9px; left: 12px;
+        font-size: 9px; color: rgba(0,0,0,0.50);
+        letter-spacing: 1px; text-transform: uppercase;
+        font-weight: 500; pointer-events: none;
+        transition: top 0.2s, font-size 0.2s, color 0.2s;
+      }
+      .ws-d-form input, .ws-d-form textarea {
+        width: 100%; background: transparent;
+        border: 1px solid rgba(0,0,0,0.18);
+        color: var(--ink, #0a0a0a);
+        font: 400 12px/1.4 'Inter', sans-serif;
+        padding: 18px 12px 8px;
+        transition: border-color 0.2s;
+      }
+      .ws-d-form textarea { resize: vertical; min-height: 50px; }
+      .ws-d-form input:focus, .ws-d-form textarea:focus { outline: none; border-color: #8a7651; }
+      .ws-d-form .f input:not(:placeholder-shown) ~ label,
+      .ws-d-form .f input:focus ~ label,
+      .ws-d-form .f textarea:not(:placeholder-shown) ~ label,
+      .ws-d-form .f textarea:focus ~ label {
+        top: 5px; font-size: 8px; color: #8a7651;
+      }
+
+      .ws-d-send {
+        width: 100%; padding: 15px 20px;
+        background: var(--ink, #0a0a0a); color: white;
+        font: 600 11px/1 'Inter', sans-serif;
+        letter-spacing: 1.8px; text-transform: uppercase;
+        border: none; cursor: pointer;
+        transition: background 0.2s, opacity 0.2s;
+      }
+      .ws-d-send:hover:not(:disabled) { background: #8a7651; }
+      .ws-d-send:disabled { background: rgba(0,0,0,0.18); color: rgba(255,255,255,0.55); cursor: not-allowed; }
+
+      .ws-d-empty { text-align: center; padding: 60px 24px; }
+      .ws-d-empty svg { width: 48px; height: 48px; fill: none; stroke: rgba(0,0,0,0.20); stroke-width: 1.5; margin: 0 auto 20px; display: block; }
+      .ws-d-empty h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 22px; color: var(--ink, #0a0a0a); margin-bottom: 10px; }
+      .ws-d-empty p { font-size: 13px; color: rgba(0,0,0,0.55); margin-bottom: 22px; line-height: 1.5; }
+      .ws-d-empty .btn-cat { display: inline-block; padding: 12px 26px; background: var(--ink, #0a0a0a); color: white; font-size: 11px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; transition: background 0.2s; }
+      .ws-d-empty .btn-cat:hover { background: #8a7651; }
+
+      .ws-d-success { text-align: center; padding: 60px 24px; }
+      .ws-d-success .check { width: 56px; height: 56px; border: 1.5px solid #8a7651; border-radius: 50%; margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; color: #8a7651; }
+      .ws-d-success .check svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2; }
+      .ws-d-success h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 26px; color: var(--ink, #0a0a0a); margin-bottom: 10px; line-height: 1.15; }
+      .ws-d-success p { font-size: 13px; color: rgba(0,0,0,0.65); line-height: 1.6; margin-bottom: 24px; }
+
+      @media (max-width: 540px) {
+        .ws-drawer { width: 100vw; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function ensureDrawerDOM() {
+    if (document.querySelector('.ws-drawer')) return;
+    const overlay = document.createElement('div');
+    overlay.className = 'ws-drawer-overlay';
+    overlay.addEventListener('click', closeCartDrawer);
+    document.body.appendChild(overlay);
+
+    const drawer = document.createElement('aside');
+    drawer.className = 'ws-drawer';
+    drawer.setAttribute('role', 'dialog');
+    drawer.setAttribute('aria-modal', 'true');
+    document.body.appendChild(drawer);
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && drawer.classList.contains('show')) closeCartDrawer();
+    });
+  }
+
+  function buildDrawerContent() {
+    const auth = getAuth();
+    if (!auth) {
+      return `
+        <div class="ws-d-empty">
+          <h3>Войдите в&nbsp;кабинет</h3>
+          <p>Подборка доступна только&nbsp;авторизованным партнёрам.</p>
+        </div>
+      `;
+    }
+    const cart = getCart();
+    if (!cart.length) {
+      return `
+        <div class="ws-drawer-body" style="flex:1; display:flex; align-items:center; justify-content:center;">
+          <div class="ws-d-empty" style="padding:0;">
+            <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
+            <h3>Подборка пуста</h3>
+            <p>Откройте каталог, выберите оттенок и&nbsp;количество — товары появятся здесь.</p>
+            <a href="${buildPath('catalog/')}" class="btn-cat">В&nbsp;каталог</a>
+          </div>
+        </div>
+      `;
+    }
+
+    const itemsHTML = cart.map((it, i) => {
+      const p = DRAWER_PRODUCTS[it.slug] || {};
+      const photo = (p.folder && drawerPalette[it.slug] && drawerPalette[it.slug][it.colorIdx])
+        ? `${buildPath('../img/products/')}${p.folder}/${drawerPalette[it.slug][it.colorIdx].file}`
+        : `${buildPath('../img/products/')}${p.photo}`;
+      const colorHex = (drawerPalette[it.slug] && drawerPalette[it.slug][it.colorIdx])
+        ? drawerPalette[it.slug][it.colorIdx].color : null;
+      const code = (it.colorIdx != null) ? `#${String(it.colorIdx + 1).padStart(2,'0')}` : '';
+      const matLabel = it.material === 'gold' ? 'позолота' : (it.material === 'steel' ? 'сталь' : '');
+      const sizeLabel = it.size ? `р. ${it.size}` : '';
+      const itemPrice = wholesalePrice(it.retail);
+      const lineTotal = itemPrice * it.qty;
+      const params = [
+        colorHex ? `<span><span class="sw" style="background:${colorHex}"></span>оттенок ${code}</span>` : '',
+        matLabel ? `<span>${matLabel}</span>` : '',
+        sizeLabel ? `<span>${sizeLabel}</span>` : ''
+      ].filter(Boolean).join('');
+
+      return `
+        <div class="ws-d-item">
+          <div class="ph"><img src="${photo}" alt="${p.name || ''}"></div>
+          <div class="meta">
+            <div class="name">${p.name || it.slug}</div>
+            <div class="params">${params}</div>
+            <div class="row2">
+              <div class="qty">
+                <button type="button" data-action="dec" data-i="${i}">−</button>
+                <input type="number" value="${it.qty}" min="1" data-i="${i}">
+                <button type="button" data-action="inc" data-i="${i}">+</button>
+              </div>
+              <span class="price">${lineTotal.toLocaleString('ru-RU')} ₽</span>
+            </div>
+          </div>
+          <button class="rm" type="button" data-action="remove" data-i="${i}" title="Удалить">×</button>
+        </div>
+      `;
+    }).join('');
+
+    const sum = cart.reduce((s, it) => s + wholesalePrice(it.retail) * it.qty, 0);
+    const count = cart.reduce((s, it) => s + it.qty, 0);
+    const progress = Math.min(100, (sum / MIN_SUM) * 100);
+    const remaining = Math.max(0, MIN_SUM - sum);
+    const canSend = sum >= MIN_SUM;
+
+    return `
+      <div class="ws-drawer-body">${itemsHTML}</div>
+      <div class="ws-drawer-foot">
+        <div class="ws-d-min">
+          <div class="lbl">
+            <span>До минимальной заявки</span>
+            <span><b>${sum.toLocaleString('ru-RU')}</b> / ${MIN_SUM.toLocaleString('ru-RU')} ₽</span>
+          </div>
+          <div class="bar ${canSend ? 'full' : ''}"><div class="fill" style="width:${progress}%"></div></div>
+          <div class="hint ${canSend ? 'ok' : ''}">
+            ${canSend ? '✓ Минимум набран' : `Добавьте ещё на ${remaining.toLocaleString('ru-RU')} ₽`}
+          </div>
+        </div>
+        <div class="ws-d-total"><span>Позиций</span><span>${count}</span></div>
+        <div class="ws-d-total sum"><span>Сумма</span><span class="v">${sum.toLocaleString('ru-RU')} ₽</span></div>
+        <form class="ws-d-form" id="ws-d-send">
+          <div class="f">
+            <input type="text" id="ws-d-addr" placeholder=" " required value="Москва, ул. Большая Дмитровка, 12">
+            <label for="ws-d-addr">Адрес доставки</label>
+          </div>
+          <div class="f">
+            <input type="text" id="ws-d-date" placeholder=" ">
+            <label for="ws-d-date">Желаемая дата отгрузки</label>
+          </div>
+          <div class="f">
+            <textarea id="ws-d-comment" placeholder=" "></textarea>
+            <label for="ws-d-comment">Комментарий</label>
+          </div>
+          <button type="submit" class="ws-d-send" ${canSend ? '' : 'disabled'}>
+            ${canSend ? 'Отправить менеджеру →' : 'Минимум не набран'}
+          </button>
+        </form>
+      </div>
+    `;
+  }
+
+  function renderCartDrawer() {
+    const drawer = document.querySelector('.ws-drawer');
+    if (!drawer) return;
+    const auth = getAuth();
+    const cart = getCart();
+    const count = cart.reduce((s, x) => s + x.qty, 0);
+    drawer.innerHTML = `
+      <div class="ws-drawer-head">
+        <div>
+          <h2>Подборка</h2>
+          ${auth && count ? `<div class="count">${count} ${plural(count, 'позиция','позиции','позиций')}</div>` : ''}
+        </div>
+        <button class="ws-drawer-close" type="button" aria-label="Закрыть">×</button>
+      </div>
+      ${buildDrawerContent()}
+    `;
+
+    drawer.querySelector('.ws-drawer-close')?.addEventListener('click', closeCartDrawer);
+
+    // Wire qty + remove
+    drawer.querySelectorAll('[data-action="inc"]').forEach(b => {
+      b.addEventListener('click', () => { updateQty(+b.dataset.i, getCart()[+b.dataset.i].qty + 1); renderCartDrawer(); });
+    });
+    drawer.querySelectorAll('[data-action="dec"]').forEach(b => {
+      b.addEventListener('click', () => {
+        const cur = getCart()[+b.dataset.i].qty;
+        if (cur > 1) { updateQty(+b.dataset.i, cur - 1); renderCartDrawer(); }
+      });
+    });
+    drawer.querySelectorAll('.qty input').forEach(inp => {
+      inp.addEventListener('change', () => {
+        updateQty(+inp.dataset.i, Math.max(1, parseInt(inp.value) || 1));
+        renderCartDrawer();
+      });
+    });
+    drawer.querySelectorAll('[data-action="remove"]').forEach(b => {
+      b.addEventListener('click', () => { removeFromCart(+b.dataset.i); renderCartDrawer(); });
+    });
+
+    // Submit
+    const form = drawer.querySelector('#ws-d-send');
+    if (form) form.addEventListener('submit', e => {
+      e.preventDefault();
+      const sum = getCart().reduce((s, it) => s + wholesalePrice(it.retail) * it.qty, 0);
+      if (sum < MIN_SUM) return;
+      const name = (auth.name || 'партнёр').split(' ')[0];
+      setCart([]);
+      const drw = document.querySelector('.ws-drawer');
+      drw.innerHTML = `
+        <div class="ws-drawer-head">
+          <div><h2>Готово</h2></div>
+          <button class="ws-drawer-close" type="button" aria-label="Закрыть">×</button>
+        </div>
+        <div class="ws-drawer-body" style="display:flex; align-items:center; justify-content:center;">
+          <div class="ws-d-success">
+            <div class="check"><svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 8"/></svg></div>
+            <h3>Заявка отправлена</h3>
+            <p>Спасибо, ${name}!<br>Менеджер свяжется в&nbsp;течение рабочего дня для&nbsp;подтверждения.</p>
+          </div>
+        </div>
+      `;
+      drw.querySelector('.ws-drawer-close').addEventListener('click', closeCartDrawer);
+    });
+  }
+
+  function plural(n, one, few, many) {
+    n = Math.abs(n) % 100;
+    const n1 = n % 10;
+    if (n > 10 && n < 20) return many;
+    if (n1 > 1 && n1 < 5) return few;
+    if (n1 === 1) return one;
+    return many;
+  }
+
+  function openCartDrawer() {
+    ensureDrawerCss();
+    ensureDrawerDOM();
+    // Lazy-load palette
+    if (!Object.keys(drawerPalette).length) {
+      fetch(buildPath('../img/products/_palette.json'))
+        .then(r => r.ok ? r.json() : null)
+        .then(data => { if (data) { drawerPalette = data; renderCartDrawer(); } });
+    }
+    renderCartDrawer();
+    requestAnimationFrame(() => {
+      document.querySelector('.ws-drawer-overlay').classList.add('show');
+      document.querySelector('.ws-drawer').classList.add('show');
+    });
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCartDrawer() {
+    const overlay = document.querySelector('.ws-drawer-overlay');
+    const drawer = document.querySelector('.ws-drawer');
+    if (overlay) overlay.classList.remove('show');
+    if (drawer) drawer.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  // Re-render drawer when cart changes
+  document.addEventListener('ws-cart-change', () => {
+    if (document.querySelector('.ws-drawer.show')) renderCartDrawer();
+  });
+
+  // Global click delegation: any [data-open-cart] or link to cart.html → open drawer
+  document.addEventListener('click', e => {
+    const trigger = e.target.closest('[data-open-cart]') ||
+      (e.target.closest('a')?.getAttribute('href')?.endsWith('cart.html') ? e.target.closest('a') : null);
+    if (!trigger) return;
+    e.preventDefault();
+    e.stopPropagation();
+    openCartDrawer();
+  });
+
   // ── Public API ─────────────────────────────────────────────────────
   window.wsPartner = {
     getAuth, setAuth, clearAuth,
     getCart, setCart, addToCart, removeFromCart, updateQty,
-    cartCount, wholesalePrice, MIN_SUM
+    cartCount, wholesalePrice, MIN_SUM,
+    openCartDrawer, closeCartDrawer
   };
 })();

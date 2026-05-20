@@ -162,10 +162,10 @@
           <div class="cab-nav-head">Кабинет</div>
           <div class="cab-nav-sub">${auth.company || 'Партнёр'}</div>
           <ul class="cab-nav-list">
-            <li class="active" onclick="location.href='./'"><span>Дашборд</span></li>
-            <li onclick="location.href='../catalog/cart.html'"><span>Подборка</span>${cartCount > 0 ? `<span class="count">${cartCount}</span>` : ''}</li>
-            <li onclick="location.href='./orders.html'"><span>История заявок</span><span class="count">${orders.length}</span></li>
             <li onclick="location.href='./profile.html'"><span>Профиль</span></li>
+            <li class="active"><span>Дашборд</span></li>
+            <li data-open-cart><span>Подборка</span>${cartCount > 0 ? `<span class="count">${cartCount}</span>` : ''}</li>
+            <li onclick="location.href='./orders.html'"><span>История заявок</span><span class="count">${orders.length}</span></li>
           </ul>
           <button class="cab-nav-logout" type="button" id="logout">Выйти</button>
         </aside>
