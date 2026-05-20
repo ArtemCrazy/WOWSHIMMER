@@ -313,6 +313,67 @@
   }
   .btn-buy-mp:hover { background: var(--ink); color: white; }
 
+  /* Partner mode — quantity selector + add-to-cart */
+  .qty-row { margin-bottom: 20px; }
+  .qty-control {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(0,0,0,0.18);
+  }
+  .qty-control button {
+    width: 44px; height: 44px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .qty-control button:hover { background: rgba(0,0,0,0.06); }
+  .qty-control input {
+    width: 56px;
+    height: 44px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid rgba(0,0,0,0.18);
+    border-right: 1px solid rgba(0,0,0,0.18);
+    font: 500 14px/1 var(--font-body);
+    background: transparent;
+    color: var(--ink);
+    -moz-appearance: textfield;
+  }
+  .qty-control input::-webkit-outer-spin-button,
+  .qty-control input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .qty-control input:focus { outline: none; }
+
+  .btn-add-cart {
+    flex: 1;
+    min-width: 220px;
+    padding: 18px 28px;
+    background: var(--gold-deep);
+    color: white;
+    border: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 14px;
+    transition: background 0.2s;
+  }
+  .btn-add-cart:hover { background: var(--ink); }
+  .btn-add-cart span { transition: transform 0.2s; }
+  .btn-add-cart:hover span { transform: translateX(3px); }
+
+  /* Retail strikethrough next to wholesale */
+  .price-retail {
+    font-size: 14px;
+    color: rgba(0,0,0,0.40);
+    text-decoration: line-through;
+    margin-left: 4px;
+  }
+  .price-row .price-prefix.opt { color: var(--gold-deep); font-weight: 600; }
+
   /* SPECS TABLE */
   .specs {
     margin-top: 40px;
@@ -494,8 +555,18 @@
         </div>
 
         <div class="price-row">
-          <span class="price-prefix">Цена</span>
+          <span class="price-prefix" id="price-prefix">Цена</span>
           <span class="price-value" id="price-value">— <span class="cur">₽</span></span>
+          <span class="price-retail" id="price-retail" hidden></span>
+        </div>
+
+        <div class="qty-row" id="qty-row" hidden>
+          <div class="sel-label">Количество</div>
+          <div class="qty-control">
+            <button type="button" data-qty-minus>−</button>
+            <input type="number" id="qty-input" value="1" min="1" max="999">
+            <button type="button" data-qty-plus>+</button>
+          </div>
         </div>
 
         <div class="cta-row">
@@ -503,7 +574,8 @@
             <svg viewBox="0 0 24 24" id="heart-icon"><path d="M12 21s-6.5-4.5-8.5-9.5C2.3 7.8 4.5 5 7.5 5c1.8 0 3.5 1 4.5 2.5C13 6 14.7 5 16.5 5c3 0 5.2 2.8 4 6.5C18.5 16.5 12 21 12 21z"/></svg>
             <span id="btn-fav-label">В&nbsp;избранное</span>
           </button>
-          <button class="btn-buy-mp">Купить на&nbsp;маркетплейсе ↗</button>
+          <button class="btn-buy-mp" id="btn-marketplace">Купить на&nbsp;маркетплейсе ↗</button>
+          <button class="btn-add-cart" id="btn-cart" hidden>Добавить в&nbsp;подборку <span>→</span></button>
         </div>
 
         <div class="specs" id="specs"></div>
@@ -635,8 +707,65 @@
   if (p.tags.includes('new')) bd.insertAdjacentHTML('beforeend', '<span class="badge new">Новинка</span>');
   if (p.tags.includes('hit')) bd.insertAdjacentHTML('beforeend', '<span class="badge hit">Хит</span>');
 
-  // Price
-  document.getElementById('price-value').innerHTML = `${p.price.toLocaleString('ru-RU')}<span class="cur">&nbsp;₽</span>`;
+  // Price — adapts to partner mode
+  function renderPrice() {
+    const auth = window.wsPartner && window.wsPartner.getAuth();
+    const priceEl = document.getElementById('price-value');
+    const prefixEl = document.getElementById('price-prefix');
+    const retailEl = document.getElementById('price-retail');
+    if (auth) {
+      const opt = window.wsPartner.wholesalePrice(p.price);
+      priceEl.innerHTML = `${opt.toLocaleString('ru-RU')}<span class="cur">&nbsp;₽</span>`;
+      prefixEl.textContent = 'опт';
+      prefixEl.classList.add('opt');
+      retailEl.hidden = false;
+      retailEl.textContent = `розница ${p.price.toLocaleString('ru-RU')} ₽`;
+    } else {
+      priceEl.innerHTML = `${p.price.toLocaleString('ru-RU')}<span class="cur">&nbsp;₽</span>`;
+      prefixEl.textContent = 'Цена';
+      prefixEl.classList.remove('opt');
+      retailEl.hidden = true;
+    }
+  }
+  renderPrice();
+
+  // Partner-mode CTA swap
+  function applyAuthCta() {
+    const auth = window.wsPartner && window.wsPartner.getAuth();
+    document.getElementById('btn-marketplace').hidden = !!auth;
+    document.getElementById('btn-cart').hidden = !auth;
+    document.getElementById('qty-row').hidden = !auth;
+  }
+  applyAuthCta();
+  document.addEventListener('ws-auth-change', () => { renderPrice(); applyAuthCta(); });
+
+  // Qty stepper
+  const qtyInput = document.getElementById('qty-input');
+  document.querySelector('[data-qty-minus]')?.addEventListener('click', () => {
+    qtyInput.value = Math.max(1, parseInt(qtyInput.value) - 1);
+  });
+  document.querySelector('[data-qty-plus]')?.addEventListener('click', () => {
+    qtyInput.value = parseInt(qtyInput.value) + 1;
+  });
+
+  // Add to cart
+  document.getElementById('btn-cart').addEventListener('click', () => {
+    if (!window.wsPartner) return;
+    window.wsPartner.addToCart({
+      slug,
+      colorIdx: activeColorIdx,
+      material: activeMaterial,
+      size: activeSize,
+      qty: parseInt(qtyInput.value) || 1,
+      retail: p.price
+    });
+    // Brief feedback
+    const btn = document.getElementById('btn-cart');
+    const txt = btn.innerHTML;
+    btn.innerHTML = '✓ Добавлено в&nbsp;подборку';
+    btn.disabled = true;
+    setTimeout(() => { btn.innerHTML = txt; btn.disabled = false; }, 1400);
+  });
 
   // Favorite button
   const btnFav = document.getElementById('btn-fav');
@@ -836,6 +965,7 @@
     .catch(() => {});
 </script>
 
+<script src="../partner.js"></script>
 <script src="../modals.js"></script>
 </body>
 </html>

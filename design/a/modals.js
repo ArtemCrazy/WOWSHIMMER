@@ -407,17 +407,21 @@
     if (loginForm) {
       loginForm.addEventListener('submit', e => {
         e.preventDefault();
-        const card = overlay.querySelector('.ws-modal-card');
-        card.innerHTML = `
-          <button class="ws-modal-close" type="button" aria-label="Закрыть" data-close>×</button>
-          <div class="ws-success">
-            <div class="check"><svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 8"/></svg></div>
-            <h2>Это демо-форма</h2>
-            <p>В&nbsp;реальной версии произойдёт авторизация и&nbsp;переход в&nbsp;партнёрский кабинет.</p>
-            <button class="ok-btn" type="button" data-close>Хорошо</button>
-          </div>
-        `;
-        card.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', close));
+        const email = overlay.querySelector('#ws-l-email').value || 'partner@bloom.ru';
+        // Demo auth — accept any creds, derive name from email
+        const name = email.split('@')[0]
+          .replace(/[._-]+/g, ' ')
+          .split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        if (window.wsPartner) {
+          window.wsPartner.setAuth({
+            email,
+            name: name || 'Партнёр',
+            company: 'Демо-партнёр'
+          });
+        }
+        close();
+        // Soft reload to apply partner mode everywhere
+        setTimeout(() => location.reload(), 200);
       });
     }
 
