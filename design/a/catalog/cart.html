@@ -573,8 +573,9 @@
   // Re-render on auth or cart change
   document.addEventListener('ws-auth-change', render);
   document.addEventListener('ws-cart-change', render);
-  // Initial render before palette loads (palette adds color photos but page works without it)
-  render();
+  // Wait for partner.js to be ready (it loads after this inline script)
+  if (window.wsPartnerReady) render();
+  else document.addEventListener('ws-partner-ready', render);
 </script>
 
 <script src="../partner.js"></script>

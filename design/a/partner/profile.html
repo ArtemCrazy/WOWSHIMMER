@@ -231,7 +231,8 @@
   }
 
   document.addEventListener('ws-auth-change', render);
-  render();
+  if (window.wsPartnerReady) render();
+  else document.addEventListener('ws-partner-ready', render);
 </script>
 
 <script src="../partner.js"></script>
