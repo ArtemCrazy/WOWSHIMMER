@@ -1,7 +1,7 @@
 /* ──────────────────────────────────────────────────────────────────
    WOWSHIMMER · партнёрский режим (демо)
    - Авторизация-плейсхолдер (любой логин из модалки)
-   - Локальная подборка (localStorage)
+   - Локальная корзина (localStorage)
    - Подмена шапки и цен при авторизации
    ────────────────────────────────────────────────────────────────── */
 (function() {
@@ -79,7 +79,7 @@
     const initial = (auth.name || 'П').trim().charAt(0).toUpperCase();
     const n = cartCount();
     return `
-      <a href="${buildPath('catalog/cart.html')}" class="header-icon" title="Подборка" data-cart data-open-cart>
+      <a href="${buildPath('catalog/cart.html')}" class="header-icon" title="Корзина" data-cart data-open-cart>
         <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
         <span class="fav-badge ${n > 0 ? 'show' : ''}" data-cart-badge>${n}</span>
       </a>
@@ -92,7 +92,7 @@
         </div>
         <a href="${buildPath('partner/profile.html')}" class="header-menu-item">Профиль</a>
         <a href="${buildPath('partner/')}" class="header-menu-item">Дашборд</a>
-        <a href="${buildPath('catalog/cart.html')}" class="header-menu-item" data-open-cart>Подборка${n > 0 ? ` <span class="m-badge">${n}</span>` : ''}</a>
+        <a href="${buildPath('catalog/cart.html')}" class="header-menu-item" data-open-cart>Корзина${n > 0 ? ` <span class="m-badge">${n}</span>` : ''}</a>
         <a href="${buildPath('partner/orders.html')}" class="header-menu-item">История заявок</a>
         <button type="button" class="header-menu-item logout" data-logout>Выйти</button>
       </div>
@@ -565,7 +565,7 @@
       return `
         <div class="ws-d-empty">
           <h3>Войдите в&nbsp;кабинет</h3>
-          <p>Подборка доступна только&nbsp;авторизованным партнёрам.</p>
+          <p>Корзина доступна только&nbsp;авторизованным партнёрам.</p>
         </div>
       `;
     }
@@ -575,7 +575,7 @@
         <div class="ws-drawer-body" style="flex:1; display:flex; align-items:center; justify-content:center;">
           <div class="ws-d-empty" style="padding:0;">
             <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
-            <h3>Подборка пуста</h3>
+            <h3>Корзина пуста</h3>
             <p>Откройте каталог, выберите оттенок и&nbsp;количество — товары появятся здесь.</p>
             <a href="${buildPath('catalog/')}" class="btn-cat">В&nbsp;каталог</a>
           </div>
@@ -672,7 +672,7 @@
     drawer.innerHTML = `
       <div class="ws-drawer-head">
         <div>
-          <h2>Подборка</h2>
+          <h2>Корзина</h2>
           ${auth && count ? `<div class="count">${count} ${plural(count, 'позиция','позиции','позиций')}</div>` : ''}
         </div>
         <button class="ws-drawer-close" type="button" aria-label="Закрыть">×</button>

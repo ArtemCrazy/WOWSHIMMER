@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Подборка · WOWSHIMMER</title>
+<title>Корзина · WOWSHIMMER</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -406,7 +406,7 @@
     if (!auth) {
       root.innerHTML = `
         <div class="auth-required">
-          <h2>Подборка доступна только&nbsp;партнёрам</h2>
+          <h2>Корзина доступна только&nbsp;партнёрам</h2>
           <p>Войдите в&nbsp;партнёрский кабинет, чтобы собирать заявки с&nbsp;оптовыми ценами.</p>
           <a href="../login.html" class="empty"><button class="btn-cta" style="display:inline-block;padding:14px 32px;background:#0a0a0a;color:white;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;">Войти</button></a>
         </div>
@@ -418,11 +418,11 @@
     if (!cart.length) {
       root.innerHTML = `
         <div class="cart-head">
-          <div><h1>Подборка</h1><div class="count"><b>0</b> позиций</div></div>
+          <div><h1>Корзина</h1><div class="count"><b>0</b> позиций</div></div>
         </div>
         <div class="empty">
           <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
-          <h2>Подборка пуста</h2>
+          <h2>Корзина пуста</h2>
           <p>Зайдите в&nbsp;каталог, откройте товар, выберите оттенок и&nbsp;количество — позиции будут добавлены сюда.</p>
           <a href="../catalog/" class="btn-cta">Перейти в&nbsp;каталог</a>
         </div>
@@ -472,7 +472,7 @@
     root.innerHTML = `
       <div class="cart-head">
         <div>
-          <h1>Подборка</h1>
+          <h1>Корзина</h1>
           <div class="count"><b>${count}</b> ${plural(count, 'позиция','позиции','позиций')} · ${cart.length} ${plural(cart.length,'товар','товара','товаров')}</div>
         </div>
       </div>
@@ -554,7 +554,7 @@
         <div class="success">
           <div class="check"><svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 8"/></svg></div>
           <h2>Заявка отправлена</h2>
-          <p>Спасибо, ${name}! Состав подборки и&nbsp;данные доставки ушли менеджеру. Свяжемся в&nbsp;течение рабочего дня для&nbsp;подтверждения.<br><br>В&nbsp;демо-режиме настоящего письма не&nbsp;отправляется — это произойдёт после переноса на&nbsp;боевой домен.</p>
+          <p>Спасибо, ${name}! Состав корзины и&nbsp;данные доставки ушли менеджеру. Свяжемся в&nbsp;течение рабочего дня для&nbsp;подтверждения.<br><br>В&nbsp;демо-режиме настоящего письма не&nbsp;отправляется — это произойдёт после переноса на&nbsp;боевой домен.</p>
           <a href="../catalog/" class="btn-cta" style="display:inline-block;padding:14px 32px;background:#0a0a0a;color:white;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;">Вернуться в&nbsp;каталог</a>
         </div>
       `;
