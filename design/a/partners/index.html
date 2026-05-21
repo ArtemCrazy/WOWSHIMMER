@@ -113,34 +113,42 @@
   }
   .section-head .lead { font-size: 15px; color: var(--w-72); line-height: 1.7; font-weight: 300; }
 
+  /* LIGHT SECTION (общая база для светлых блоков) */
+  .section-light { background: var(--light); color: var(--ink); border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .section-light .section-head h2 { color: var(--ink); }
+  .section-light .section-head .eyebrow { color: var(--gold-deep); }
+  .section-light .section-head .eyebrow::before,
+  .section-light .section-head .eyebrow::after { background: var(--gold-deep); }
+  .section-light .section-head .lead { color: rgba(0,0,0,0.65); }
+
   /* BENEFITS */
-  .benefits { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  .benefits { padding: 100px 0; }
   .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .benefit-card {
     padding: 36px 32px 32px;
-    background: var(--ink-2);
-    border: 1px solid var(--w-12);
-    transition: border-color 0.25s, transform 0.25s;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
   }
-  .benefit-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .benefit-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 18px 36px rgba(0,0,0,0.06); }
   .benefit-card .icon-circle {
     width: 56px; height: 56px;
-    border: 1px solid var(--gold);
+    border: 1px solid var(--gold-deep);
     border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
     margin-bottom: 22px;
-    color: var(--gold);
+    color: var(--gold-deep);
   }
   .benefit-card .icon-circle svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; }
   .benefit-card h3 {
     font-family: var(--font-display);
     font-weight: 400;
     font-size: 24px;
-    color: var(--white);
+    color: var(--ink);
     margin-bottom: 12px;
     line-height: 1.15;
   }
-  .benefit-card p { font-size: 14px; color: var(--w-72); line-height: 1.7; font-weight: 300; }
+  .benefit-card p { font-size: 14px; color: rgba(0,0,0,0.65); line-height: 1.7; font-weight: 300; }
 
   /* AUDIENCE — three format segments */
   .audience { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
@@ -155,8 +163,8 @@
   }
   .audience-card p { font-size: 14px; color: var(--w-72); line-height: 1.7; font-weight: 300; }
 
-  /* PROCESS (расширенный 4-шаговый) */
-  .process { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  /* PROCESS (светлый блок) */
+  .process { padding: 100px 0; }
   .process-flow {
     position: relative;
     max-width: 880px;
@@ -167,8 +175,8 @@
     position: absolute;
     left: 33px; top: 30px; bottom: 30px;
     width: 1px;
-    background: linear-gradient(180deg, transparent 0%, var(--gold) 14%, var(--gold) 86%, transparent 100%);
-    opacity: 0.5;
+    background: linear-gradient(180deg, transparent 0%, var(--gold-deep) 14%, var(--gold-deep) 86%, transparent 100%);
+    opacity: 0.6;
   }
   .step {
     display: grid;
@@ -182,18 +190,18 @@
     position: absolute;
     left: 33px; top: 38px;
     width: 8px; height: 8px;
-    background: var(--gold);
+    background: var(--gold-deep);
     border-radius: 50%;
     transform: translate(-50%, 0);
     z-index: 2;
   }
-  .step-num { font-family: var(--font-display); font-weight: 400; font-size: 38px; color: var(--gold); line-height: 1; font-variant-numeric: lining-nums; }
+  .step-num { font-family: var(--font-display); font-weight: 400; font-size: 38px; color: var(--gold-deep); line-height: 1; font-variant-numeric: lining-nums; }
   .step-content h3 {
-    font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--white);
+    font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--ink);
     margin-bottom: 8px; line-height: 1.15; letter-spacing: -0.2px;
   }
   .step-content p {
-    font-size: 14px; color: var(--w-72); line-height: 1.7; font-weight: 300; max-width: 540px;
+    font-size: 14px; color: rgba(0,0,0,0.65); line-height: 1.7; font-weight: 300; max-width: 540px;
   }
 
   /* CONDITIONS — dark band with 4 key facts */
@@ -207,11 +215,11 @@
   .condition h4 { font-size: 12px; color: var(--white); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
   .condition p { font-size: 13px; color: var(--w-72); line-height: 1.6; font-weight: 300; }
 
-  /* FAQ */
-  .faq { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  /* FAQ (светлый блок) */
+  .faq { padding: 100px 0; }
   .faq-list { max-width: 780px; margin: 0 auto; }
   .faq-item {
-    border-bottom: 1px solid var(--w-12);
+    border-bottom: 1px solid rgba(0,0,0,0.10);
   }
   .faq-item summary {
     list-style: none;
@@ -220,7 +228,7 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-size: 22px;
-    color: var(--white);
+    color: var(--ink);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -230,18 +238,18 @@
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-item summary::after {
     content: '+';
-    color: var(--gold);
+    color: var(--gold-deep);
     font-size: 24px;
     font-weight: 300;
     transition: transform 0.25s;
     flex-shrink: 0;
   }
   .faq-item[open] summary::after { transform: rotate(45deg); }
-  .faq-item summary:hover { color: var(--gold); }
+  .faq-item summary:hover { color: var(--gold-deep); }
   .faq-item .answer {
     padding: 0 0 24px;
     font-size: 14px;
-    color: var(--w-72);
+    color: rgba(0,0,0,0.65);
     line-height: 1.75;
     font-weight: 300;
     max-width: 680px;
@@ -349,7 +357,7 @@
 </section>
 
 <!-- BENEFITS -->
-<section class="benefits">
+<section class="benefits section-light">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Что вы получаете</span>
@@ -423,7 +431,7 @@
 </section>
 
 <!-- PROCESS -->
-<section class="process">
+<section class="process section-light">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Как начать</span>
@@ -497,7 +505,7 @@
 </section>
 
 <!-- FAQ -->
-<section class="faq">
+<section class="faq section-light">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">FAQ</span>
