@@ -7,34 +7,47 @@
 (function() {
   'use strict';
 
-  const AUTH_KEY  = 'ws-partner-auth';   // {name, email, company}
-  const CART_KEY  = 'ws-partner-cart';   // [{slug, colorIdx, material, size, qty}]
-  const MIN_SUM   = 15000;
-  const WHOLESALE_FACTOR = 0.6;          // опт = розница × 0.6 (демо)
+  const AUTH_KEY   = 'ws-partner-auth';   // {name, email, company, phone, ...}
+  const CART_KEY   = 'ws-partner-cart';   // [{slug, colorIdx, material, size, qty}]
+  const AVATAR_KEY = 'ws-partner-avatar'; // data:image URL — отдельный ключ, переживает logout/login
+  const MIN_SUM    = 15000;
+  const WHOLESALE_FACTOR = 0.6;           // опт = розница × 0.6 (демо)
 
   // ── API ───────────────────────────────────────────────────────────
   function getAuth() {
-    try { return JSON.parse(localStorage.getItem(AUTH_KEY) || 'null'); } catch { return null; }
+    try {
+      const auth = JSON.parse(localStorage.getItem(AUTH_KEY) || 'null');
+      if (!auth) return null;
+      // avatarUrl приклеивается из отдельного хранилища
+      const avatar = localStorage.getItem(AVATAR_KEY);
+      if (avatar) auth.avatarUrl = avatar;
+      return auth;
+    } catch { return null; }
   }
   function setAuth(user) {
-    localStorage.setItem(AUTH_KEY, JSON.stringify(user));
-    document.dispatchEvent(new CustomEvent('ws-auth-change', { detail: user }));
+    // Если в user есть avatarUrl — сохраняем его в отдельный ключ
+    const data = Object.assign({}, user);
+    if ('avatarUrl' in data) {
+      if (data.avatarUrl) localStorage.setItem(AVATAR_KEY, data.avatarUrl);
+      else localStorage.removeItem(AVATAR_KEY);
+      delete data.avatarUrl;
+    }
+    localStorage.setItem(AUTH_KEY, JSON.stringify(data));
+    document.dispatchEvent(new CustomEvent('ws-auth-change', { detail: getAuth() }));
   }
   function clearAuth() {
     localStorage.removeItem(AUTH_KEY);
+    // ВАЖНО: аватар НЕ удаляем — он переживает logout, чтобы при следующем логине вернуться
     document.dispatchEvent(new CustomEvent('ws-auth-change', { detail: null }));
   }
   function setAvatar(dataUrl) {
-    const auth = getAuth();
-    if (!auth) return;
-    auth.avatarUrl = dataUrl;
-    setAuth(auth);
+    if (dataUrl) localStorage.setItem(AVATAR_KEY, dataUrl);
+    else localStorage.removeItem(AVATAR_KEY);
+    document.dispatchEvent(new CustomEvent('ws-auth-change', { detail: getAuth() }));
   }
   function clearAvatar() {
-    const auth = getAuth();
-    if (!auth) return;
-    delete auth.avatarUrl;
-    setAuth(auth);
+    localStorage.removeItem(AVATAR_KEY);
+    document.dispatchEvent(new CustomEvent('ws-auth-change', { detail: getAuth() }));
   }
   function getCart() {
     try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch { return []; }
@@ -93,8 +106,9 @@
     return `
       <a href="${buildPath('catalog/cart.html')}" class="header-icon" title="Корзина" data-cart data-open-cart>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5.5 8.5h13l-1 11a1.5 1.5 0 01-1.5 1.4H8a1.5 1.5 0 01-1.5-1.4L5.5 8.5z"/>
-          <path d="M9 8.5V6a3 3 0 016 0v2.5"/>
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
         </svg>
         <span class="fav-badge ${n > 0 ? 'show' : ''}" data-cart-badge>${n}</span>
       </a>
@@ -106,7 +120,6 @@
           <div class="head-company">${auth.company || ''}</div>
         </div>
         <a href="${buildPath('partner/profile.html')}" class="header-menu-item">Профиль</a>
-        <a href="${buildPath('partner/')}" class="header-menu-item">Дашборд</a>
         <a href="${buildPath('catalog/cart.html')}" class="header-menu-item" data-open-cart>Корзина${n > 0 ? ` <span class="m-badge">${n}</span>` : ''}</a>
         <a href="${buildPath('partner/orders.html')}" class="header-menu-item">История заявок</a>
         <button type="button" class="header-menu-item logout" data-logout>Выйти</button>
@@ -591,7 +604,7 @@
       return `
         <div class="ws-drawer-body" style="flex:1; display:flex; align-items:center; justify-content:center;">
           <div class="ws-d-empty" style="padding:0;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8.5h13l-1 11a1.5 1.5 0 01-1.5 1.4H8a1.5 1.5 0 01-1.5-1.4L5.5 8.5z"/><path d="M9 8.5V6a3 3 0 016 0v2.5"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
             <h3>Корзина пуста</h3>
             <p>Откройте каталог, выберите оттенок и&nbsp;количество — товары появятся здесь.</p>
             <a href="${buildPath('catalog/')}" class="btn-cat">В&nbsp;каталог</a>
