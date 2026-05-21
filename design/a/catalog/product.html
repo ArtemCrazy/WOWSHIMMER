@@ -740,6 +740,9 @@
   }
   applyAuthCta();
   document.addEventListener('ws-auth-change', () => { renderPrice(); applyAuthCta(); });
+  // Re-apply when partner.js finishes loading (covers initial load with existing auth)
+  if (window.wsPartnerReady) { renderPrice(); applyAuthCta(); }
+  else document.addEventListener('ws-partner-ready', () => { renderPrice(); applyAuthCta(); });
 
   // Qty stepper
   const qtyInput = document.getElementById('qty-input');
