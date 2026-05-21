@@ -106,9 +106,9 @@
     return `
       <a href="${buildPath('catalog/cart.html')}" class="header-icon" title="Корзина" data-cart data-open-cart>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 01-8 0"/>
+          <path d="M3 4h2l2.5 11a2 2 0 002 1.6h7.4a2 2 0 002-1.5L20.5 8H6.5"/>
+          <circle cx="9.5" cy="20" r="1.4"/>
+          <circle cx="17" cy="20" r="1.4"/>
         </svg>
         <span class="fav-badge ${n > 0 ? 'show' : ''}" data-cart-badge>${n}</span>
       </a>
@@ -604,7 +604,7 @@
       return `
         <div class="ws-drawer-body" style="flex:1; display:flex; align-items:center; justify-content:center;">
           <div class="ws-d-empty" style="padding:0;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.5 11a2 2 0 002 1.6h7.4a2 2 0 002-1.5L20.5 8H6.5"/><circle cx="9.5" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
             <h3>Корзина пуста</h3>
             <p>Откройте каталог, выберите оттенок и&nbsp;количество — товары появятся здесь.</p>
             <a href="${buildPath('catalog/')}" class="btn-cat">В&nbsp;каталог</a>
