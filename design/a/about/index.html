@@ -83,7 +83,7 @@
   .section-light .section-head .eyebrow::after { background: var(--gold-deep); }
   .section-light .section-head .lead { color: rgba(0,0,0,0.65); }
 
-  /* STORY */
+  /* STORY (тёмный) */
   .story { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
   .story-grid {
     display: grid;
@@ -103,30 +103,30 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(34px, 4vw, 52px);
-    color: var(--ink);
+    color: var(--white);
     line-height: 1.08;
     letter-spacing: -0.5px;
     margin-bottom: 28px;
   }
-  .story h2 em { color: var(--gold-deep); font-style: italic; font-weight: 400; }
+  .story h2 em { color: var(--gold); font-style: italic; font-weight: 400; }
   .story p {
     font-size: 15px;
-    color: rgba(0,0,0,0.65);
+    color: var(--w-72);
     line-height: 1.8;
     margin-bottom: 16px;
     font-weight: 300;
     max-width: 540px;
   }
-  .story p strong { color: var(--ink); font-weight: 500; }
+  .story p strong { color: var(--white); font-weight: 500; }
   .story .divider {
     width: 60px; height: 1px;
-    background: var(--gold-deep);
+    background: var(--gold);
     opacity: 0.5;
     margin: 24px 0;
   }
 
-  /* VALUES */
-  .values { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  /* VALUES (светлый) */
+  .values { padding: 100px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
   .section-head { text-align: center; max-width: 720px; margin: 0 auto 64px; }
   .section-head .eyebrow { display: inline-block; }
   .section-head .eyebrow::before, .section-head .eyebrow::after {
@@ -156,17 +156,17 @@
   }
   .value-card {
     padding: 40px 32px 36px;
-    background: var(--ink-2);
-    border: 1px solid var(--w-12);
+    background: white;
+    border: 1px solid rgba(0,0,0,0.06);
     position: relative;
-    transition: border-color 0.25s, transform 0.25s;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
   }
-  .value-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .value-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 18px 36px rgba(0,0,0,0.06); }
   .value-card .num {
     font-family: var(--font-display);
     font-weight: 300;
     font-size: 42px;
-    color: var(--gold);
+    color: var(--gold-deep);
     line-height: 1;
     margin-bottom: 28px;
   }
@@ -174,18 +174,18 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-size: 26px;
-    color: var(--white);
+    color: var(--ink);
     margin-bottom: 14px;
     line-height: 1.15;
   }
   .value-card p {
     font-size: 14px;
-    color: var(--w-72);
+    color: rgba(0,0,0,0.65);
     line-height: 1.7;
     font-weight: 300;
   }
 
-  /* MATERIALS — like story but mirrored */
+  /* MATERIALS (тёмный) */
   .materials { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
   .materials-grid {
     display: grid;
@@ -197,18 +197,18 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(34px, 4vw, 52px);
-    color: var(--ink);
+    color: var(--white);
     line-height: 1.08;
     letter-spacing: -0.5px;
     margin-bottom: 28px;
   }
-  .materials-text p { font-size: 15px; color: rgba(0,0,0,0.65); line-height: 1.8; margin-bottom: 16px; font-weight: 300; max-width: 540px; }
-  .materials-text p strong { color: var(--ink); font-weight: 500; }
+  .materials-text p { font-size: 15px; color: var(--w-72); line-height: 1.8; margin-bottom: 16px; font-weight: 300; max-width: 540px; }
+  .materials-text p strong { color: var(--white); font-weight: 500; }
   .materials-list {
     list-style: none;
     margin-top: 28px;
     padding-top: 28px;
-    border-top: 1px solid rgba(0,0,0,0.10);
+    border-top: 1px solid var(--w-12);
   }
   .materials-list li {
     display: grid;
@@ -216,17 +216,17 @@
     gap: 16px;
     padding: 12px 0;
     font-size: 14px;
-    color: rgba(0,0,0,0.65);
+    color: var(--w-72);
     font-weight: 300;
     line-height: 1.6;
   }
   .materials-list li::before {
     content: '✦';
-    color: var(--gold-deep);
+    color: var(--gold);
     font-size: 14px;
     line-height: 1.6;
   }
-  .materials-list li b { color: var(--ink); font-weight: 500; }
+  .materials-list li b { color: var(--white); font-weight: 500; }
 
   .materials-visual {
     aspect-ratio: 1;
@@ -236,20 +236,20 @@
     background-color: var(--ink-2);
   }
 
-  /* PALETTE STORY */
-  .palette-section { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  /* PALETTE STORY (светлый) */
+  .palette-section { padding: 100px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
   .palette-quote {
     font-family: var(--font-display);
     font-style: italic;
     font-weight: 300;
     font-size: clamp(26px, 3vw, 38px);
     line-height: 1.35;
-    color: var(--w-92);
+    color: var(--ink);
     text-align: center;
     max-width: 880px;
     margin: 0 auto 48px;
   }
-  .palette-quote em { color: var(--gold); }
+  .palette-quote em { color: var(--gold-deep); }
   .palette-swatches {
     display: grid;
     grid-template-columns: repeat(15, 1fr);
@@ -260,17 +260,17 @@
   .palette-swatches .sw {
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.04);
+    border: 1px solid rgba(0,0,0,0.04);
     transition: transform 0.18s;
     cursor: default;
   }
   .palette-swatches .sw:hover { transform: scale(1.25); }
-  .palette-note { text-align: center; font-size: 12px; color: var(--w-55); letter-spacing: 1px; }
+  .palette-note { text-align: center; font-size: 12px; color: rgba(0,0,0,0.55); letter-spacing: 1px; }
 
-  /* CTA (светлый блок-«пунктуация» в конце) */
+  /* CTA (тёмный) */
   .cta-section { padding: 100px 0 120px; text-align: center; }
-  .cta-section h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(36px, 4vw, 56px); color: var(--ink); line-height: 1.08; margin-bottom: 18px; letter-spacing: -0.5px; }
-  .cta-section p { font-size: 16px; color: rgba(0,0,0,0.65); margin-bottom: 36px; line-height: 1.6; font-weight: 300; max-width: 580px; margin-left: auto; margin-right: auto; }
+  .cta-section h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(36px, 4vw, 56px); color: var(--white); line-height: 1.08; margin-bottom: 18px; letter-spacing: -0.5px; }
+  .cta-section p { font-size: 16px; color: var(--w-72); margin-bottom: 36px; line-height: 1.6; font-weight: 300; max-width: 580px; margin-left: auto; margin-right: auto; }
   .btn-gold {
     display: inline-flex; align-items: center; gap: 14px;
     padding: 18px 36px;
@@ -338,8 +338,8 @@
   </div>
 </header>
 
-<!-- STORY -->
-<section class="story section-light">
+<!-- STORY (dark) -->
+<section class="story">
   <div class="wrap">
     <div class="story-grid">
       <div class="story-visual"></div>
@@ -367,8 +367,8 @@
   </div>
 </section>
 
-<!-- VALUES -->
-<section class="values">
+<!-- VALUES (light) -->
+<section class="values section-light">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Что для нас важно</span>
@@ -407,8 +407,8 @@
   </div>
 </section>
 
-<!-- MATERIALS -->
-<section class="materials section-light">
+<!-- MATERIALS (dark) -->
+<section class="materials">
   <div class="wrap">
     <div class="materials-grid">
       <div class="materials-text">
@@ -430,8 +430,8 @@
   </div>
 </section>
 
-<!-- PALETTE -->
-<section class="palette-section">
+<!-- PALETTE (light) -->
+<section class="palette-section section-light">
   <div class="wrap">
     <p class="palette-quote">
       У&nbsp;каждой модели&nbsp;— <em>десятки оттенков</em> кристаллов Swarovski. Подбирайте под&nbsp;настроение, образ или&nbsp;конкретный сезон.
@@ -441,8 +441,8 @@
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section section-light">
+<!-- CTA (dark) -->
+<section class="cta-section">
   <div class="wrap">
     <h2>Посмотрите коллекцию</h2>
     <p>Серьги, подвески, кольца&nbsp;— в&nbsp;десятках цветовых решений. Подберите своё.</p>

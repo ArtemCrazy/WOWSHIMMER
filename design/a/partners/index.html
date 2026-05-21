@@ -121,50 +121,50 @@
   .section-light .section-head .eyebrow::after { background: var(--gold-deep); }
   .section-light .section-head .lead { color: rgba(0,0,0,0.65); }
 
-  /* BENEFITS */
-  .benefits { padding: 100px 0; }
+  /* BENEFITS (тёмный) */
+  .benefits { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
   .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .benefit-card {
     padding: 36px 32px 32px;
-    background: white;
-    border: 1px solid rgba(0,0,0,0.06);
-    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    background: var(--ink-2);
+    border: 1px solid var(--w-12);
+    transition: border-color 0.25s, transform 0.25s;
   }
-  .benefit-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 18px 36px rgba(0,0,0,0.06); }
+  .benefit-card:hover { border-color: var(--gold); transform: translateY(-4px); }
   .benefit-card .icon-circle {
     width: 56px; height: 56px;
-    border: 1px solid var(--gold-deep);
+    border: 1px solid var(--gold);
     border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
     margin-bottom: 22px;
-    color: var(--gold-deep);
+    color: var(--gold);
   }
   .benefit-card .icon-circle svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; }
   .benefit-card h3 {
     font-family: var(--font-display);
     font-weight: 400;
     font-size: 24px;
-    color: var(--ink);
+    color: var(--white);
     margin-bottom: 12px;
     line-height: 1.15;
   }
-  .benefit-card p { font-size: 14px; color: rgba(0,0,0,0.65); line-height: 1.7; font-weight: 300; }
+  .benefit-card p { font-size: 14px; color: var(--w-72); line-height: 1.7; font-weight: 300; }
 
-  /* AUDIENCE — three format segments */
-  .audience { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
-  .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--w-12); }
-  .audience-card { padding: 44px 36px 40px; border-right: 1px solid var(--w-12); transition: background 0.2s; }
+  /* AUDIENCE (светлый) */
+  .audience { padding: 100px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid rgba(0,0,0,0.10); background: white; }
+  .audience-card { padding: 44px 36px 40px; border-right: 1px solid rgba(0,0,0,0.10); transition: background 0.2s; }
   .audience-card:last-child { border-right: none; }
-  .audience-card:hover { background: var(--ink-2); }
-  .audience-card .label { font-size: 10px; color: var(--gold); letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 18px; }
+  .audience-card:hover { background: rgba(0,0,0,0.02); }
+  .audience-card .label { font-size: 10px; color: var(--gold-deep); letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 18px; }
   .audience-card h3 {
     font-family: var(--font-display); font-weight: 400; font-size: 26px;
-    color: var(--white); line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.2px;
+    color: var(--ink); line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.2px;
   }
-  .audience-card p { font-size: 14px; color: var(--w-72); line-height: 1.7; font-weight: 300; }
+  .audience-card p { font-size: 14px; color: rgba(0,0,0,0.65); line-height: 1.7; font-weight: 300; }
 
-  /* PROCESS (светлый блок) */
-  .process { padding: 100px 0; }
+  /* PROCESS (тёмный) */
+  .process { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
   .process-flow {
     position: relative;
     max-width: 880px;
@@ -175,8 +175,8 @@
     position: absolute;
     left: 33px; top: 30px; bottom: 30px;
     width: 1px;
-    background: linear-gradient(180deg, transparent 0%, var(--gold-deep) 14%, var(--gold-deep) 86%, transparent 100%);
-    opacity: 0.6;
+    background: linear-gradient(180deg, transparent 0%, var(--gold) 14%, var(--gold) 86%, transparent 100%);
+    opacity: 0.55;
   }
   .step {
     display: grid;
@@ -190,36 +190,36 @@
     position: absolute;
     left: 33px; top: 38px;
     width: 8px; height: 8px;
-    background: var(--gold-deep);
+    background: var(--gold);
     border-radius: 50%;
     transform: translate(-50%, 0);
     z-index: 2;
   }
-  .step-num { font-family: var(--font-display); font-weight: 400; font-size: 38px; color: var(--gold-deep); line-height: 1; font-variant-numeric: lining-nums; }
+  .step-num { font-family: var(--font-display); font-weight: 400; font-size: 38px; color: var(--gold); line-height: 1; font-variant-numeric: lining-nums; }
   .step-content h3 {
-    font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--ink);
+    font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--white);
     margin-bottom: 8px; line-height: 1.15; letter-spacing: -0.2px;
   }
   .step-content p {
-    font-size: 14px; color: rgba(0,0,0,0.65); line-height: 1.7; font-weight: 300; max-width: 540px;
+    font-size: 14px; color: var(--w-72); line-height: 1.7; font-weight: 300; max-width: 540px;
   }
 
-  /* CONDITIONS — dark band with 4 key facts */
-  .conditions { padding: 80px 0; background: linear-gradient(180deg, var(--ink) 0%, #0d0d0d 50%, var(--ink) 100%); border-bottom: 1px solid var(--w-6); }
+  /* CONDITIONS (светлый) */
+  .conditions { padding: 80px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
   .conditions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; max-width: 1080px; margin: 0 auto; }
   .condition { text-align: center; }
   .condition .num {
     font-family: var(--font-display); font-weight: 400; font-size: 48px; line-height: 1;
-    color: var(--gold); margin-bottom: 12px;
+    color: var(--gold-deep); margin-bottom: 12px;
   }
-  .condition h4 { font-size: 12px; color: var(--white); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
-  .condition p { font-size: 13px; color: var(--w-72); line-height: 1.6; font-weight: 300; }
+  .condition h4 { font-size: 12px; color: var(--ink); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+  .condition p { font-size: 13px; color: rgba(0,0,0,0.65); line-height: 1.6; font-weight: 300; }
 
-  /* FAQ (светлый блок) */
-  .faq { padding: 100px 0; }
+  /* FAQ (тёмный) */
+  .faq { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
   .faq-list { max-width: 780px; margin: 0 auto; }
   .faq-item {
-    border-bottom: 1px solid rgba(0,0,0,0.10);
+    border-bottom: 1px solid var(--w-12);
   }
   .faq-item summary {
     list-style: none;
@@ -228,7 +228,7 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-size: 22px;
-    color: var(--ink);
+    color: var(--white);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -238,26 +238,26 @@
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-item summary::after {
     content: '+';
-    color: var(--gold-deep);
+    color: var(--gold);
     font-size: 24px;
     font-weight: 300;
     transition: transform 0.25s;
     flex-shrink: 0;
   }
   .faq-item[open] summary::after { transform: rotate(45deg); }
-  .faq-item summary:hover { color: var(--gold-deep); }
+  .faq-item summary:hover { color: var(--gold); }
   .faq-item .answer {
     padding: 0 0 24px;
     font-size: 14px;
-    color: rgba(0,0,0,0.65);
+    color: var(--w-72);
     line-height: 1.75;
     font-weight: 300;
     max-width: 680px;
   }
   .faq-item .answer p + p { margin-top: 10px; }
 
-  /* CTA BIG */
-  .cta-section { padding: 120px 0; background: var(--ink-2); border-top: 1px solid var(--w-12); }
+  /* CTA BIG (светлый) */
+  .cta-section { padding: 120px 0; }
   .cta-card {
     max-width: 880px; margin: 0 auto;
     text-align: center;
@@ -267,17 +267,19 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(36px, 4vw, 56px);
-    color: var(--white);
+    color: var(--ink);
     line-height: 1.08;
     margin-bottom: 18px;
     letter-spacing: -0.5px;
   }
   .cta-card p {
-    font-size: 16px; color: var(--w-72);
+    font-size: 16px; color: rgba(0,0,0,0.65);
     line-height: 1.65; margin-bottom: 36px;
     font-weight: 300;
   }
   .cta-card .cta-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .cta-section .btn-outline { color: var(--ink); border-color: rgba(0,0,0,0.20); }
+  .cta-section .btn-outline:hover { background: rgba(201,169,110,0.10); border-color: var(--gold-deep); color: var(--ink); }
 
   /* FOOTER */
   .site-footer { background: var(--ink); color: var(--w-72); padding: 70px 0 30px; border-top: 1px solid var(--w-12); }
@@ -335,8 +337,8 @@
   </div>
 </header>
 
-<!-- BENEFITS -->
-<section class="benefits section-light">
+<!-- BENEFITS (dark) -->
+<section class="benefits">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Что вы получаете</span>
@@ -381,8 +383,8 @@
   </div>
 </section>
 
-<!-- AUDIENCE -->
-<section class="audience">
+<!-- AUDIENCE (light) -->
+<section class="audience section-light">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Кому подойдёт</span>
@@ -409,8 +411,8 @@
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="process section-light">
+<!-- PROCESS (dark) -->
+<section class="process">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Как начать</span>
@@ -451,8 +453,8 @@
   </div>
 </section>
 
-<!-- CONDITIONS -->
-<section class="conditions">
+<!-- CONDITIONS (light) -->
+<section class="conditions section-light">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Условия сотрудничества</span>
@@ -483,8 +485,8 @@
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="faq section-light">
+<!-- FAQ (dark) -->
+<section class="faq">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">FAQ</span>
@@ -543,8 +545,8 @@
   </div>
 </section>
 
-<!-- BIG CTA -->
-<section class="cta-section">
+<!-- BIG CTA (light) -->
+<section class="cta-section section-light">
   <div class="wrap">
     <div class="cta-card">
       <h2>Готовы попробовать?</h2>
