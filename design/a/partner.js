@@ -92,7 +92,10 @@
     const n = cartCount();
     return `
       <a href="${buildPath('catalog/cart.html')}" class="header-icon" title="Корзина" data-cart data-open-cart>
-        <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5.5 8.5h13l-1 11a1.5 1.5 0 01-1.5 1.4H8a1.5 1.5 0 01-1.5-1.4L5.5 8.5z"/>
+          <path d="M9 8.5V6a3 3 0 016 0v2.5"/>
+        </svg>
         <span class="fav-badge ${n > 0 ? 'show' : ''}" data-cart-badge>${n}</span>
       </a>
       <span class="header-divider" aria-hidden="true"></span>
@@ -588,7 +591,7 @@
       return `
         <div class="ws-drawer-body" style="flex:1; display:flex; align-items:center; justify-content:center;">
           <div class="ws-d-empty" style="padding:0;">
-            <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7V5a3 3 0 016 0v2"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8.5h13l-1 11a1.5 1.5 0 01-1.5 1.4H8a1.5 1.5 0 01-1.5-1.4L5.5 8.5z"/><path d="M9 8.5V6a3 3 0 016 0v2.5"/></svg>
             <h3>Корзина пуста</h3>
             <p>Откройте каталог, выберите оттенок и&nbsp;количество — товары появятся здесь.</p>
             <a href="${buildPath('catalog/')}" class="btn-cat">В&nbsp;каталог</a>
