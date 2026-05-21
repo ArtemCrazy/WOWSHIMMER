@@ -512,39 +512,54 @@
     } catch {}
   })();
 
-  // Palette swatches from real data
-  fetch('../../img/products/_palette.json')
-    .then(r => r.ok ? r.json() : null)
-    .then(data => {
-      if (!data) return;
-      // Collect unique colors across all products
-      const all = [];
-      Object.values(data).forEach(arr => arr.forEach(x => all.push(x.color)));
-      const unique = [...new Set(all)].slice(0, 45);
-      const grid = document.getElementById('palette-grid');
-      unique.forEach(c => {
-        const sw = document.createElement('div');
-        sw.className = 'sw';
-        sw.style.background = c;
-        sw.title = c;
-        grid.appendChild(sw);
-      });
-    })
-    .catch(() => {
-      // Fallback static palette
-      const FALLBACK = [
-        '#1a1a1a','#3a3a3a','#c9a96e','#e6c98a','#b56b6b','#d8a3a3','#f1e5d6','#ccbfa5','#7d8b6a','#5e6b52',
-        '#6b8a96','#a4b8c2','#e8b7c8','#c97898','#a87f5e','#7a5a3e','#d3c8b8','#8c8478','#bba086','#695340',
-        '#404a55','#788595','#dad3c4','#a2b89c','#c7a3a3','#3e2e22','#cdc1ad','#776a55','#9a8a76','#bca185'
-      ];
-      const grid = document.getElementById('palette-grid');
-      FALLBACK.forEach(c => {
-        const sw = document.createElement('div');
-        sw.className = 'sw';
-        sw.style.background = c;
-        grid.appendChild(sw);
-      });
+  // Реальная именованная палитра кристаллов Swarovski (те цвета, что есть у бренда)
+  const SWAROVSKI_PALETTE = [
+    { name: 'Кристалл',          color: '#DDE5EB' },
+    { name: 'Кристалл АВ',       color: '#D8C2D6' },
+    { name: 'Уайт Опал',         color: '#E5DCD8' },
+    { name: 'Силк',              color: '#C1B19A' },
+    { name: 'Мунлайт',           color: '#C2C0BB' },
+    { name: 'Голден Шэдоу',      color: '#AF927A' },
+    { name: 'Лайт Топаз',        color: '#F3D88B' },
+    { name: 'Цитрин',            color: '#E6A832' },
+    { name: 'Цитрус',            color: '#E68538' },
+    { name: 'Колорадо',          color: '#D45C26' },
+    { name: 'Смокед Топаз',      color: '#6C4D3C' },
+    { name: 'Винтаж Розе',       color: '#C8989A' },
+    { name: 'Лайт Розе',         color: '#FAB6C0' },
+    { name: 'Дарк Розе',         color: '#BC718D' },
+    { name: 'Электрик Пинк',     color: '#EC419D' },
+    { name: 'Лайт Сиам',         color: '#CD5A6C' },
+    { name: 'Виолет',            color: '#6E4A8E' },
+    { name: 'Танзанит',          color: '#3A2C68' },
+    { name: 'Маджестик',         color: '#354F8C' },
+    { name: 'Сапфир',            color: '#2E4E8E' },
+    { name: 'Деним Инк',         color: '#2D3D5F' },
+    { name: 'Лайт Сапфир',       color: '#B1CADD' },
+    { name: 'Лайт Азур',         color: '#8BCBE5' },
+    { name: 'Аква',              color: '#84C0D4' },
+    { name: 'Тиффани',           color: '#5BB8C7' },
+    { name: 'Парадайс Шайн',     color: '#4FB37F' },
+    { name: 'Изумруд',           color: '#167A57' },
+    { name: 'Эринит',            color: '#5C9281' },
+    { name: 'Гелиотроп',         color: '#5A7758' },
+    { name: 'Хризолит',          color: '#B4D87E' },
+    { name: 'Кристалл Шиммер',   color: '#C5BDB3' },
+    { name: 'Блэк Даймонд',      color: '#5A554F' },
+    { name: 'Сильвер Шейд',      color: '#888889' },
+    { name: 'Сильвер Найт',      color: '#555B61' }
+  ];
+
+  (function buildPalette() {
+    const grid = document.getElementById('palette-grid');
+    SWAROVSKI_PALETTE.forEach(c => {
+      const sw = document.createElement('div');
+      sw.className = 'sw';
+      sw.style.background = c.color;
+      sw.title = `${c.name} · ${c.color}`;
+      grid.appendChild(sw);
     });
+  })();
 </script>
 
 <script src="../partner.js"></script>
