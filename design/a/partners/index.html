@@ -188,11 +188,11 @@
   .step::after {
     content: '';
     position: absolute;
-    left: 33px; top: 38px;
+    /* центр точки в той же координате, что и линия (33px), 8px ширина → left 29 */
+    left: 29px; top: 38px;
     width: 8px; height: 8px;
     background: var(--gold);
     border-radius: 50%;
-    transform: translate(-50%, 0);
     z-index: 2;
   }
   .step-num { font-family: var(--font-display); font-weight: 400; font-size: 38px; color: var(--gold); line-height: 1; font-variant-numeric: lining-nums; }
