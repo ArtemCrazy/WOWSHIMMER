@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>О бренде · WOWSHIMMER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a; --ink-2: #141414; --gold: #c9a96e; --gold-deep: #8a7651;
+    --white: #ffffff; --w-92: rgba(255,255,255,0.92); --w-72: rgba(255,255,255,0.72);
+    --w-55: rgba(255,255,255,0.55); --w-40: rgba(255,255,255,0.40);
+    --w-22: rgba(255,255,255,0.22); --w-12: rgba(255,255,255,0.12); --w-6: rgba(255,255,255,0.06);
+    --light: #fafaf7;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { background: var(--ink); color: var(--w-92); font-family: var(--font-body); line-height: 1.5; overflow-x: hidden; min-height: 100vh; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+  /* HEADER */
+  .site-header { position: sticky; top: 0; z-index: 50; padding: 18px 0; background: var(--ink); border-bottom: 1px solid var(--w-12); }
+  .header-row { display: flex; align-items: center; gap: 40px; position: relative; }
+  .logo { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--white); letter-spacing: 4px; text-transform: uppercase; line-height: 1; }
+  .logo:hover { color: var(--gold); }
+  .nav-menu { display: flex; gap: 32px; margin-left: auto; }
+  .nav-menu a { color: var(--w-72); font-size: 13px; font-weight: 400; letter-spacing: 1.2px; text-transform: uppercase; transition: color 0.2s; padding: 4px 0; position: relative; }
+  .nav-menu a.active { color: var(--white); }
+  .nav-menu a::after { content: ''; position: absolute; left: 50%; right: 50%; bottom: -2px; height: 1px; background: var(--gold); transition: left 0.25s, right 0.25s; }
+  .nav-menu a:hover { color: var(--white); }
+  .nav-menu a:hover::after, .nav-menu a.active::after { left: 0; right: 0; }
+  .header-actions { display: flex; align-items: center; gap: 4px; }
+  .header-icon { position: relative; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; color: var(--white); transition: color 0.2s; flex-shrink: 0; background: transparent; border: none; cursor: pointer; }
+  .header-icon:hover { color: var(--gold); }
+  .header-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; display: block; }
+  .header-divider { width: 1px; height: 22px; background: var(--w-22); margin: 0 4px; flex-shrink: 0; }
+  .fav-badge { position: absolute; top: -2px; right: -4px; min-width: 18px; height: 18px; background: var(--gold); color: var(--ink); font-size: 10px; font-weight: 700; border-radius: 9px; padding: 0 5px; display: none; align-items: center; justify-content: center; line-height: 1; border: 2px solid var(--ink); }
+  .fav-badge.show { display: inline-flex; }
+
+  /* PAGE HEAD */
+  .page-head {
+    padding: 80px 0 64px;
+    border-bottom: 1px solid var(--w-12);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-head::after {
+    content: '';
+    position: absolute;
+    right: -120px; top: -60px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(201,169,110,0.14), transparent 60%);
+    pointer-events: none;
+  }
+  .breadcrumbs { font-size: 11px; color: var(--w-55); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; display: flex; gap: 12px; align-items: center; }
+  .breadcrumbs a:hover { color: var(--gold); }
+  .breadcrumbs .sep { color: var(--w-22); }
+  .eyebrow { font-size: 11px; color: var(--gold); font-weight: 500; letter-spacing: 3.5px; text-transform: uppercase; margin-bottom: 18px; }
+  .page-head h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(44px, 6vw, 76px);
+    line-height: 1.02;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    margin-bottom: 24px;
+    max-width: 780px;
+  }
+  .page-head .lead { font-size: 17px; color: var(--w-72); max-width: 640px; line-height: 1.65; font-weight: 300; }
+
+  /* STORY */
+  .story { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .story-visual {
+    aspect-ratio: 4/5;
+    background-image: url('../../img/company.png');
+    background-size: cover;
+    background-position: center;
+    background-color: var(--ink-2);
+    border-radius: 0 0 0 200px;
+  }
+  .story h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(34px, 4vw, 52px);
+    color: var(--white);
+    line-height: 1.08;
+    letter-spacing: -0.5px;
+    margin-bottom: 28px;
+  }
+  .story h2 em { color: var(--gold); font-style: italic; font-weight: 400; }
+  .story p {
+    font-size: 15px;
+    color: var(--w-72);
+    line-height: 1.8;
+    margin-bottom: 16px;
+    font-weight: 300;
+    max-width: 540px;
+  }
+  .story p strong { color: var(--white); font-weight: 500; }
+  .story .divider {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+    margin: 24px 0;
+  }
+
+  /* VALUES */
+  .values { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  .section-head { text-align: center; max-width: 720px; margin: 0 auto 64px; }
+  .section-head .eyebrow { display: inline-block; }
+  .section-head .eyebrow::before, .section-head .eyebrow::after {
+    content: ''; display: inline-block; width: 24px; height: 1px;
+    background: var(--gold); vertical-align: middle; margin: 0 12px; opacity: 0.5;
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(34px, 4vw, 52px);
+    color: var(--white);
+    line-height: 1.08;
+    letter-spacing: -0.5px;
+    margin-bottom: 18px;
+  }
+  .section-head .lead {
+    font-size: 15px;
+    color: var(--w-72);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .value-card {
+    padding: 40px 32px 36px;
+    background: var(--ink-2);
+    border: 1px solid var(--w-12);
+    position: relative;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .value-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .value-card .num {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 42px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 28px;
+  }
+  .value-card h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 26px;
+    color: var(--white);
+    margin-bottom: 14px;
+    line-height: 1.15;
+  }
+  .value-card p {
+    font-size: 14px;
+    color: var(--w-72);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* MATERIALS — like story but mirrored */
+  .materials { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  .materials-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .materials-text h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(34px, 4vw, 52px);
+    color: var(--white);
+    line-height: 1.08;
+    letter-spacing: -0.5px;
+    margin-bottom: 28px;
+  }
+  .materials-text p { font-size: 15px; color: var(--w-72); line-height: 1.8; margin-bottom: 16px; font-weight: 300; max-width: 540px; }
+  .materials-text p strong { color: var(--white); font-weight: 500; }
+  .materials-list {
+    list-style: none;
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid var(--w-12);
+  }
+  .materials-list li {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    font-size: 14px;
+    color: var(--w-72);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .materials-list li::before {
+    content: '✦';
+    color: var(--gold);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .materials-list li b { color: var(--white); font-weight: 500; }
+
+  .materials-visual {
+    aspect-ratio: 1;
+    background-image: url('../../img/products/studs-8mm.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: var(--ink-2);
+  }
+
+  /* PALETTE STORY */
+  .palette-section { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  .palette-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.35;
+    color: var(--w-92);
+    text-align: center;
+    max-width: 880px;
+    margin: 0 auto 48px;
+  }
+  .palette-quote em { color: var(--gold); }
+  .palette-swatches {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    gap: 6px;
+    max-width: 880px;
+    margin: 0 auto 32px;
+  }
+  .palette-swatches .sw {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.04);
+    transition: transform 0.18s;
+    cursor: default;
+  }
+  .palette-swatches .sw:hover { transform: scale(1.25); }
+  .palette-note { text-align: center; font-size: 12px; color: var(--w-55); letter-spacing: 1px; }
+
+  /* CTA */
+  .cta-section { padding: 100px 0 120px; background: linear-gradient(180deg, var(--ink) 0%, #0d0d0d 100%); text-align: center; }
+  .cta-section h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(36px, 4vw, 56px); color: var(--white); line-height: 1.08; margin-bottom: 18px; letter-spacing: -0.5px; }
+  .cta-section p { font-size: 16px; color: var(--w-72); margin-bottom: 36px; line-height: 1.6; font-weight: 300; max-width: 580px; margin-left: auto; margin-right: auto; }
+  .btn-gold {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 18px 36px;
+    background: var(--gold); color: var(--ink);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    border: none; transition: background 0.2s;
+  }
+  .btn-gold:hover { background: var(--white); }
+  .btn-gold .arrow { transition: transform 0.2s; }
+  .btn-gold:hover .arrow { transform: translateX(4px); }
+
+  /* FOOTER */
+  .site-footer { background: var(--ink); color: var(--w-72); padding: 70px 0 30px; border-top: 1px solid var(--w-12); }
+  .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+  .footer-brand h4 { font-family: var(--font-display); color: var(--white); font-size: 22px; font-weight: 500; letter-spacing: 4px; margin-bottom: 14px; }
+  .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 320px; font-weight: 300; color: var(--w-55); }
+  .footer-col h5 { font-size: 11px; color: var(--white); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; }
+  .footer-col a { display: block; font-size: 13px; color: var(--w-55); padding: 5px 0; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom { padding-top: 24px; border-top: 1px solid var(--w-12); display: flex; justify-content: space-between; gap: 24px; font-size: 12px; color: var(--w-40); }
+  .footer-bottom a { color: var(--w-55); }
+
+  @media (max-width: 980px) {
+    .story-grid, .materials-grid { grid-template-columns: 1fr; gap: 40px; }
+    .story-visual { aspect-ratio: 4/3; border-radius: 0 0 0 120px; }
+    .materials-visual { aspect-ratio: 4/3; }
+    .values-grid { grid-template-columns: 1fr; }
+    .palette-swatches { grid-template-columns: repeat(10, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 540px) {
+    .wrap { padding: 0 20px; }
+    .nav-menu { display: none; }
+    .page-head { padding: 50px 0 40px; }
+    .story, .values, .materials, .palette-section { padding: 60px 0; }
+    .palette-swatches { grid-template-columns: repeat(8, 1fr); }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="../" class="logo">WOWSHIMMER</a>
+    <nav class="nav-menu">
+      <a href="../catalog/">Каталог</a>
+      <a href="./" class="active">О бренде</a>
+      <a href="../partners/">Партнёрам</a>
+      <a href="../#contacts">Контакты</a>
+    </nav>
+    <div class="header-actions">
+      <a href="../catalog/favorites.html" class="header-icon" title="Избранное">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.5-8.5-9.5C2.3 7.8 4.5 5 7.5 5c1.8 0 3.5 1 4.5 2.5C13 6 14.7 5 16.5 5c3 0 5.2 2.8 4 6.5C18.5 16.5 12 21 12 21z"/></svg>
+        <span class="fav-badge" id="fav-badge">0</span>
+      </a>
+      <span class="header-divider" aria-hidden="true"></span>
+      <a href="../login.html" class="header-icon" title="Вход для партнёров">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HEAD -->
+<section class="page-head">
+  <div class="wrap">
+    <div class="breadcrumbs">
+      <a href="../">Главная</a>
+      <span class="sep">/</span>
+      <span>О бренде</span>
+    </div>
+    <div class="eyebrow">О бренде</div>
+    <h1>Украшения, которые<br>добавляют цвет</h1>
+    <p class="lead">
+      WOWSHIMMER&nbsp;— российский бренд минималистичной бижутерии с&nbsp;кристаллами Swarovski.
+      Серьги, подвески и&nbsp;кольца, рассчитанные на&nbsp;тех, кто собирает образ с&nbsp;деталью.
+    </p>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story">
+  <div class="wrap">
+    <div class="story-grid">
+      <div class="story-visual"></div>
+      <div class="story-text">
+        <h2>От <em>SWAROKA</em> к&nbsp;WOWSHIMMER</h2>
+        <p>
+          Бренд родился из&nbsp;любви к&nbsp;деталям. Несколько лет наша команда выпускала бижутерию
+          под&nbsp;маркой <strong>SWAROKA</strong>&nbsp;— небольшая мастерская, постепенно собравшая
+          свою аудиторию через шоурумы и&nbsp;маркетплейсы.
+        </p>
+        <div class="divider"></div>
+        <p>
+          В&nbsp;2025&nbsp;году мы&nbsp;зарегистрировали новую торговую марку <strong>WOWSHIMMER</strong>
+          и&nbsp;постепенно переводим на&nbsp;неё всю линейку. Концепция и&nbsp;ассортимент остаются,
+          но&nbsp;имя теперь точнее отражает то, что мы&nbsp;делаем&nbsp;— украшения, которые
+          добавляют образу немного света.
+        </p>
+        <div class="divider"></div>
+        <p>
+          Мы&nbsp;работаем с&nbsp;кристаллами Swarovski и&nbsp;фианитами в&nbsp;оправе из&nbsp;ювелирной стали&nbsp;—
+          материалов, которые не&nbsp;темнеют со&nbsp;временем, не&nbsp;вызывают аллергии и&nbsp;долго сохраняют блеск.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Что для нас важно</span>
+      <h2>Три принципа, на&nbsp;которых стоит коллекция</h2>
+      <p class="lead">Не&nbsp;кричащие украшения, а&nbsp;деликатные акценты, дополняющие образ.</p>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="num">01</div>
+        <h3>Минимализм<br>без скуки</h3>
+        <p>
+          Чистые линии, простые формы. Украшения, которые подходят и&nbsp;к&nbsp;деловому костюму,
+          и&nbsp;к&nbsp;вечернему платью, и&nbsp;к&nbsp;джинсам с&nbsp;футболкой.
+        </p>
+      </div>
+
+      <div class="value-card">
+        <div class="num">02</div>
+        <h3>Цвет как<br>деталь</h3>
+        <p>
+          У&nbsp;каждой модели — десятки оттенков кристалла. Можно подобрать
+          под&nbsp;конкретный образ, настроение или сезон.
+        </p>
+      </div>
+
+      <div class="value-card">
+        <div class="num">03</div>
+        <h3>Качество,<br>которое носится</h3>
+        <p>
+          Ювелирная сталь как основа, оригинальные кристаллы Swarovski, ручная сборка.
+          Украшения не&nbsp;темнеют, не&nbsp;тускнеют, не&nbsp;вызывают аллергии.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section class="materials">
+  <div class="wrap">
+    <div class="materials-grid">
+      <div class="materials-text">
+        <h2>Материалы, которые<br>стоят за&nbsp;каждым украшением</h2>
+        <p>
+          Мы&nbsp;используем только проверенные материалы&nbsp;— те, что выдерживают ежедневное
+          ношение и&nbsp;сохраняют вид годами.
+        </p>
+        <ul class="materials-list">
+          <li><span><b>Кристаллы Swarovski</b> — оригинальные кристаллы с&nbsp;идеальной огранкой, дающие характерный «ювелирный» блеск</span></li>
+          <li><span><b>Ювелирная сталь</b> — гипоаллергенная, не&nbsp;темнеет от&nbsp;воды и&nbsp;пота, подходит для&nbsp;постоянного ношения</span></li>
+          <li><span><b>Покрытие позолота 18К</b> (опция) — на&nbsp;большинстве моделей доступен вариант с&nbsp;покрытием для&nbsp;тёплого тона</span></li>
+          <li><span><b>Фианиты</b> — на&nbsp;отдельных моделях как альтернатива Swarovski</span></li>
+          <li><span><b>Застёжки</b> — штифтовые, винтовые и&nbsp;карабины, в&nbsp;зависимости от&nbsp;типа украшения</span></li>
+        </ul>
+      </div>
+      <div class="materials-visual"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PALETTE -->
+<section class="palette-section">
+  <div class="wrap">
+    <p class="palette-quote">
+      У&nbsp;каждой модели&nbsp;— <em>десятки оттенков</em> кристаллов Swarovski. Подбирайте под&nbsp;настроение, образ или&nbsp;конкретный сезон.
+    </p>
+    <div class="palette-swatches" id="palette-grid"></div>
+    <p class="palette-note">Полная палитра доступна в&nbsp;каталоге у&nbsp;каждого товара</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="wrap">
+    <h2>Посмотрите коллекцию</h2>
+    <p>Серьги, подвески, кольца&nbsp;— в&nbsp;десятках цветовых решений. Подберите своё.</p>
+    <a href="../catalog/" class="btn-gold">В&nbsp;каталог <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>WOWSHIMMER</h4>
+        <p>Бижутерия с&nbsp;кристаллами Swarovski. Серьги, подвески и&nbsp;кольца в&nbsp;десятках оттенков — для&nbsp;тех, кто собирает образ с&nbsp;деталью.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Страницы</h5>
+        <a href="../catalog/">Каталог</a>
+        <a href="./">О&nbsp;бренде</a>
+        <a href="../partners/">Партнёрам</a>
+        <a href="../#contacts">Контакты</a>
+      </div>
+      <div class="footer-col">
+        <h5>Партнёрам</h5>
+        <a href="../register.html">Получить доступ</a>
+        <a href="../login.html">Войти в&nbsp;кабинет</a>
+        <a href="../partners/">Условия сотрудничества</a>
+      </div>
+      <div class="footer-col">
+        <h5>Контакты</h5>
+        <a href="#">Telegram</a>
+        <a href="mailto:wowshimmer@yandex.ru">wowshimmer@yandex.ru</a>
+        <a href="tel:+79164410052">+7&nbsp;(916)&nbsp;441-00-52</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© WOWSHIMMER, 2026 · Все права защищены</div>
+      <div><a href="#">Политика конфиденциальности</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Favorites badge
+  (function() {
+    try {
+      const n = JSON.parse(localStorage.getItem('wowshimmer-favs') || '[]').length;
+      const b = document.getElementById('fav-badge');
+      b.textContent = n; b.classList.toggle('show', n > 0);
+    } catch {}
+  })();
+
+  // Palette swatches from real data
+  fetch('../../img/products/_palette.json')
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (!data) return;
+      // Collect unique colors across all products
+      const all = [];
+      Object.values(data).forEach(arr => arr.forEach(x => all.push(x.color)));
+      const unique = [...new Set(all)].slice(0, 45);
+      const grid = document.getElementById('palette-grid');
+      unique.forEach(c => {
+        const sw = document.createElement('div');
+        sw.className = 'sw';
+        sw.style.background = c;
+        sw.title = c;
+        grid.appendChild(sw);
+      });
+    })
+    .catch(() => {
+      // Fallback static palette
+      const FALLBACK = [
+        '#1a1a1a','#3a3a3a','#c9a96e','#e6c98a','#b56b6b','#d8a3a3','#f1e5d6','#ccbfa5','#7d8b6a','#5e6b52',
+        '#6b8a96','#a4b8c2','#e8b7c8','#c97898','#a87f5e','#7a5a3e','#d3c8b8','#8c8478','#bba086','#695340',
+        '#404a55','#788595','#dad3c4','#a2b89c','#c7a3a3','#3e2e22','#cdc1ad','#776a55','#9a8a76','#bca185'
+      ];
+      const grid = document.getElementById('palette-grid');
+      FALLBACK.forEach(c => {
+        const sw = document.createElement('div');
+        sw.className = 'sw';
+        sw.style.background = c;
+        grid.appendChild(sw);
+      });
+    });
+</script>
+
+<script src="../partner.js"></script>
+<script src="../modals.js"></script>
+</body>
+</html>

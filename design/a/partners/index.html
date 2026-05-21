@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Партнёрам · WOWSHIMMER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a; --ink-2: #141414; --gold: #c9a96e; --gold-deep: #8a7651;
+    --white: #ffffff; --w-92: rgba(255,255,255,0.92); --w-72: rgba(255,255,255,0.72);
+    --w-55: rgba(255,255,255,0.55); --w-40: rgba(255,255,255,0.40);
+    --w-22: rgba(255,255,255,0.22); --w-12: rgba(255,255,255,0.12); --w-6: rgba(255,255,255,0.06);
+    --light: #fafaf7;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { background: var(--ink); color: var(--w-92); font-family: var(--font-body); line-height: 1.5; overflow-x: hidden; min-height: 100vh; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+  /* HEADER (общий) */
+  .site-header { position: sticky; top: 0; z-index: 50; padding: 18px 0; background: var(--ink); border-bottom: 1px solid var(--w-12); }
+  .header-row { display: flex; align-items: center; gap: 40px; position: relative; }
+  .logo { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--white); letter-spacing: 4px; text-transform: uppercase; line-height: 1; }
+  .logo:hover { color: var(--gold); }
+  .nav-menu { display: flex; gap: 32px; margin-left: auto; }
+  .nav-menu a { color: var(--w-72); font-size: 13px; font-weight: 400; letter-spacing: 1.2px; text-transform: uppercase; transition: color 0.2s; padding: 4px 0; position: relative; }
+  .nav-menu a.active { color: var(--white); }
+  .nav-menu a::after { content: ''; position: absolute; left: 50%; right: 50%; bottom: -2px; height: 1px; background: var(--gold); transition: left 0.25s, right 0.25s; }
+  .nav-menu a:hover { color: var(--white); }
+  .nav-menu a:hover::after, .nav-menu a.active::after { left: 0; right: 0; }
+  .header-actions { display: flex; align-items: center; gap: 4px; }
+  .header-icon { position: relative; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; color: var(--white); transition: color 0.2s; flex-shrink: 0; background: transparent; border: none; cursor: pointer; }
+  .header-icon:hover { color: var(--gold); }
+  .header-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; display: block; }
+  .header-divider { width: 1px; height: 22px; background: var(--w-22); margin: 0 4px; flex-shrink: 0; }
+  .fav-badge { position: absolute; top: -2px; right: -4px; min-width: 18px; height: 18px; background: var(--gold); color: var(--ink); font-size: 10px; font-weight: 700; border-radius: 9px; padding: 0 5px; display: none; align-items: center; justify-content: center; line-height: 1; border: 2px solid var(--ink); }
+  .fav-badge.show { display: inline-flex; }
+
+  /* PAGE HEAD */
+  .page-head {
+    padding: 80px 0 64px;
+    border-bottom: 1px solid var(--w-12);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-head::after {
+    content: '';
+    position: absolute;
+    right: -120px; bottom: -100px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(201,169,110,0.14), transparent 60%);
+    pointer-events: none;
+  }
+  .breadcrumbs { font-size: 11px; color: var(--w-55); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; display: flex; gap: 12px; align-items: center; }
+  .breadcrumbs a:hover { color: var(--gold); }
+  .breadcrumbs .sep { color: var(--w-22); }
+  .eyebrow { font-size: 11px; color: var(--gold); font-weight: 500; letter-spacing: 3.5px; text-transform: uppercase; margin-bottom: 18px; }
+  .page-head h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(44px, 6vw, 76px);
+    line-height: 1.02;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    margin-bottom: 24px;
+    max-width: 820px;
+  }
+  .page-head .lead { font-size: 17px; color: var(--w-72); max-width: 640px; line-height: 1.65; font-weight: 300; margin-bottom: 32px; }
+  .page-head .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-gold {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 16px 28px;
+    background: var(--gold); color: var(--ink);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    border: none; transition: background 0.2s, transform 0.2s;
+  }
+  .btn-gold:hover { background: var(--white); transform: translate(-1px,-1px); }
+  .btn-outline {
+    display: inline-flex; align-items: center;
+    padding: 16px 28px;
+    background: transparent; color: var(--white);
+    border: 1px solid var(--w-22);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .btn-outline:hover { background: rgba(201,169,110,0.10); border-color: var(--gold); }
+
+  /* SECTION HEAD */
+  .section-head { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+  .section-head .eyebrow { display: inline-block; }
+  .section-head .eyebrow::before, .section-head .eyebrow::after {
+    content: ''; display: inline-block; width: 24px; height: 1px;
+    background: var(--gold); vertical-align: middle; margin: 0 12px; opacity: 0.5;
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(34px, 4vw, 52px);
+    color: var(--white);
+    line-height: 1.08;
+    letter-spacing: -0.5px;
+    margin-bottom: 18px;
+  }
+  .section-head .lead { font-size: 15px; color: var(--w-72); line-height: 1.7; font-weight: 300; }
+
+  /* BENEFITS */
+  .benefits { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .benefit-card {
+    padding: 36px 32px 32px;
+    background: var(--ink-2);
+    border: 1px solid var(--w-12);
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .benefit-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .benefit-card .icon-circle {
+    width: 56px; height: 56px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: 22px;
+    color: var(--gold);
+  }
+  .benefit-card .icon-circle svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .benefit-card h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.15;
+  }
+  .benefit-card p { font-size: 14px; color: var(--w-72); line-height: 1.7; font-weight: 300; }
+
+  /* AUDIENCE — three format segments */
+  .audience { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--w-12); }
+  .audience-card { padding: 44px 36px 40px; border-right: 1px solid var(--w-12); transition: background 0.2s; }
+  .audience-card:last-child { border-right: none; }
+  .audience-card:hover { background: var(--ink-2); }
+  .audience-card .label { font-size: 10px; color: var(--gold); letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 18px; }
+  .audience-card h3 {
+    font-family: var(--font-display); font-weight: 400; font-size: 26px;
+    color: var(--white); line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.2px;
+  }
+  .audience-card p { font-size: 14px; color: var(--w-72); line-height: 1.7; font-weight: 300; }
+
+  /* PROCESS (расширенный 4-шаговый) */
+  .process { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  .process-flow {
+    position: relative;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .process-flow::before {
+    content: '';
+    position: absolute;
+    left: 33px; top: 30px; bottom: 30px;
+    width: 1px;
+    background: linear-gradient(180deg, transparent 0%, var(--gold) 14%, var(--gold) 86%, transparent 100%);
+    opacity: 0.5;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 68px 1fr;
+    gap: 32px;
+    padding: 24px 0;
+    position: relative;
+  }
+  .step::after {
+    content: '';
+    position: absolute;
+    left: 33px; top: 38px;
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    transform: translate(-50%, 0);
+    z-index: 2;
+  }
+  .step-num { font-family: var(--font-display); font-weight: 400; font-size: 38px; color: var(--gold); line-height: 1; font-variant-numeric: lining-nums; }
+  .step-content h3 {
+    font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--white);
+    margin-bottom: 8px; line-height: 1.15; letter-spacing: -0.2px;
+  }
+  .step-content p {
+    font-size: 14px; color: var(--w-72); line-height: 1.7; font-weight: 300; max-width: 540px;
+  }
+
+  /* CONDITIONS — dark band with 4 key facts */
+  .conditions { padding: 80px 0; background: linear-gradient(180deg, var(--ink) 0%, #0d0d0d 50%, var(--ink) 100%); border-bottom: 1px solid var(--w-6); }
+  .conditions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; max-width: 1080px; margin: 0 auto; }
+  .condition { text-align: center; }
+  .condition .num {
+    font-family: var(--font-display); font-weight: 400; font-size: 48px; line-height: 1;
+    color: var(--gold); margin-bottom: 12px;
+  }
+  .condition h4 { font-size: 12px; color: var(--white); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+  .condition p { font-size: 13px; color: var(--w-72); line-height: 1.6; font-weight: 300; }
+
+  /* FAQ */
+  .faq { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
+  .faq-list { max-width: 780px; margin: 0 auto; }
+  .faq-item {
+    border-bottom: 1px solid var(--w-12);
+  }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 24px 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 22px;
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    transition: color 0.2s;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    color: var(--gold);
+    font-size: 24px;
+    font-weight: 300;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item summary:hover { color: var(--gold); }
+  .faq-item .answer {
+    padding: 0 0 24px;
+    font-size: 14px;
+    color: var(--w-72);
+    line-height: 1.75;
+    font-weight: 300;
+    max-width: 680px;
+  }
+  .faq-item .answer p + p { margin-top: 10px; }
+
+  /* CTA BIG */
+  .cta-section { padding: 120px 0; background: var(--ink-2); border-top: 1px solid var(--w-12); }
+  .cta-card {
+    max-width: 880px; margin: 0 auto;
+    text-align: center;
+    padding: 0 24px;
+  }
+  .cta-card h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(36px, 4vw, 56px);
+    color: var(--white);
+    line-height: 1.08;
+    margin-bottom: 18px;
+    letter-spacing: -0.5px;
+  }
+  .cta-card p {
+    font-size: 16px; color: var(--w-72);
+    line-height: 1.65; margin-bottom: 36px;
+    font-weight: 300;
+  }
+  .cta-card .cta-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+  /* FOOTER */
+  .site-footer { background: var(--ink); color: var(--w-72); padding: 70px 0 30px; border-top: 1px solid var(--w-12); }
+  .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+  .footer-brand h4 { font-family: var(--font-display); color: var(--white); font-size: 22px; font-weight: 500; letter-spacing: 4px; margin-bottom: 14px; }
+  .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 320px; font-weight: 300; color: var(--w-55); }
+  .footer-col h5 { font-size: 11px; color: var(--white); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; }
+  .footer-col a { display: block; font-size: 13px; color: var(--w-55); padding: 5px 0; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom { padding-top: 24px; border-top: 1px solid var(--w-12); display: flex; justify-content: space-between; gap: 24px; font-size: 12px; color: var(--w-40); }
+  .footer-bottom a { color: var(--w-55); }
+
+  @media (max-width: 980px) {
+    .benefits-grid { grid-template-columns: 1fr; }
+    .audience-grid { grid-template-columns: 1fr; }
+    .audience-card { border-right: none; border-bottom: 1px solid var(--w-12); }
+    .audience-card:last-child { border-bottom: none; }
+    .conditions-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 540px) {
+    .wrap { padding: 0 20px; }
+    .nav-menu { display: none; }
+    .page-head { padding: 50px 0 40px; }
+    .benefits, .audience, .process, .conditions, .faq { padding: 60px 0; }
+    .cta-section { padding: 70px 0; }
+    .conditions-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="../" class="logo">WOWSHIMMER</a>
+    <nav class="nav-menu">
+      <a href="../catalog/">Каталог</a>
+      <a href="../about/">О бренде</a>
+      <a href="./" class="active">Партнёрам</a>
+      <a href="../#contacts">Контакты</a>
+    </nav>
+    <div class="header-actions">
+      <a href="../catalog/favorites.html" class="header-icon" title="Избранное">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.5-8.5-9.5C2.3 7.8 4.5 5 7.5 5c1.8 0 3.5 1 4.5 2.5C13 6 14.7 5 16.5 5c3 0 5.2 2.8 4 6.5C18.5 16.5 12 21 12 21z"/></svg>
+        <span class="fav-badge" id="fav-badge">0</span>
+      </a>
+      <span class="header-divider" aria-hidden="true"></span>
+      <a href="../login.html" class="header-icon" title="Вход для партнёров">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HEAD -->
+<section class="page-head">
+  <div class="wrap">
+    <div class="breadcrumbs">
+      <a href="../">Главная</a>
+      <span class="sep">/</span>
+      <span>Партнёрам</span>
+    </div>
+    <div class="eyebrow">Партнёрам</div>
+    <h1>Бижутерия для&nbsp;вашего шоурума</h1>
+    <p class="lead">
+      WOWSHIMMER приглашает к&nbsp;сотрудничеству шоурумы одежды и&nbsp;аксессуаров, салоны красоты.
+      Оптовые цены, широкая палитра и&nbsp;поддержка менеджера на&nbsp;каждом этапе.
+    </p>
+    <div class="cta-row">
+      <a href="../register.html" class="btn-gold">Получить доступ <span class="arrow">→</span></a>
+      <a href="../login.html" class="btn-outline">Войти в&nbsp;кабинет</a>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Что вы получаете</span>
+      <h2>Условия, которые<br>работают на&nbsp;ваш бизнес</h2>
+      <p class="lead">Прозрачное ценообразование, быстрое оформление заказов, гибкая работа с&nbsp;палитрой.</p>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3 3 0 000 6h5a3 3 0 010 6H6"/></svg>
+        </div>
+        <h3>Оптовые цены</h3>
+        <p>
+          После подтверждения доступа в&nbsp;каталоге автоматически открываются оптовые цены.
+          Скидка до&nbsp;40% от&nbsp;розницы, в&nbsp;зависимости от&nbsp;объёма заказа.
+        </p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </div>
+        <h3>Быстрая обработка</h3>
+        <p>
+          Заявка собирается в&nbsp;несколько кликов и&nbsp;уходит менеджеру одним нажатием.
+          Подтверждение в&nbsp;течение рабочего дня&nbsp;— обычно 2–4&nbsp;часа.
+        </p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+        </div>
+        <h3>Широкая палитра</h3>
+        <p>
+          Каждая модель доступна в&nbsp;20+ оттенках кристаллов Swarovski. Подбирайте товары
+          точно под&nbsp;запросы своих клиентов.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="audience">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Кому подойдёт</span>
+      <h2>Форматы, с&nbsp;которыми<br>мы&nbsp;уже работаем</h2>
+    </div>
+
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="label">Формат 01</div>
+        <h3>Шоурумы<br>одежды</h3>
+        <p>Аккуратные акценты, дополняющие look. Минималистичные украшения, которые легко стилизуются с&nbsp;любой коллекцией.</p>
+      </div>
+      <div class="audience-card">
+        <div class="label">Формат 02</div>
+        <h3>Шоурумы<br>аксессуаров</h3>
+        <p>Бижутерия как самостоятельная категория. Полные линейки серёг, подвесок и&nbsp;колец в&nbsp;широкой палитре.</p>
+      </div>
+      <div class="audience-card">
+        <div class="label">Формат 03</div>
+        <h3>Салоны<br>красоты</h3>
+        <p>Подарочные карты, презенты клиентам, мини-витрина в&nbsp;ресепшен-зоне. Гипоаллергенные материалы и&nbsp;премиальная упаковка.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Как начать</span>
+      <h2>Путь от&nbsp;заявки до&nbsp;первой отгрузки</h2>
+      <p class="lead">Четыре простых шага. От&nbsp;регистрации до&nbsp;получения первого заказа&nbsp;— обычно 3–5 рабочих дней.</p>
+    </div>
+
+    <div class="process-flow">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Расскажите о&nbsp;себе</h3>
+          <p>Оставьте заявку на&nbsp;партнёрский доступ — имя, контакты, формат площадки, ИНН. Заполняется за&nbsp;2&nbsp;минуты.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Получите доступ</h3>
+          <p>Менеджер проверит заявку и&nbsp;пришлёт вход в&nbsp;кабинет на&nbsp;e-mail. В&nbsp;рабочее время&nbsp;— в&nbsp;течение 2–4&nbsp;часов.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Выбирайте товары</h3>
+          <p>В&nbsp;каталоге откроются оптовые цены, актуальные оттенки и&nbsp;счётчик количества. Соберите подборку под&nbsp;витрину.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Оформите заявку</h3>
+          <p>Отправьте подборку менеджеру одним кликом. Уточним детали по&nbsp;цветам и&nbsp;количеству, согласуем доставку.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONDITIONS -->
+<section class="conditions">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Условия сотрудничества</span>
+      <h2>Главное, что нужно знать</h2>
+    </div>
+    <div class="conditions-grid">
+      <div class="condition">
+        <div class="num">15 000 ₽</div>
+        <h4>Минимум</h4>
+        <p>Стартовая сумма заявки. Дальше&nbsp;— без ограничений.</p>
+      </div>
+      <div class="condition">
+        <div class="num">−40%</div>
+        <h4>Скидка</h4>
+        <p>От&nbsp;розничной цены. Растёт с&nbsp;объёмом заказа.</p>
+      </div>
+      <div class="condition">
+        <div class="num">2–4 ч</div>
+        <h4>Ответ</h4>
+        <p>Менеджер свяжется в&nbsp;рабочее время.</p>
+      </div>
+      <div class="condition">
+        <div class="num">∞</div>
+        <h4>Палитра</h4>
+        <p>Все актуальные оттенки Swarovski в&nbsp;наличии.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Частые вопросы партнёров</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Как считается оптовая цена?</summary>
+        <div class="answer">
+          <p>Базовая оптовая цена&nbsp;— минус 40% от&nbsp;розничной. При заказе от&nbsp;50&nbsp;000&nbsp;₽ скидка увеличивается до&nbsp;45%, от&nbsp;100&nbsp;000&nbsp;₽&nbsp;— до&nbsp;50%.</p>
+          <p>Точную цену вы&nbsp;увидите в&nbsp;каталоге после входа в&nbsp;партнёрский кабинет.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Какой минимальный заказ?</summary>
+        <div class="answer">
+          <p>Минимальная сумма заявки&nbsp;— 15&nbsp;000&nbsp;₽. Это позволяет нам аккуратно собрать заказ и&nbsp;экономически обосновать индивидуальное обслуживание.</p>
+          <p>Можно собирать любые позиции в&nbsp;любых цветах, главное&nbsp;— чтобы итог был от&nbsp;15&nbsp;000&nbsp;₽.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Как осуществляется доставка?</summary>
+        <div class="answer">
+          <p>Отгружаем по&nbsp;всей России&nbsp;— СДЭК, Boxberry, Почта России, ТК. По&nbsp;Москве и&nbsp;МО&nbsp;— возможна курьерская доставка.</p>
+          <p>Стоимость доставки рассчитывается индивидуально и&nbsp;согласовывается с&nbsp;менеджером перед отгрузкой.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Можно ли получить образцы перед заказом?</summary>
+        <div class="answer">
+          <p>Да, для&nbsp;новых партнёров мы&nbsp;можем выслать пробную партию из&nbsp;3–5 позиций по&nbsp;оптовым ценам с&nbsp;возможностью обмена при первом крупном заказе.</p>
+          <p>Уточните этот момент с&nbsp;менеджером после получения доступа.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Что если нужного цвета нет в&nbsp;наличии?</summary>
+        <div class="answer">
+          <p>Все оттенки в&nbsp;каталоге&nbsp;— это актуальный ассортимент. Если в&nbsp;момент сборки заявки какого-то цвета не&nbsp;окажется в&nbsp;нужном количестве, менеджер свяжется с&nbsp;вами и&nbsp;предложит замену или&nbsp;уточнит сроки изготовления.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Можно ли работать без статуса ИП/ООО?</summary>
+        <div class="answer">
+          <p>Для&nbsp;партнёрской работы предпочтителен статус ИП или&nbsp;юр.&nbsp;лица&nbsp;— это позволяет нам выставлять корректные документы и&nbsp;работать по&nbsp;договору.</p>
+          <p>Самозанятые тоже принимаются&nbsp;— расскажите о&nbsp;себе в&nbsp;заявке, и&nbsp;менеджер уточнит условия.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Возможны ли индивидуальные условия?</summary>
+        <div class="answer">
+          <p>Да. Для&nbsp;партнёров с&nbsp;регулярными заказами от&nbsp;100&nbsp;000&nbsp;₽ в&nbsp;месяц мы&nbsp;готовы обсуждать индивидуальные условия&nbsp;— приоритет в&nbsp;отгрузках, дополнительная скидка, эксклюзивные цвета.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- BIG CTA -->
+<section class="cta-section">
+  <div class="wrap">
+    <div class="cta-card">
+      <h2>Готовы попробовать?</h2>
+      <p>Заполните заявку&nbsp;— менеджер свяжется в&nbsp;течение рабочего дня и&nbsp;откроет доступ к&nbsp;оптовому каталогу.</p>
+      <div class="cta-row">
+        <a href="../register.html" class="btn-gold">Получить доступ <span class="arrow">→</span></a>
+        <a href="../login.html" class="btn-outline">Войти в&nbsp;кабинет</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h4>WOWSHIMMER</h4>
+        <p>Бижутерия с&nbsp;кристаллами Swarovski. Серьги, подвески и&nbsp;кольца в&nbsp;десятках оттенков — для&nbsp;тех, кто собирает образ с&nbsp;деталью.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Страницы</h5>
+        <a href="../catalog/">Каталог</a>
+        <a href="../about/">О&nbsp;бренде</a>
+        <a href="./">Партнёрам</a>
+        <a href="../#contacts">Контакты</a>
+      </div>
+      <div class="footer-col">
+        <h5>Партнёрам</h5>
+        <a href="../register.html">Получить доступ</a>
+        <a href="../login.html">Войти в&nbsp;кабинет</a>
+        <a href="./">Условия сотрудничества</a>
+      </div>
+      <div class="footer-col">
+        <h5>Контакты</h5>
+        <a href="#">Telegram</a>
+        <a href="mailto:wowshimmer@yandex.ru">wowshimmer@yandex.ru</a>
+        <a href="tel:+79164410052">+7&nbsp;(916)&nbsp;441-00-52</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© WOWSHIMMER, 2026 · Все права защищены</div>
+      <div><a href="#">Политика конфиденциальности</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    try {
+      const n = JSON.parse(localStorage.getItem('wowshimmer-favs') || '[]').length;
+      const b = document.getElementById('fav-badge');
+      b.textContent = n; b.classList.toggle('show', n > 0);
+    } catch {}
+  })();
+</script>
+
+<script src="../partner.js"></script>
+<script src="../modals.js"></script>
+</body>
+</html>
