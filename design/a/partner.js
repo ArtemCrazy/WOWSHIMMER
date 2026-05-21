@@ -158,6 +158,7 @@
     .header-menu-head { padding: 14px 20px 12px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 6px; }
     .head-name { font-family: 'Cormorant Garamond', Georgia, serif; color: #fff; font-size: 18px; font-weight: 500; line-height: 1.1; }
     .head-company { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+    .head-company:empty { display: none; }
     .header-menu-item {
       display: flex; align-items: center; justify-content: space-between;
       padding: 11px 20px;
