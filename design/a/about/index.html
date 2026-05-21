@@ -75,6 +75,14 @@
   }
   .page-head .lead { font-size: 17px; color: var(--w-72); max-width: 640px; line-height: 1.65; font-weight: 300; }
 
+  /* LIGHT SECTIONS — общая база */
+  .section-light { background: var(--light); color: var(--ink); border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .section-light .section-head h2 { color: var(--ink); }
+  .section-light .section-head .eyebrow { color: var(--gold-deep); }
+  .section-light .section-head .eyebrow::before,
+  .section-light .section-head .eyebrow::after { background: var(--gold-deep); }
+  .section-light .section-head .lead { color: rgba(0,0,0,0.65); }
+
   /* STORY */
   .story { padding: 100px 0; border-bottom: 1px solid var(--w-6); }
   .story-grid {
@@ -95,24 +103,24 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(34px, 4vw, 52px);
-    color: var(--white);
+    color: var(--ink);
     line-height: 1.08;
     letter-spacing: -0.5px;
     margin-bottom: 28px;
   }
-  .story h2 em { color: var(--gold); font-style: italic; font-weight: 400; }
+  .story h2 em { color: var(--gold-deep); font-style: italic; font-weight: 400; }
   .story p {
     font-size: 15px;
-    color: var(--w-72);
+    color: rgba(0,0,0,0.65);
     line-height: 1.8;
     margin-bottom: 16px;
     font-weight: 300;
     max-width: 540px;
   }
-  .story p strong { color: var(--white); font-weight: 500; }
+  .story p strong { color: var(--ink); font-weight: 500; }
   .story .divider {
     width: 60px; height: 1px;
-    background: var(--gold);
+    background: var(--gold-deep);
     opacity: 0.5;
     margin: 24px 0;
   }
@@ -189,18 +197,18 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-size: clamp(34px, 4vw, 52px);
-    color: var(--white);
+    color: var(--ink);
     line-height: 1.08;
     letter-spacing: -0.5px;
     margin-bottom: 28px;
   }
-  .materials-text p { font-size: 15px; color: var(--w-72); line-height: 1.8; margin-bottom: 16px; font-weight: 300; max-width: 540px; }
-  .materials-text p strong { color: var(--white); font-weight: 500; }
+  .materials-text p { font-size: 15px; color: rgba(0,0,0,0.65); line-height: 1.8; margin-bottom: 16px; font-weight: 300; max-width: 540px; }
+  .materials-text p strong { color: var(--ink); font-weight: 500; }
   .materials-list {
     list-style: none;
     margin-top: 28px;
     padding-top: 28px;
-    border-top: 1px solid var(--w-12);
+    border-top: 1px solid rgba(0,0,0,0.10);
   }
   .materials-list li {
     display: grid;
@@ -208,17 +216,17 @@
     gap: 16px;
     padding: 12px 0;
     font-size: 14px;
-    color: var(--w-72);
+    color: rgba(0,0,0,0.65);
     font-weight: 300;
     line-height: 1.6;
   }
   .materials-list li::before {
     content: '✦';
-    color: var(--gold);
+    color: var(--gold-deep);
     font-size: 14px;
     line-height: 1.6;
   }
-  .materials-list li b { color: var(--white); font-weight: 500; }
+  .materials-list li b { color: var(--ink); font-weight: 500; }
 
   .materials-visual {
     aspect-ratio: 1;
@@ -259,10 +267,10 @@
   .palette-swatches .sw:hover { transform: scale(1.25); }
   .palette-note { text-align: center; font-size: 12px; color: var(--w-55); letter-spacing: 1px; }
 
-  /* CTA */
-  .cta-section { padding: 100px 0 120px; background: linear-gradient(180deg, var(--ink) 0%, #0d0d0d 100%); text-align: center; }
-  .cta-section h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(36px, 4vw, 56px); color: var(--white); line-height: 1.08; margin-bottom: 18px; letter-spacing: -0.5px; }
-  .cta-section p { font-size: 16px; color: var(--w-72); margin-bottom: 36px; line-height: 1.6; font-weight: 300; max-width: 580px; margin-left: auto; margin-right: auto; }
+  /* CTA (светлый блок-«пунктуация» в конце) */
+  .cta-section { padding: 100px 0 120px; text-align: center; }
+  .cta-section h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(36px, 4vw, 56px); color: var(--ink); line-height: 1.08; margin-bottom: 18px; letter-spacing: -0.5px; }
+  .cta-section p { font-size: 16px; color: rgba(0,0,0,0.65); margin-bottom: 36px; line-height: 1.6; font-weight: 300; max-width: 580px; margin-left: auto; margin-right: auto; }
   .btn-gold {
     display: inline-flex; align-items: center; gap: 14px;
     padding: 18px 36px;
@@ -348,7 +356,7 @@
 </section>
 
 <!-- STORY -->
-<section class="story">
+<section class="story section-light">
   <div class="wrap">
     <div class="story-grid">
       <div class="story-visual"></div>
@@ -417,7 +425,7 @@
 </section>
 
 <!-- MATERIALS -->
-<section class="materials">
+<section class="materials section-light">
   <div class="wrap">
     <div class="materials-grid">
       <div class="materials-text">
@@ -451,7 +459,7 @@
 </section>
 
 <!-- CTA -->
-<section class="cta-section">
+<section class="cta-section section-light">
   <div class="wrap">
     <h2>Посмотрите коллекцию</h2>
     <p>Серьги, подвески, кольца&nbsp;— в&nbsp;десятках цветовых решений. Подберите своё.</p>
