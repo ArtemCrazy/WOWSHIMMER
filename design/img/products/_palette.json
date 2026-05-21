@@ -409,7 +409,229 @@
       "color": "#b0b0af"
     }
   ],
-  "ear-threader": [],
-  "pendant-chain": [],
+  "ear-threader": [
+    {
+      "file": "akva.jpg",
+      "color": "#6b8c99"
+    },
+    {
+      "file": "blek_daymond.jpg",
+      "color": "#6f7369"
+    },
+    {
+      "file": "dark_ros.jpg",
+      "color": "#7a5065"
+    },
+    {
+      "file": "denim.jpg",
+      "color": "#485866"
+    },
+    {
+      "file": "emerald.jpg",
+      "color": "#3b5147"
+    },
+    {
+      "file": "erinayt.jpg",
+      "color": "#526951"
+    },
+    {
+      "file": "golden.jpg",
+      "color": "#93836b"
+    },
+    {
+      "file": "khrisolit.jpg",
+      "color": "#889482"
+    },
+    {
+      "file": "kolorado.jpg",
+      "color": "#8e7856"
+    },
+    {
+      "file": "kristal_ab.jpg",
+      "color": "#79afc0"
+    },
+    {
+      "file": "kristall.jpg",
+      "color": "#959592"
+    },
+    {
+      "file": "layt_azur.jpg",
+      "color": "#7d8582"
+    },
+    {
+      "file": "layt_ros.jpg",
+      "color": "#967d80"
+    },
+    {
+      "file": "layt_sap.jpg",
+      "color": "#7889a1"
+    },
+    {
+      "file": "layt_siam.jpg",
+      "color": "#983c40"
+    },
+    {
+      "file": "layt_topaz.jpg",
+      "color": "#a1944f"
+    },
+    {
+      "file": "madzhestik.jpg",
+      "color": "#4d8161"
+    },
+    {
+      "file": "mun.jpg",
+      "color": "#aab3b6"
+    },
+    {
+      "file": "paradays.jpg",
+      "color": "#858aa7"
+    },
+    {
+      "file": "sapfir.jpg",
+      "color": "#436796"
+    },
+    {
+      "file": "silk.jpg",
+      "color": "#a39684"
+    },
+    {
+      "file": "silvernayt.jpg",
+      "color": "#424543"
+    },
+    {
+      "file": "silvershayd.jpg",
+      "color": "#92938c"
+    },
+    {
+      "file": "tanzanit.jpg",
+      "color": "#64687e"
+    },
+    {
+      "file": "tifani.jpg",
+      "color": "#6a8b8f"
+    },
+    {
+      "file": "tsitrin.jpg",
+      "color": "#919376"
+    },
+    {
+      "file": "tsitrus.jpg",
+      "color": "#9eab43"
+    },
+    {
+      "file": "vintazh.jpg",
+      "color": "#877b72"
+    },
+    {
+      "file": "violet.jpg",
+      "color": "#7e7b8b"
+    }
+  ],
+  "pendant-chain": [
+    {
+      "file": "IMmadzhestik.jpg",
+      "color": "#1e6a4d"
+    },
+    {
+      "file": "akva.jpg",
+      "color": "#56818c"
+    },
+    {
+      "file": "elektrik_pink.jpg",
+      "color": "#ec419d"
+    },
+    {
+      "file": "emerald.jpg",
+      "color": "#18524d"
+    },
+    {
+      "file": "erinayt.jpg",
+      "color": "#536b5e"
+    },
+    {
+      "file": "gelitrop.jpg",
+      "color": "#47416d"
+    },
+    {
+      "file": "golden.jpg",
+      "color": "#a98f71"
+    },
+    {
+      "file": "khrisolit.jpg",
+      "color": "#5b7668"
+    },
+    {
+      "file": "kolorado.jpg",
+      "color": "#76614e"
+    },
+    {
+      "file": "kris_shimm.jpg",
+      "color": "#6f98a4"
+    },
+    {
+      "file": "kristal_ab.jpg",
+      "color": "#569499"
+    },
+    {
+      "file": "layt_azur.jpg",
+      "color": "#778a8a"
+    },
+    {
+      "file": "layt_ros.jpg",
+      "color": "#8e6a6d"
+    },
+    {
+      "file": "layt_sap.jpg",
+      "color": "#6c7c9b"
+    },
+    {
+      "file": "layt_siam.jpg",
+      "color": "#74242c"
+    },
+    {
+      "file": "mun.jpg",
+      "color": "#8c9da3"
+    },
+    {
+      "file": "paradays.jpg",
+      "color": "#598e7f"
+    },
+    {
+      "file": "sapfir.jpg",
+      "color": "#23406b"
+    },
+    {
+      "file": "silk.jpg",
+      "color": "#7c6c61"
+    },
+    {
+      "file": "silvernayt.jpg",
+      "color": "#585653"
+    },
+    {
+      "file": "smoked.jpg",
+      "color": "#5c3b27"
+    },
+    {
+      "file": "tanzanit.jpg",
+      "color": "#555468"
+    },
+    {
+      "file": "tifani.jpg",
+      "color": "#517d85"
+    },
+    {
+      "file": "vayt_opal.jpg",
+      "color": "#a9b5b5"
+    },
+    {
+      "file": "vintazh.jpg",
+      "color": "#7d6258"
+    },
+    {
+      "file": "violet.jpg",
+      "color": "#806f8a"
+    }
+  ],
   "ring": []
 }

@@ -341,10 +341,10 @@
     'studs-8mm':      { name: 'Серьги-пусеты с кристаллами 8 мм',     price: 1490, photo: 'studs-8mm.jpg', folder: 'studs-8mm' },
     'studs-6mm':      { name: 'Серьги-пусеты с кристаллами 6 мм',     price: 1190, photo: 'studs-6mm.jpg', folder: 'studs-6mm' },
     'studs-4mm':      { name: 'Серьги-пусеты с кристаллами 4 мм',     price: 890,  photo: 'studs-4mm.jpg', folder: 'studs-4mm' },
-    'ear-threader':   { name: 'Серьги-протяжки с кристаллами 4 мм',  price: 1290, photo: 'ear-threader.jpg', folder: null },
+    'ear-threader':   { name: 'Серьги-протяжки с кристаллами 4 мм',  price: 1290, photo: 'ear-threader.jpg', folder: 'ear-threader' },
     'bar':            { name: 'Штанга с кристаллом 4 мм',             price: 990,  photo: 'bar.jpg', folder: 'bar' },
     'pendant-thread': { name: 'Подвеска на леске с кристаллом 8 мм',  price: 1890, photo: 'pendant-thread.jpg', folder: 'pendant-thread' },
-    'pendant-chain':  { name: 'Подвеска на цепочке с кристаллом 6 мм', price: 2190, photo: 'pendant-chain.jpg', folder: null },
+    'pendant-chain':  { name: 'Подвеска на цепочке с кристаллом 6 мм', price: 2190, photo: 'pendant-chain.jpg', folder: 'pendant-chain' },
     'ring':           { name: 'Кольцо с кристаллом 4 мм',             price: 1390, photo: 'ring.jpg', folder: null }
   };
   let drawerPalette = {};
