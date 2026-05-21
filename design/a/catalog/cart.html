@@ -246,7 +246,20 @@
   .send-form .field input:not(:placeholder-shown) ~ label,
   .send-form .field input:focus ~ label,
   .send-form .field textarea:not(:placeholder-shown) ~ label,
-  .send-form .field textarea:focus ~ label { top: 6px; font-size: 8px; color: var(--gold-deep); }
+  .send-form .field textarea:focus ~ label,
+  .send-form .field input[type="date"] ~ label { top: 6px; font-size: 8px; color: var(--gold-deep); }
+
+  .send-form input[type="date"] {
+    cursor: pointer;
+    font-family: var(--font-body);
+    color-scheme: light;
+  }
+  .send-form input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: sepia(0.6) hue-rotate(15deg) saturate(2.5);
+    cursor: pointer;
+    opacity: 0.75;
+  }
+  .send-form input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 
   .btn-send {
     width: 100%;
@@ -498,7 +511,7 @@
               <label for="ship-addr">Адрес доставки</label>
             </div>
             <div class="field">
-              <input type="text" id="ship-date" placeholder=" ">
+              <input type="date" id="ship-date" min="${new Date().toISOString().split('T')[0]}">
               <label for="ship-date">Желаемая дата отгрузки</label>
             </div>
             <div class="field">

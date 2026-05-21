@@ -536,9 +536,22 @@
       .ws-d-form .f input:not(:placeholder-shown) ~ label,
       .ws-d-form .f input:focus ~ label,
       .ws-d-form .f textarea:not(:placeholder-shown) ~ label,
-      .ws-d-form .f textarea:focus ~ label {
+      .ws-d-form .f textarea:focus ~ label,
+      .ws-d-form .f-date label {
         top: 5px; font-size: 8px; color: #8a7651;
       }
+      /* Date input — нативный календарь в стиле сайта */
+      .ws-d-form input[type="date"] {
+        color-scheme: dark;
+        cursor: pointer;
+        font-family: 'Inter', -apple-system, sans-serif;
+      }
+      .ws-d-form input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(0.7) sepia(0.6) hue-rotate(15deg) saturate(2);
+        cursor: pointer;
+        opacity: 0.75;
+      }
+      .ws-d-form input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 
       .ws-d-send {
         width: 100%; padding: 15px 20px;
@@ -677,8 +690,8 @@
             <input type="text" id="ws-d-addr" placeholder=" " required value="Москва, ул. Большая Дмитровка, 12">
             <label for="ws-d-addr">Адрес доставки</label>
           </div>
-          <div class="f">
-            <input type="text" id="ws-d-date" placeholder=" ">
+          <div class="f f-date">
+            <input type="date" id="ws-d-date" min="${new Date().toISOString().split('T')[0]}">
             <label for="ws-d-date">Желаемая дата отгрузки</label>
           </div>
           <div class="f">
