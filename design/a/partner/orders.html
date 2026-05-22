@@ -14,7 +14,16 @@
   .orders-head .count { font-size: 13px; color: rgba(0,0,0,0.55); }
   .orders-head .count b { color: var(--ink); }
 
-  .filter-tabs { display: flex; gap: 24px; border-bottom: 1px solid rgba(0,0,0,0.10); margin-bottom: 24px; overflow-x: auto; }
+  .filter-tabs {
+    display: flex; gap: 24px;
+    border-bottom: 1px solid rgba(0,0,0,0.10);
+    margin-bottom: 24px;
+    overflow-x: auto;
+    scrollbar-width: none;          /* Firefox */
+    -ms-overflow-style: none;       /* IE/Edge */
+  }
+  .filter-tabs::-webkit-scrollbar { display: none; }
+  .filter-tabs::-webkit-scrollbar-button { display: none; }
   .filter-tabs button {
     background: transparent; border: none;
     padding: 12px 0; margin-bottom: -1px;
@@ -108,8 +117,8 @@
     } catch {}
   })();
 
-  // Demo orders
-  const ORDERS = [
+  // Демо-история (для прототипа). Реальные отправленные заявки приходят из localStorage.
+  const DEMO_ORDERS = [
     { id: 'WSH-2026-0042', date: '15 мая 2026', sum: 28400, items: 7, status: 'shipped', photos: ['../../img/products/studs-8mm.jpg','../../img/products/pendant-thread.jpg','../../img/products/ring.jpg','../../img/products/bar.jpg'] },
     { id: 'WSH-2026-0038', date: '8 мая 2026', sum: 19200, items: 4, status: 'work', photos: ['../../img/products/studs-6mm.jpg','../../img/products/bar.jpg'] },
     { id: 'WSH-2026-0031', date: '24 апреля 2026', sum: 32600, items: 9, status: 'shipped', photos: ['../../img/products/studs-4mm.jpg','../../img/products/ear-threader.jpg','../../img/products/pendant-chain.jpg','../../img/products/ring.jpg'] },
@@ -118,6 +127,12 @@
     { id: 'WSH-2026-0011', date: '12 марта 2026', sum: 18000, items: 5, status: 'archived', photos: ['../../img/products/studs-4mm.jpg','../../img/products/ear-threader.jpg'] }
   ];
   const STATUS_LABEL = { new: 'Новая', work: 'В работе', shipped: 'Отгружена', archived: 'Архив' };
+
+  function getAllOrders() {
+    const real = (window.wsPartner && window.wsPartner.getOrders()) || [];
+    // Реальные (новые) сверху + демо снизу
+    return real.concat(DEMO_ORDERS);
+  }
 
   let activeFilter = 'all';
 
@@ -139,6 +154,7 @@
     const cart = window.wsPartner.getCart();
     const cartCount = cart.reduce((s, x) => s + x.qty, 0);
 
+    const ORDERS = getAllOrders();
     const counts = {
       all: ORDERS.length,
       work: ORDERS.filter(o => o.status === 'work' || o.status === 'new').length,
@@ -214,6 +230,7 @@
   }
 
   document.addEventListener('ws-auth-change', render);
+  document.addEventListener('ws-orders-change', render);
   if (window.wsPartnerReady) render();
   else document.addEventListener('ws-partner-ready', render);
 </script>

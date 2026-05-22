@@ -9,6 +9,7 @@
 
   const AUTH_KEY   = 'ws-partner-auth';   // {name, email, company, phone, ...}
   const CART_KEY   = 'ws-partner-cart';   // [{slug, colorIdx, material, size, qty}]
+  const ORDERS_KEY = 'ws-partner-orders'; // [{id, date, sum, items, status, photos, addr, ...}]
   const AVATAR_KEY = 'ws-partner-avatar'; // data:image URL — отдельный ключ, переживает logout/login
   const MIN_SUM    = 15000;
   const WHOLESALE_FACTOR = 0.6;           // опт = розница × 0.6 (демо)
@@ -79,6 +80,39 @@
   function cartCount() { return getCart().reduce((sum, x) => sum + x.qty, 0); }
 
   function wholesalePrice(retail) { return Math.round(retail * WHOLESALE_FACTOR); }
+
+  // Submitted orders (история заявок)
+  function getOrders() {
+    try { return JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]'); } catch { return []; }
+  }
+  function setOrders(arr) {
+    localStorage.setItem(ORDERS_KEY, JSON.stringify(arr));
+    document.dispatchEvent(new CustomEvent('ws-orders-change'));
+  }
+  function submitCartAsOrder(extra) {
+    const cart = getCart();
+    if (!cart.length) return null;
+    const sum = cart.reduce((s, it) => s + wholesalePrice(it.retail) * it.qty, 0);
+    const items = cart.reduce((s, it) => s + it.qty, 0);
+    // Уникальные фото товаров в заказе (по slug) для thumb-stack
+    const photos = [...new Set(cart.map(it => `../../img/products/${it.slug}.jpg`))];
+    const now = new Date();
+    const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+    const date = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+    // ID типа WSH-2026-0043, наращиваем последний номер
+    const all = getOrders();
+    const lastNum = all.reduce((max, o) => {
+      const m = (o.id || '').match(/-(\d+)$/);
+      return m ? Math.max(max, parseInt(m[1])) : max;
+    }, 42);
+    const id = `WSH-${now.getFullYear()}-${String(lastNum + 1).padStart(4, '0')}`;
+    const order = Object.assign({
+      id, date, sum, items, status: 'work', photos, cart: cart.slice()
+    }, extra || {});
+    setOrders([order, ...all]);
+    setCart([]); // очищаем корзину
+    return order;
+  }
 
   // ── HEADER swap ──────────────────────────────────────────────────
   function pathPrefix() {
@@ -752,7 +786,12 @@
       const sum = getCart().reduce((s, it) => s + wholesalePrice(it.retail) * it.qty, 0);
       if (sum < MIN_SUM) return;
       const name = (auth.name || 'партнёр').split(' ')[0];
-      setCart([]);
+      // Сохраняем заказ в историю
+      submitCartAsOrder({
+        addr: drawer.querySelector('#ws-d-addr')?.value || '',
+        shipDate: drawer.querySelector('#ws-d-date')?.value || '',
+        comment: drawer.querySelector('#ws-d-comment')?.value || ''
+      });
       const drw = document.querySelector('.ws-drawer');
       drw.innerHTML = `
         <div class="ws-drawer-head">
@@ -823,6 +862,7 @@
   window.wsPartner = {
     getAuth, setAuth, clearAuth, setAvatar, clearAvatar,
     getCart, setCart, addToCart, removeFromCart, updateQty,
+    getOrders, setOrders, submitCartAsOrder,
     cartCount, wholesalePrice, MIN_SUM,
     openCartDrawer, closeCartDrawer
   };
